@@ -11,51 +11,73 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0}
 html,body{height:100%;overflow:hidden}
 body{font-family:"Fredoka",ui-rounded,"Segoe UI",system-ui,Arial,sans-serif;color:var(--texto);background:#bfe9ff;-webkit-user-select:none;user-select:none}
-/* fundo = ilustração real de IA + brilho suave por cima */
 #bg{position:fixed;inset:0;z-index:0;background:#cdeeff center/cover no-repeat;background-image:url(img/jd_fundo.jpg)}
-#bg:after{content:"";position:absolute;inset:0;background:-webkit-linear-gradient(top,rgba(255,255,255,.12),rgba(255,255,255,0) 30%,rgba(0,0,0,0) 70%,rgba(30,60,20,.12));background:linear-gradient(rgba(255,255,255,.12),rgba(255,255,255,0) 30%,rgba(0,0,0,0) 70%,rgba(30,60,20,.12))}
 #ceu{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:1;pointer-events:none}
 #app{position:fixed;inset:0;z-index:2}
 .tela{position:absolute;inset:0;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;-webkit-box-align:center;align-items:center;padding:calc(14px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom));-webkit-animation:fade .45s;animation:fade .45s}
 @-webkit-keyframes fade{from{opacity:0}to{opacity:1}}@keyframes fade{from{opacity:0}to{opacity:1}}
-.balao{max-width:430px;background:rgba(255,253,246,.94);border:0;border-radius:22px;padding:13px 18px;font-size:17px;font-weight:600;text-align:center;line-height:1.35;
+.balao{max-width:430px;background:rgba(255,253,246,.95);border:0;border-radius:22px;padding:13px 18px;font-size:17px;font-weight:600;text-align:center;line-height:1.35;
   -webkit-box-shadow:0 6px 18px rgba(30,50,20,.22);box-shadow:0 6px 18px rgba(30,50,20,.22)}
 .balao b{color:var(--verde-d)}
 .centro{-webkit-box-flex:1;-webkit-flex:1;flex:1;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;width:100%}
-h1{font-size:36px;font-weight:700;color:#fff;text-shadow:0 2px 0 #2f7d1a,0 4px 10px rgba(0,0,0,.28);margin:6px 0 2px;text-align:center}
+h1{font-size:34px;font-weight:700;color:#fff;text-shadow:0 2px 0 #2f7d1a,0 4px 10px rgba(0,0,0,.28);margin:6px 0 2px;text-align:center}
 .sub{font-size:15px;color:#fff;font-weight:600;margin-bottom:10px;text-shadow:0 1px 4px rgba(0,0,0,.35)}
-/* mascote (imagem real) */
-.broto{display:block;width:140px;height:auto;-webkit-filter:drop-shadow(0 8px 10px rgba(0,0,0,.22));filter:drop-shadow(0 8px 10px rgba(0,0,0,.22));-webkit-animation:bob 2.6s ease-in-out infinite;animation:bob 2.6s ease-in-out infinite}
-.broto.gg{width:172px}
-@-webkit-keyframes bob{0%,100%{-webkit-transform:translateY(0) rotate(-1.5deg)}50%{-webkit-transform:translateY(-9px) rotate(1.5deg)}}
-@keyframes bob{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-9px) rotate(1.5deg)}}
+/* MASCOTE em camadas (lip-sync) */
+.broto{position:relative;width:150px;height:150px;-webkit-filter:drop-shadow(0 8px 10px rgba(0,0,0,.22));filter:drop-shadow(0 8px 10px rgba(0,0,0,.22));-webkit-animation:bob 2.8s ease-in-out infinite;animation:bob 2.8s ease-in-out infinite}
+.broto.gg{width:190px;height:190px}
+.broto.pq{width:104px;height:104px}
+.broto .lay{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:contain}
+.broto .fala,.broto .pisca{opacity:0}
+@-webkit-keyframes bob{0%,100%{-webkit-transform:translateY(0) rotate(-1.5deg)}50%{-webkit-transform:translateY(-8px) rotate(1.5deg)}}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-8px) rotate(1.5deg)}}
 .btn{border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:20px;color:#fff;letter-spacing:.4px;padding:16px 34px;border-radius:999px;
   background:-webkit-linear-gradient(top,#6bd23f,var(--verde));background:linear-gradient(#6bd23f,var(--verde));
   -webkit-box-shadow:0 6px 0 var(--verde-d),0 12px 18px rgba(0,0,0,.25);box-shadow:0 6px 0 var(--verde-d),0 12px 18px rgba(0,0,0,.25);
   -webkit-animation:beat 1.7s ease-in-out infinite;animation:beat 1.7s ease-in-out infinite}
 .btn:active{-webkit-transform:translateY(4px) scale(.98);transform:translateY(4px) scale(.98);-webkit-box-shadow:0 2px 0 var(--verde-d);box-shadow:0 2px 0 var(--verde-d)}
 .btn.amarelo{background:-webkit-linear-gradient(top,#ffe06b,var(--sol));background:linear-gradient(#ffe06b,var(--sol));color:#6a4b00;-webkit-box-shadow:0 6px 0 var(--sol-d),0 12px 18px rgba(0,0,0,.25);box-shadow:0 6px 0 var(--sol-d),0 12px 18px rgba(0,0,0,.25);-webkit-animation:none;animation:none}
-.btn.amarelo:active{-webkit-box-shadow:0 2px 0 var(--sol-d);box-shadow:0 2px 0 var(--sol-d)}
+.btn.peq{font-size:17px;padding:12px 24px;-webkit-animation:none;animation:none}
 @-webkit-keyframes beat{0%,100%{-webkit-transform:scale(1)}50%{-webkit-transform:scale(1.04)}}@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
 .prog{position:absolute;top:calc(12px + env(safe-area-inset-top));left:16px;right:16px;height:14px;background:rgba(255,255,255,.55);border-radius:999px;overflow:hidden;z-index:3;-webkit-box-shadow:inset 0 1px 3px rgba(0,0,0,.15);box-shadow:inset 0 1px 3px rgba(0,0,0,.15)}
 .prog>i{position:absolute;left:0;top:0;bottom:0;background:-webkit-linear-gradient(top,#8be05a,var(--verde));background:linear-gradient(#8be05a,var(--verde));border-radius:999px;-webkit-transition:width .5s cubic-bezier(.2,.8,.3,1);transition:width .5s cubic-bezier(.2,.8,.3,1)}
-/* PLANTAR: canteiro com a planta (imagens que crescem) */
-.growWrap{position:relative;width:230px;height:250px;margin-top:6px}
+/* barra de baixo: ouvir + dica */
+.barra{position:fixed;left:0;right:0;bottom:calc(10px + env(safe-area-inset-bottom));z-index:12;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;gap:12px;pointer-events:none}
+.barra>*{pointer-events:auto}
+.mini{border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:16px;padding:12px 20px;border-radius:999px;background:rgba(255,253,246,.95);color:var(--texto);-webkit-box-shadow:0 4px 12px rgba(0,0,0,.25);box-shadow:0 4px 12px rgba(0,0,0,.25)}
+.mini.dica{background:-webkit-linear-gradient(top,#ffe9a3,#ffd43b);background:linear-gradient(#ffe9a3,#ffd43b);color:#6a4b00}
+.mini.tocando{-webkit-animation:beat .9s ease-in-out infinite;animation:beat .9s ease-in-out infinite}
+/* PREVER (POE) */
+.opts{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;gap:10px;margin-top:14px;width:100%;max-width:400px}
+.opt{background:rgba(255,253,246,.96);border:2px solid var(--linha);border-bottom-width:5px;border-radius:18px;padding:14px 16px;font-size:16px;font-weight:600;cursor:pointer;text-align:center;-webkit-box-shadow:0 5px 12px rgba(30,50,20,.16);box-shadow:0 5px 12px rgba(30,50,20,.16)}
+.opt:active{-webkit-transform:translateY(2px);transform:translateY(2px)}
+.opt.ok{border-color:var(--verde);background:#eafce0}
+.opt.no{border-color:var(--coral);background:#ffece9}
+.selo{display:inline-block;background:var(--roxo);color:#fff;font-size:13px;font-weight:700;padding:5px 12px;border-radius:999px;margin-bottom:8px}
+/* PLANTAR */
+.growWrap{position:relative;width:230px;height:240px;margin-top:6px}
 .grow{position:absolute;left:0;bottom:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;opacity:0;-webkit-transform:scale(.6);transform:scale(.6);-webkit-transform-origin:center bottom;transform-origin:center bottom;-webkit-transition:opacity .5s ease,-webkit-transform .5s cubic-bezier(.2,1.3,.4,1);transition:opacity .5s ease,transform .5s cubic-bezier(.2,1.3,.4,1);-webkit-filter:drop-shadow(0 8px 8px rgba(0,0,0,.18));filter:drop-shadow(0 8px 8px rgba(0,0,0,.18))}
 .grow.on{opacity:1;-webkit-transform:scale(1);transform:scale(1)}
 .ferramentas{display:-webkit-box;display:flex;gap:16px;margin-top:14px}
-.ferr{width:104px;height:104px;border-radius:24px;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:16px;color:#fff;position:relative;overflow:hidden;
+.ferr{width:100px;height:100px;border-radius:24px;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:16px;color:#fff;
   -webkit-box-shadow:0 6px 0 rgba(0,0,0,.18),0 12px 18px rgba(0,0,0,.22);box-shadow:0 6px 0 rgba(0,0,0,.18),0 12px 18px rgba(0,0,0,.22);display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;gap:2px}
 .ferr:active{-webkit-transform:translateY(3px);transform:translateY(3px)}
-.ferr img{width:48px;height:48px;-webkit-filter:drop-shadow(0 2px 3px rgba(0,0,0,.2));filter:drop-shadow(0 2px 3px rgba(0,0,0,.2))}
+.ferr img{width:46px;height:46px}
 .ferr.sol{background:-webkit-linear-gradient(top,#ffe07a,#f6b100);background:linear-gradient(#ffe07a,#f6b100);color:#6a4b00}
 .ferr.agua{background:-webkit-linear-gradient(top,#6fd0ff,#1f9de0);background:linear-gradient(#6fd0ff,#1f9de0)}
-/* cartas (ordenar) */
-.cartas{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;gap:12px;-webkit-box-pack:center;justify-content:center;margin-top:10px;max-width:470px}
-.carta{position:relative;width:100px;min-height:120px;background:rgba(255,253,246,.95);border:2px solid var(--linha);border-bottom-width:5px;border-radius:20px;cursor:pointer;padding:8px 6px 6px;text-align:center;
-  display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;-webkit-box-align:center;align-items:center;-webkit-box-shadow:0 6px 14px rgba(30,50,20,.16);box-shadow:0 6px 14px rgba(30,50,20,.16);-webkit-transition:-webkit-transform .1s;transition:transform .1s}
+/* EXPERIMENTO (3 vasos) */
+.vasos{display:-webkit-box;display:flex;gap:10px;-webkit-box-pack:center;justify-content:center;margin-top:10px;-webkit-flex-wrap:wrap;flex-wrap:wrap}
+.vaso{width:108px;background:rgba(255,253,246,.95);border:2px solid var(--linha);border-bottom-width:5px;border-radius:18px;padding:8px 6px;text-align:center;cursor:pointer;-webkit-box-shadow:0 6px 14px rgba(30,50,20,.16);box-shadow:0 6px 14px rgba(30,50,20,.16)}
+.vaso img{width:84px;height:84px;object-fit:contain;-webkit-transition:opacity .5s;transition:opacity .5s}
+.vaso .cond{font-size:12px;font-weight:700;margin-top:2px;line-height:1.2}
+.vaso.escuro img{-webkit-filter:brightness(.45) saturate(.6);filter:brightness(.45) saturate(.6)}
+.vaso.ok{border-color:var(--verde);background:#eafce0}
+.vaso.no{border-color:var(--coral);background:#ffece9}
+/* cartas */
+.cartas{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;gap:10px;-webkit-box-pack:center;justify-content:center;margin-top:10px;max-width:470px}
+.carta{position:relative;width:96px;min-height:116px;background:rgba(255,253,246,.95);border:2px solid var(--linha);border-bottom-width:5px;border-radius:20px;cursor:pointer;padding:8px 6px 6px;text-align:center;
+  display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;-webkit-box-align:center;align-items:center;-webkit-box-shadow:0 6px 14px rgba(30,50,20,.16);box-shadow:0 6px 14px rgba(30,50,20,.16)}
 .carta:active{-webkit-transform:scale(.97);transform:scale(.97)}
-.carta img{width:80px;height:80px;object-fit:contain}
+.carta img{width:76px;height:76px;object-fit:contain}
 .carta .lab{font-size:13px;font-weight:700;margin-top:2px;color:var(--texto)}
 .carta .num{position:absolute;top:-8px;right:-8px;width:28px;height:28px;border-radius:50%;background:var(--verde);color:#fff;font-weight:700;font-size:16px;line-height:28px;-webkit-box-shadow:0 2px 5px rgba(0,0,0,.25);box-shadow:0 2px 5px rgba(0,0,0,.25)}
 .carta.ok{border-color:var(--verde);background:#eafce0}
@@ -63,46 +85,67 @@ h1{font-size:36px;font-weight:700;color:#fff;text-shadow:0 2px 0 #2f7d1a,0 4px 1
 @-webkit-keyframes shk{0%,100%{-webkit-transform:translateX(0)}25%{-webkit-transform:translateX(-6px)}50%{-webkit-transform:translateX(6px)}75%{-webkit-transform:translateX(-4px)}}
 @keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-4px)}}
 /* precisa */
-.bins{display:-webkit-box;display:flex;gap:16px;margin-top:16px}
-.bin{width:140px;padding:14px;border-radius:20px;text-align:center;font-weight:700;font-size:16px;color:#fff;cursor:pointer;-webkit-box-shadow:0 5px 0 rgba(0,0,0,.16),0 8px 14px rgba(0,0,0,.18);box-shadow:0 5px 0 rgba(0,0,0,.16),0 8px 14px rgba(0,0,0,.18)}
+.bins{display:-webkit-box;display:flex;gap:14px;margin-top:14px}
+.bin{width:136px;padding:14px;border-radius:20px;text-align:center;font-weight:700;font-size:16px;color:#fff;cursor:pointer;-webkit-box-shadow:0 5px 0 rgba(0,0,0,.16),0 8px 14px rgba(0,0,0,.18);box-shadow:0 5px 0 rgba(0,0,0,.16),0 8px 14px rgba(0,0,0,.18)}
 .bin:active{-webkit-transform:translateY(3px);transform:translateY(3px)}
 .bin.sim{background:-webkit-linear-gradient(top,#6bd23f,#3f9a26);background:linear-gradient(#6bd23f,#3f9a26)}
 .bin.nao{background:-webkit-linear-gradient(top,#ff9a8f,#ef5a4a);background:linear-gradient(#ff9a8f,#ef5a4a)}
-.itemCard{width:150px;min-height:160px;background:rgba(255,253,246,.96);border:2px solid var(--linha);border-bottom-width:6px;border-radius:24px;padding:12px;text-align:center;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;-webkit-box-shadow:0 8px 18px rgba(30,50,20,.2);box-shadow:0 8px 18px rgba(30,50,20,.2);-webkit-transition:border-color .2s;transition:border-color .2s}
-.itemCard img{width:104px;height:104px;object-fit:contain;-webkit-animation:pop .35s;animation:pop .35s}
+.itemCard{width:150px;min-height:156px;background:rgba(255,253,246,.96);border:2px solid var(--linha);border-bottom-width:6px;border-radius:24px;padding:12px;text-align:center;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;-webkit-box-shadow:0 8px 18px rgba(30,50,20,.2);box-shadow:0 8px 18px rgba(30,50,20,.2);-webkit-transition:border-color .2s;transition:border-color .2s}
+.itemCard img{width:100px;height:100px;object-fit:contain;-webkit-animation:pop .35s;animation:pop .35s}
 .itemCard .lab{font-size:16px;font-weight:700;margin-top:4px}
 @-webkit-keyframes pop{from{-webkit-transform:scale(.5);opacity:0}to{-webkit-transform:scale(1);opacity:1}}
 @keyframes pop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
-/* partes: imagem real + zonas de toque */
-.partes{position:relative;width:290px;height:290px;margin-top:4px}
+/* partes */
+.partes{position:relative;width:280px;height:280px;margin-top:2px}
 .partes img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;-webkit-filter:drop-shadow(0 8px 10px rgba(0,0,0,.18));filter:drop-shadow(0 8px 10px rgba(0,0,0,.18))}
 .zona{position:absolute;cursor:pointer;border-radius:50%;background:transparent}
-.zona.pisca{-webkit-animation:zp 1s ease-in-out infinite;animation:zp 1s ease-in-out infinite}
-@-webkit-keyframes zp{0%,100%{-webkit-box-shadow:0 0 0 0 rgba(255,255,255,0)}50%{-webkit-box-shadow:0 0 0 6px rgba(255,255,255,.5)}}
-@keyframes zp{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}50%{box-shadow:0 0 0 6px rgba(255,255,255,.5)}}
+.zona.pisca{-webkit-animation:zp 1.1s ease-in-out infinite;animation:zp 1.1s ease-in-out infinite}
+@-webkit-keyframes zp{0%,100%{-webkit-box-shadow:0 0 0 0 rgba(255,255,255,0)}50%{-webkit-box-shadow:0 0 0 7px rgba(255,255,255,.55)}}
+@keyframes zp{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}50%{box-shadow:0 0 0 7px rgba(255,255,255,.55)}}
+/* identidade */
+.figs{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;gap:10px;-webkit-box-pack:center;justify-content:center;margin-top:10px;max-width:340px}
+.fig{width:74px;height:74px;border-radius:20px;background:rgba(255,253,246,.95);border:3px solid transparent;cursor:pointer;padding:6px;-webkit-box-shadow:0 5px 12px rgba(30,50,20,.18);box-shadow:0 5px 12px rgba(30,50,20,.18)}
+.fig img{width:100%;height:100%;object-fit:contain}
+.fig.sel{border-color:var(--verde);background:#eafce0}
+.campo{width:100%;max-width:320px;font-family:inherit;font-size:18px;font-weight:600;padding:14px 16px;border-radius:18px;border:2px solid var(--linha);text-align:center;margin-top:10px;color:var(--texto)}
+/* medalha */
+.medal{width:190px;height:190px;object-fit:contain;-webkit-animation:med 1s cubic-bezier(.2,1.4,.4,1);animation:med 1s cubic-bezier(.2,1.4,.4,1);-webkit-filter:drop-shadow(0 10px 14px rgba(0,0,0,.3));filter:drop-shadow(0 10px 14px rgba(0,0,0,.3))}
+@-webkit-keyframes med{from{-webkit-transform:scale(.2) rotate(-25deg);opacity:0}to{-webkit-transform:scale(1) rotate(0);opacity:1}}
+@keyframes med{from{transform:scale(.2) rotate(-25deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+/* banner */
 .banner{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:18px 18px calc(20px + env(safe-area-inset-bottom));max-width:520px;margin:0 auto;
   -webkit-transform:translateY(115%);transform:translateY(115%);-webkit-transition:-webkit-transform .35s cubic-bezier(.2,.8,.3,1);transition:transform .35s cubic-bezier(.2,.8,.3,1);border-top-left-radius:26px;border-top-right-radius:26px}
 .banner.show{-webkit-transform:none;transform:none}.banner.bom{background:#dcffbe}
 .banner .msg{font-size:18px;font-weight:700;color:#3f7d04;margin-bottom:12px;text-align:center}
 .banner .cta2{width:100%;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:18px;color:#fff;padding:15px;border-radius:18px;background:var(--verde);-webkit-box-shadow:0 4px 0 var(--verde-d);box-shadow:0 4px 0 var(--verde-d);text-transform:uppercase}
 #conf{position:fixed;inset:0;z-index:15;pointer-events:none}
-.hint{margin-top:12px;font-size:13px;color:#fff;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+.hint{margin-top:10px;font-size:13px;color:#fff;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+/* painel do professor */
+.painel{position:fixed;inset:0;z-index:40;background:#fff;overflow:auto;padding:20px;color:#222}
+.painel h2{font-size:22px;margin-bottom:4px}
+.painel table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+.painel th,.painel td{border:1px solid #ddd;padding:7px;text-align:left}
+.painel th{background:#f3f3f3}
+.painel .bloco{border:1px solid #ddd;border-radius:10px;padding:12px;margin-top:12px}
+@media print{.noprint{display:none}}
 </style></head>
 <body>
 <div id="bg"></div>
 <canvas id="ceu"></canvas>
 <canvas id="conf"></canvas>
 <div id="app"></div>
+<div class="barra" id="barra"></div>
 <div class="banner" id="banner"><div class="msg" id="bmsg"></div><button class="cta2" id="bcta">Continuar</button></div>
+<audio id="narr" preload="auto"></audio>
 <script>
 "use strict";
-/* ============ IMAGENS (ilustrações reais de IA) ============ */
-var IMGS=["jd_broto_feliz","jd_broto_festa","jd_g0","jd_g1","jd_g2","jd_g3","jd_g4","jd_sol","jd_agua","jd_terra","jd_ar","jd_refri","jd_celular","jd_meia","jd_partes"];
+/* ============ IMAGENS ============ */
+var IMGS=["jd_broto_feliz","jd_broto_fala","jd_broto_pisca","jd_broto_pensa","jd_broto_festa","jd_g0","jd_g1","jd_g2","jd_g3","jd_g4","jd_sol","jd_agua","jd_terra","jd_ar","jd_refri","jd_celular","jd_meia","jd_partes","med_jardim"];
 var IMG={};(function(){var i;for(i=0;i<IMGS.length;i++){var im=new Image();im.src="img/"+IMGS[i]+".png";IMG[IMGS[i]]=im;}})();
 function imgEl(nome,cls){var e=document.createElement("img");if(cls)e.className=cls;e.src="img/"+nome+".png";e.alt="";e.draggable=false;return e;}
-/* ============ SOM ============ */
+/* ============ SOM (efeitos) ============ */
 var AC=window.AudioContext||window.webkitAudioContext, ac=AC?new AC():null;
-function arma(){ if(ac&&ac.state==="suspended"){try{ac.resume();}catch(e){}} }
+function arma(){ if(ac&&ac.state==="suspended"){try{ac.resume();}catch(e){}} ligaAnalisador(); }
 function tom(f,d,tp,v,w){ if(!ac)return; try{var o=ac.createOscillator(),g=ac.createGain();o.type=tp||"sine";o.frequency.value=f;o.connect(g);g.connect(ac.destination);var t=ac.currentTime+(w||0);g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(v||0.2,t+0.01);g.gain.exponentialRampToValueAtTime(0.0001,t+d);o.start(t);o.stop(t+d+0.03);}catch(e){} }
 function sTap(){ tom(500,0.07,"triangle",0.12); }
 function sPop(i){ tom(520+((i||0)%6)*70,0.12,"triangle",0.14); }
@@ -110,7 +153,60 @@ function sCerto(){ tom(659,0.12,"sine",0.2); tom(880,0.14,"sine",0.2,0.09); tom(
 function sErro(){ tom(200,0.18,"sawtooth",0.12); tom(150,0.24,"sawtooth",0.12,0.08); }
 function sFesta(){ var n=[523,659,784,1046,1318],i; for(i=0;i<n.length;i++) tom(n[i],0.3,"triangle",0.18,i*0.085); }
 function sAgua(){ tom(900,0.18,"sine",0.08); tom(650,0.2,"sine",0.08,0.05); }
-/* ============ BRILHO VIVO POR CIMA DO FUNDO (pólen + borboletas) ============ */
+/* ============ NARRAÇÃO + LIP-SYNC ============ */
+var narr=document.getElementById("narr");
+var anaNode=null,anaBuf=null,anaOk=false,anaTent=false,bocaAlvo=0,bocaSuave=0,falaTimer=0,falaAtual="",falandoCb=null;
+function ligaAnalisador(){
+  if(anaOk||anaTent)return; anaTent=true;
+  try{ if(!ac)return; var src=ac.createMediaElementSource(narr); anaNode=ac.createAnalyser(); anaNode.fftSize=256;
+    anaBuf=new Uint8Array(anaNode.fftSize); src.connect(anaNode); anaNode.connect(ac.destination); anaOk=true; }catch(e){}
+}
+function falar(id,cb){
+  falandoCb=cb||null; falaAtual=id;
+  if(ac&&ac.state==="suspended"){try{ac.resume();}catch(e){}}
+  try{ narr.pause(); narr.currentTime=0; }catch(e){}
+  narr.src="audio/"+id+".mp3";
+  var p=narr.play(); if(p&&p["catch"]){ p["catch"](function(){}); }
+  if(btnOuvir) btnOuvir.className="mini tocando";
+  iniciaBoca();
+}
+function fimFala(){ paraBoca(); if(btnOuvir) btnOuvir.className="mini"; var c=falandoCb; falandoCb=null; if(c)c(); }
+narr.addEventListener("ended",fimFala);
+narr.addEventListener("error",function(){ fimFala(); });
+function iniciaBoca(){ if(falaTimer)clearInterval(falaTimer); bocaAlvo=0.7;
+  falaTimer=setInterval(function(){ if(narr.paused||narr.ended){bocaAlvo=0;} else if(!anaOk){ bocaAlvo=0.25+Math.random()*0.75; } },95); }
+function paraBoca(){ if(falaTimer){clearInterval(falaTimer);falaTimer=0;} bocaAlvo=0; }
+/* espera a fala acabar antes de seguir (prazo só vale se o áudio NÃO estiver tocando) */
+function depoisDaFala(id,maxMs,cb){
+  var fired=false;
+  function fim(){ if(fired)return; fired=true; if(cb)cb(); }
+  falar(id,fim);
+  function guarda(){ if(fired)return; if(narr&&!narr.paused&&!narr.ended){ setTimeout(guarda,700); return; } fim(); }
+  setTimeout(guarda,maxMs||6000);
+}
+/* loop do lip-sync: a boca do Broto segue a VOZ */
+var brotoAtual=null;
+function loopBoca(){
+  if(anaOk&&!narr.paused&&!narr.ended){
+    try{ anaNode.getByteTimeDomainData(anaBuf); var i,s=0;
+      for(i=0;i<anaBuf.length;i+=4){ var v=(anaBuf[i]-128)/128; s+=v*v; }
+      var rms=Math.sqrt(s/(anaBuf.length/4));
+      bocaAlvo=(rms<0.012)?0:Math.min(1,0.18+rms*6);
+    }catch(e){}
+  }
+  bocaSuave += (bocaAlvo-bocaSuave)*0.4;
+  if(brotoAtual&&brotoAtual.fala){ brotoAtual.fala.style.opacity=bocaSuave.toFixed(3); }
+  requestAnimationFrame(loopBoca);
+}
+requestAnimationFrame(loopBoca);
+/* piscar sozinho */
+setInterval(function(){
+  if(brotoAtual&&brotoAtual.pisca&&bocaSuave<0.05&&Math.random()<0.45){
+    brotoAtual.pisca.style.opacity="1";
+    setTimeout(function(){ if(brotoAtual&&brotoAtual.pisca) brotoAtual.pisca.style.opacity="0"; },140);
+  }
+},3200);
+/* ============ BRILHO VIVO (pólen + borboletas) ============ */
 var ceu=document.getElementById("ceu"),cx=ceu.getContext("2d"),CW,CH,TK=0,motes=[],borbs=[];
 function sizeCeu(){CW=ceu.clientWidth;CH=ceu.clientHeight;ceu.width=CW;ceu.height=CH;
   if(!motes.length){var i;for(i=0;i<16;i++)motes.push({x:Math.random()*CW,y:Math.random()*CH,ph:Math.random()*6,sp:0.2+Math.random()*0.4,r:1+Math.random()*2.4,a:0.15+Math.random()*0.35});}
@@ -122,67 +218,224 @@ function ceuLoop(){TK++;if(!CW)sizeCeu();cx.clearRect(0,0,CW,CH);var i;
   for(i=0;i<borbs.length;i++){var b=borbs[i];b.x+=b.sp;if(b.x>CW+14)b.x=-14;var by=b.y+Math.sin(TK/20+b.ph)*12;var w=Math.abs(Math.sin(TK/5+b.ph))*4+2;cx.fillStyle=b.c;cx.globalAlpha=.85;cx.beginPath();cx.ellipse(b.x-w,by,4.5,3,0,0,6.29);cx.ellipse(b.x+w,by,4.5,3,0,0,6.29);cx.fill();cx.fillStyle="#5a4a2a";cx.fillRect(b.x-0.8,by-3,1.6,6);}
   cx.globalAlpha=1;requestAnimationFrame(ceuLoop);}
 sizeCeu();ceuLoop();
-/* ============ CONFETE + FAÍSCAS ============ */
+/* ============ CONFETE ============ */
 var cc=document.getElementById("conf"),c2=cc.getContext("2d"),cf=[];
 function scf(){cc.width=cc.clientWidth;cc.height=cc.clientHeight;}window.addEventListener("resize",scf);scf();
 function festa(){var i,co=["#5bbf3a","#ffd43b","#ff8ac2","#5bc8ff","#a56bff"];for(i=0;i<90;i++)cf.push({x:cc.width/2,y:cc.height*0.34,vx:(Math.random()-0.5)*11,vy:-Math.random()*13-3,g:0.32,r:5+Math.random()*4,c:co[i%5],a:1,rot:Math.random()*6,vr:(Math.random()-0.5)*0.4,sq:1});}
-/* faíscas locais (crescer/regar) — x,y em pixels de tela */
 function faisca(x,y,cor,n){var i;n=n||14;for(i=0;i<n;i++){var a=Math.random()*6.283,sp=1.5+Math.random()*4;cf.push({x:x,y:y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-1,g:0.14,r:2+Math.random()*3,c:cor,a:1,rot:0,vr:0,sq:0});}}
 function gotas(x,y){var i;for(i=0;i<10;i++){cf.push({x:x+(Math.random()-0.5)*40,y:y,vx:(Math.random()-0.5)*1.5,vy:2+Math.random()*3,g:0.25,r:2.5+Math.random()*2,c:"#5bc8ff",a:1,rot:0,vr:0,sq:0});}}
 function lcf(){c2.clearRect(0,0,cc.width,cc.height);var i;for(i=cf.length-1;i>=0;i--){var p=cf[i];p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;p.a-=(p.sq?0.008:0.02);if(p.a<=0||p.y>cc.height+20){cf.splice(i,1);continue;}c2.save();c2.globalAlpha=Math.max(0,p.a);c2.translate(p.x,p.y);if(p.sq){c2.rotate(p.rot);c2.fillStyle=p.c;c2.fillRect(-p.r,-p.r*0.6,p.r*2,p.r*1.2);}else{c2.fillStyle=p.c;c2.beginPath();c2.arc(0,0,p.r,0,6.29);c2.fill();}c2.restore();}requestAnimationFrame(lcf);}lcf();
 function centroTela(elm){var r=elm.getBoundingClientRect();return [r.left+r.width/2,r.top+r.height/2];}
-/* ============ ROTEIRO / ROUTER ============ */
-var app=document.getElementById("app"),banner=document.getElementById("banner"),bmsg=document.getElementById("bmsg"),bcta=document.getElementById("bcta");
+/* ============ MEDIÇÃO INVISÍVEL + DOMÍNIO ============ */
+var MED={ini:(new Date()).getTime(),ev:[],dicas:0,toques:0,pre:null,pos:null};
+var DOM={luz_agua:0.3,sequencia:0.3,necessidades:0.3,partes:0.3,funcoes:0.3};
+var CONC={luz_agua:"Luz e água para viver",sequencia:"Como a planta cresce",necessidades:"Do que a planta precisa",partes:"Partes da planta",funcoes:"Função de cada parte"};
+function reg(conc,ok,tent){
+  MED.ev.push({c:conc,ok:ok?1:0,t:tent||1,ms:(new Date()).getTime()-MED.ini});
+  var p=DOM[conc]||0.3; DOM[conc]= ok ? p+(1-p)*0.35 : p*0.62;
+  salvaEstado();
+}
+function salvaEstado(){ try{ localStorage.setItem("jardim_med",JSON.stringify({MED:MED,DOM:DOM,perfil:perfil})); }catch(e){} }
+function carregaEstado(){ try{ var s=localStorage.getItem("jardim_med"); if(s){ var d=JSON.parse(s); if(d&&d.DOM) DOM=d.DOM; if(d&&d.perfil) perfil=d.perfil; } }catch(e){} }
+/* ============ PERFIL ============ */
+var perfil={nome:"",fig:"jd_g3"};
+carregaEstado();
+/* ============ ROUTER / HELPERS ============ */
+var app=document.getElementById("app"),banner=document.getElementById("banner"),bmsg=document.getElementById("bmsg"),bcta=document.getElementById("bcta"),barra=document.getElementById("barra");
+var btnOuvir=null,btnDica=null,dicaAtual="",dicaTexto="";
 function el(t,c,h){var e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;}
-function broto(size,pose){var im=imgEl(pose==="festa"?"jd_broto_festa":"jd_broto_feliz","broto"+(size==="gg"?" gg":""));return im;}
-function limpa(){app.innerHTML="";banner.className="banner";}
+function brotoEl(tam){
+  var d=el("div","broto"+(tam?" "+tam:""));
+  var base=imgEl("jd_broto_feliz","lay base"), fala=imgEl("jd_broto_fala","lay fala"), pisca=imgEl("jd_broto_pisca","lay pisca");
+  d.appendChild(base);d.appendChild(fala);d.appendChild(pisca);
+  brotoAtual={el:d,base:base,fala:fala,pisca:pisca};
+  return d;
+}
+function limpa(){ app.innerHTML=""; banner.className="banner"; barra.innerHTML=""; btnOuvir=null; btnDica=null; }
+function montaBarra(dicaId,dicaTxt){
+  barra.innerHTML="";
+  btnOuvir=el("button","mini","Ouvir de novo");
+  btnOuvir.onclick=function(){ arma(); if(falaAtual) falar(falaAtual); };
+  barra.appendChild(btnOuvir);
+  if(dicaId){
+    dicaAtual=dicaId; dicaTexto=dicaTxt||"";
+    btnDica=el("button","mini dica","Dica");
+    btnDica.onclick=function(){ arma(); MED.dicas++; salvaEstado(); if(dicaTexto) mostraDica(dicaTexto); falar(dicaAtual); };
+    barra.appendChild(btnDica);
+  }
+}
+function mostraDica(txt){
+  var d=document.getElementById("dicabox"); if(d&&d.parentNode)d.parentNode.removeChild(d);
+  var b=el("div","balao",txt); b.id="dicabox"; b.style.position="fixed"; b.style.left="12px"; b.style.right="12px";
+  b.style.bottom="90px"; b.style.zIndex="14"; b.style.maxWidth="440px"; b.style.margin="0 auto"; b.style.background="#fff6d8";
+  document.body.appendChild(b);
+  setTimeout(function(){ if(b.parentNode)b.parentNode.removeChild(b); },6000);
+}
 function setProg(t,p){var pr=el("div","prog");var i=el("i");i.style.width=p+"%";pr.appendChild(i);t.appendChild(pr);}
-function mostraBanner(msg,cb){bmsg.innerHTML=msg;banner.className="banner bom show";festa();sCerto();bcta.onclick=function(){banner.className="banner";cb();};}
-/* ---- CAPA ---- */
+function mostraBanner(msg,cb){bmsg.innerHTML=msg;banner.className="banner bom show";festa();sCerto();bcta.onclick=function(){arma();banner.className="banner";cb();};}
+function elogio(){ var n=["jd_acerto1","jd_acerto2","jd_acerto3"]; falar(n[Math.floor(Math.random()*3)]); }
+function consolo(){ falar(Math.random()<0.5?"jd_erro1":"jd_erro2"); }
+/* ============ 1) CAPA ============ */
 function telaCapa(){limpa();var t=el("div","tela");var c=el("div","centro");
-  c.appendChild(broto("gg","feliz"));
+  c.appendChild(brotoEl("gg"));
   c.appendChild(el("h1","","O Jardim do Broto"));
   c.appendChild(el("div","sub","Ci&#234;ncias &#183; 2&#186; ano &#183; As plantas"));
-  var b=el("button","btn","Come&#231;ar");b.onclick=function(){arma();sTap();telaPlantar();};c.appendChild(b);
+  var b=el("button","btn","Come&#231;ar");b.onclick=function(){arma();sTap();telaQuem();};c.appendChild(b);
   t.appendChild(c);app.appendChild(t);}
-/* ---- 1) PLANTAR (simulação: sol + água -> cresce) ---- */
-function telaPlantar(){limpa();var t=el("div","tela");setProg(t,10);
+/* ============ 2) QUEM VAI JOGAR ============ */
+function telaQuem(){limpa();var t=el("div","tela");var c=el("div","centro");
+  c.appendChild(el("div","balao","<b>Quem vai cuidar</b> do jardim hoje?"));
+  var inp=el("input","campo"); inp.type="text"; inp.placeholder="Escreva o seu nome"; inp.maxLength=18; inp.value=perfil.nome||"";
+  c.appendChild(inp);
+  c.appendChild(el("div","hint","Escolha a sua figurinha:"));
+  var figs=el("div","figs"); var lista=["jd_g0","jd_g1","jd_g2","jd_g3","jd_g4","jd_broto_feliz"]; var i;
+  for(i=0;i<lista.length;i++){(function(nome){
+    var f=el("div","fig"+(perfil.fig===nome?" sel":"")); f.appendChild(imgEl(nome));
+    f.onclick=function(){ arma(); sTap(); perfil.fig=nome;
+      var all=figs.getElementsByClassName("fig"),k; for(k=0;k<all.length;k++) all[k].className="fig";
+      f.className="fig sel"; };
+    figs.appendChild(f);
+  })(lista[i]);}
+  c.appendChild(figs);
+  var b=el("button","btn","Vamos!"); b.style.marginTop="16px";
+  b.onclick=function(){ arma(); sTap(); perfil.nome=(inp.value||"").substring(0,18); salvaEstado(); telaAbertura(); };
+  c.appendChild(b);
+  t.appendChild(c);app.appendChild(t);}
+/* ============ 3) ABERTURA (narrada) ============ */
+function telaAbertura(){limpa();var t=el("div","tela");var c=el("div","centro");
+  c.appendChild(brotoEl("gg"));
+  var bal=el("div","balao","Oi! Eu sou o <b>Broto</b>. O meu jardim est&#225; vazio... <b>vem me ajudar</b> a fazer a vida crescer?");
+  bal.style.marginTop="12px"; c.appendChild(bal);
+  var b=el("button","btn","Vamos plantar!"); b.style.marginTop="14px";
+  b.onclick=function(){ arma(); sTap(); telaP1prever(); };
+  c.appendChild(b);
+  t.appendChild(c);app.appendChild(t);
+  montaBarra(null,null);
+  falar("jd_abertura");}
+/* ============ P1: PREVER (POE) ============ */
+function telaP1prever(){limpa();var t=el("div","tela");setProg(t,8);var c=el("div","centro");
+  c.appendChild(brotoEl("pq"));
+  c.appendChild(el("div","selo","O QUE VOC&#202; ACHA?"));
+  c.appendChild(el("div","balao","Se eu der <b>s&#243; &#225;gua</b>, e <b>nenhum sol</b>, voc&#234; acha que a sementinha cresce?"));
+  var opts=el("div","opts");
+  var alts=[["Sim, cresce igual",false],["N&#227;o, ela precisa de sol tamb&#233;m",true],["Cresce, mas fica murcha",false]];
+  var i;
+  for(i=0;i<alts.length;i++){(function(txt,certo){
+    var o=el("div","opt",txt);
+    o.onclick=function(){ arma(); sTap();
+      MED.pre = certo?1:0; salvaEstado();
+      o.className="opt "+(certo?"ok":"no");
+      setTimeout(function(){ telaPlantar(); },700);
+    };
+    opts.appendChild(o);
+  })(alts[i][0],alts[i][1]);}
+  c.appendChild(opts);
+  t.appendChild(c);app.appendChild(t);
+  montaBarra(null,null);
+  depoisDaFala("jd_p1_intro",9000,function(){ falar("jd_p1_prever"); });}
+/* ============ P1: PLANTAR (simulação) ============ */
+function telaPlantar(){limpa();var t=el("div","tela");setProg(t,16);
   t.appendChild(el("div","balao","Vamos <b>plantar</b>! D&#234; <b>sol</b> e <b>&#225;gua</b> para a semente crescer."));
   var cen=el("div","centro");
   var wrap=el("div","growWrap");var gimgs=[],i;
   for(i=0;i<5;i++){var gi=imgEl("jd_g"+i,"grow");if(i===0)gi.className="grow on";wrap.appendChild(gi);gimgs.push(gi);}
   cen.appendChild(wrap);
-  var estagio=0,sol=0,agua=0;
+  var estagio=0,sol=0,agua=0,fechou=false;
   function setStage(n){var k;for(k=0;k<5;k++)gimgs[k].className="grow"+(k===n?" on":"");}
-  function cresce(molhou){var alvo=Math.min(4,Math.floor((sol+agua)/2));if(alvo>estagio){estagio=alvo;setStage(estagio);sPop(estagio);var ce=centroTela(wrap);faisca(ce[0],ce[1]-20,"#8be05a",16);
-    if(estagio>=4){setTimeout(function(){mostraBanner("A planta cresceu e deu <b>fruto</b>! Ela precisa de <b>sol</b> e <b>&#225;gua</b>.",telaOrdenar);},650);}}
-    else if(molhou){var ce2=centroTela(wrap);gotas(ce2[0],ce2[1]-60);}}
+  function cresce(molhou){
+    var alvo=Math.min(4,Math.floor((sol+agua)/2));
+    if(alvo>estagio){ estagio=alvo; setStage(estagio); sPop(estagio);
+      var ce=centroTela(wrap); faisca(ce[0],ce[1]-20,"#8be05a",16);
+      if(estagio>=4&&!fechou){ fechou=true; reg("luz_agua",true,1);
+        setTimeout(function(){ depoisDaFala("jd_p1_revela",7000,function(){
+          mostraBanner("A planta cresceu! Ela precisa de <b>sol</b> e <b>&#225;gua</b>.",telaExperimento); }); },500); }
+    } else if(molhou){ var ce2=centroTela(wrap); gotas(ce2[0],ce2[1]-60); }
+  }
   var fer=el("div","ferramentas");
   var bs=el("button","ferr sol");bs.appendChild(imgEl("jd_sol"));bs.appendChild(el("div",null,"Sol"));
   var ba=el("button","ferr agua");ba.appendChild(imgEl("jd_agua"));ba.appendChild(el("div",null,"&#193;gua"));
-  bs.onclick=function(){arma();if(sol<4){sol++;sTap();}cresce(false);};
-  ba.onclick=function(){arma();if(agua<4){agua++;sAgua();}cresce(true);};
+  bs.onclick=function(){arma();MED.toques++;if(sol<4){sol++;sTap();}cresce(false);};
+  ba.onclick=function(){arma();MED.toques++;if(agua<4){agua++;sAgua();}cresce(true);};
   fer.appendChild(bs);fer.appendChild(ba);cen.appendChild(fer);
   cen.appendChild(el("div","hint","Toque no Sol e na &#193;gua v&#225;rias vezes."));
-  t.appendChild(cen);app.appendChild(t);}
-/* ---- 2) ORDENAR o crescimento ---- */
-function telaOrdenar(){limpa();var t=el("div","tela");setProg(t,35);
-  t.appendChild(el("div","balao","Coloque em <b>ordem</b> como a planta cresce: toque do <b>1&#186;</b> ao <b>&#250;ltimo</b>."));
+  t.appendChild(cen);app.appendChild(t);
+  montaBarra("jd_p1_dica","D&#234; um pouquinho de sol E um pouquinho de &#225;gua, os dois juntos.");
+  falar("jd_p1_faca");}
+/* ============ P2: EXPERIMENTO (3 vasos, prever) ============ */
+function telaExperimento(){limpa();var t=el("div","tela");setProg(t,30);
+  t.appendChild(el("div","balao","Tr&#234;s vasos iguais. <b>Qual vai crescer mais?</b> Toque no que voc&#234; acha."));
+  var cen=el("div","centro");
+  cen.appendChild(el("div","selo","EXPERI&#202;NCIA DE CIENTISTA"));
+  var vs=el("div","vasos");
+  var conf=[{cls:"vaso escuro",cond:"No escuro<br>com &#225;gua",ok:false},
+            {cls:"vaso",cond:"Com sol<br>sem &#225;gua",ok:false},
+            {cls:"vaso",cond:"Com sol<br>e com &#225;gua",ok:true}];
+  var respondeu=false,tent=0,i;
+  for(i=0;i<conf.length;i++){(function(cf2){
+    var v=el("div",cf2.cls); var im=imgEl("jd_g1"); v.appendChild(im);
+    v.appendChild(el("div","cond",cf2.cond));
+    v.onclick=function(){
+      if(respondeu)return; arma(); tent++;
+      if(cf2.ok){ respondeu=true; v.className=cf2.cls+" ok"; im.src="img/jd_g3.png"; sCerto();
+        var ce=centroTela(v); faisca(ce[0],ce[1],"#8be05a",16);
+        reg("luz_agua",tent===1,tent);
+        setTimeout(function(){ depoisDaFala("jd_p2_revela",9000,function(){
+          mostraBanner("S&#243; cresceu bem o que tinha <b>luz</b> e <b>&#225;gua</b>!",telaOrdenar); }); },700);
+      } else { v.className=cf2.cls+" no"; sErro(); consolo();
+        setTimeout(function(){ v.className=cf2.cls; },600); }
+    };
+    vs.appendChild(v);
+  })(conf[i]);}
+  cen.appendChild(vs);
+  cen.appendChild(el("div","hint","Pense antes de tocar!"));
+  t.appendChild(cen);app.appendChild(t);
+  montaBarra("jd_p2_dica","Uma planta no escuro, sem nenhuma luz, ser&#225; que consegue?");
+  depoisDaFala("jd_p2_intro",8000,function(){ falar("jd_p2_prever"); });}
+/* ============ P3: ORDENAR ============ */
+function telaOrdenar(){limpa();var t=el("div","tela");setProg(t,44);
+  t.appendChild(el("div","balao","Coloque em <b>ordem</b> como a planta cresce: do <b>1&#186;</b> ao <b>&#250;ltimo</b>."));
   var nomes=["Semente","Broto","Plantinha","Flor","Fruto"];
-  var ordem=[3,0,4,1,2],prox=0;
+  var ordem=[3,0,4,1,2],prox=0,err=0;
   var cen=el("div","centro");var wrap=el("div","cartas");var i;
   for(i=0;i<ordem.length;i++){(function(est){
     var cd=el("div","carta");cd.appendChild(imgEl("jd_g"+est));cd.appendChild(el("div","lab",nomes[est]));
     cd.onclick=function(){ if(cd._done)return; arma();
-      if(est===prox){ cd._done=true;cd.className="carta ok";var num=el("div","num",(prox+1));cd.appendChild(num);sPop(prox);var ce=centroTela(cd);faisca(ce[0],ce[1],"#8be05a",10);prox++;
-        if(prox>=ordem.length){ setTimeout(function(){mostraBanner("Isso! Semente &#8594; broto &#8594; flor &#8594; fruto.",telaPrecisa);},450);} }
-      else { cd.className="carta no";sErro();setTimeout(function(){cd.className="carta";},450); }
+      if(est===prox){ cd._done=true;cd.className="carta ok";var num=el("div","num",(prox+1));cd.appendChild(num);sPop(prox);
+        var ce=centroTela(cd);faisca(ce[0],ce[1],"#8be05a",10);prox++;
+        if(prox>=ordem.length){ reg("sequencia",err===0,err+1);
+          setTimeout(function(){ depoisDaFala("jd_p3_revela",8000,function(){
+            mostraBanner("Semente &#8594; broto &#8594; plantinha &#8594; flor &#8594; fruto.",telaAquecimento); }); },450); } }
+      else { err++; cd.className="carta no";sErro();consolo();setTimeout(function(){cd.className="carta";},450); }
     };
     wrap.appendChild(cd);
   })(ordem[i]);}
-  cen.appendChild(wrap);t.appendChild(cen);app.appendChild(t);}
-/* ---- 3) DO QUE A PLANTA PRECISA? (classificar, com pegadinha) ---- */
-function telaPrecisa(){limpa();var t=el("div","tela");setProg(t,65);
+  cen.appendChild(wrap);t.appendChild(cen);app.appendChild(t);
+  montaBarra("jd_p3_dica","Comece pelo que &#233; bem pequenininho e fica escondido na terra.");
+  falar("jd_p3_intro");}
+/* ============ AQUECIMENTO (revisão espaçada) ============ */
+function telaAquecimento(){limpa();var t=el("div","tela");setProg(t,52);var c=el("div","centro");
+  c.appendChild(brotoEl("pq"));
+  c.appendChild(el("div","selo","LEMBRANDO..."));
+  c.appendChild(el("div","balao","Uma planta que fica <b>no escuro</b>, sem nenhuma luz: o que acontece com ela?"));
+  var opts=el("div","opts");
+  var alts=[["Ela cresce mais forte",false],["Ela n&#227;o cresce bem",true],["Ela vira flor na hora",false]];
+  var i,resp=false;
+  for(i=0;i<alts.length;i++){(function(txt,certo){
+    var o=el("div","opt",txt);
+    o.onclick=function(){ if(resp)return; arma();
+      if(certo){ resp=true; o.className="opt ok"; sCerto(); elogio(); reg("luz_agua",true,1);
+        setTimeout(function(){ telaPrecisa(); },1400); }
+      else { o.className="opt no"; sErro(); consolo(); reg("luz_agua",false,2);
+        setTimeout(function(){ o.className="opt"; },700); }
+    };
+    opts.appendChild(o);
+  })(alts[i][0],alts[i][1]);}
+  c.appendChild(opts);
+  t.appendChild(c);app.appendChild(t);
+  montaBarra(null,null);
+  falar("jd_aquec_intro");}
+/* ============ P4: DO QUE PRECISA ============ */
+function telaPrecisa(){limpa();var t=el("div","tela");setProg(t,64);
   t.appendChild(el("div","balao","A planta <b>precisa</b> disto? Toque em <b>Precisa</b> ou <b>N&#227;o precisa</b>."));
   var itens=[["jd_sol","Sol",true],["jd_refri","Refrigerante",false],["jd_agua","&#193;gua",true],["jd_celular","Celular",false],["jd_terra","Terra",true],["jd_meia","Meia",false],["jd_ar","Ar",true]];
   var i2=0,acertos=0;
@@ -191,35 +444,124 @@ function telaPrecisa(){limpa();var t=el("div","tela");setProg(t,65);
   card.appendChild(im);card.appendChild(lab);
   var bins=el("div","bins");var bSim=el("div","bin sim","Precisa");var bNao=el("div","bin nao","N&#227;o precisa");
   function mostra(){var it=itens[i2];im.src="img/"+it[0]+".png";im.style.webkitAnimation="none";im.style.animation="none";void im.offsetWidth;im.style.webkitAnimation="";im.style.animation="";lab.innerHTML=it[1];}
-  function resp(v){arma();var it=itens[i2];if(v===it[2]){acertos++;sCerto();card.style.borderColor="#5bbf3a";var ce=centroTela(card);faisca(ce[0],ce[1],"#8be05a",12);}else{sErro();card.style.borderColor="#ff7a6b";}
-    setTimeout(function(){card.style.borderColor="";i2++;if(i2>=itens.length){mostraBanner("Muito bem! A planta precisa de <b>sol, &#225;gua, terra e ar</b>.",telaPartes);}else mostra();},460);}
+  function resp(v){arma();var it=itens[i2];var ok=(v===it[2]);
+    if(ok){acertos++;sCerto();card.style.borderColor="#5bbf3a";var ce=centroTela(card);faisca(ce[0],ce[1],"#8be05a",12);}
+    else{sErro();consolo();card.style.borderColor="#ff7a6b";}
+    reg("necessidades",ok,1);
+    setTimeout(function(){card.style.borderColor="";i2++;
+      if(i2>=itens.length){ depoisDaFala("jd_p4_revela",8000,function(){
+        mostraBanner("A planta precisa de <b>sol, &#225;gua, terra e ar</b>.",telaPartes); }); }
+      else mostra();},480);}
   bSim.onclick=function(){resp(true);};bNao.onclick=function(){resp(false);};
   cen.appendChild(card);cen.appendChild(bins);bins.appendChild(bSim);bins.appendChild(bNao);
   cen.appendChild(el("div","hint","Cuidado com as pegadinhas!"));
-  t.appendChild(cen);app.appendChild(t);mostra();}
-/* ---- 4) PARTES DA PLANTA (tocar a parte certa na imagem real) ---- */
-/* zonas em % da imagem jd_partes [cx,cy,rx,ry] — ajustadas à ilustração */
+  t.appendChild(cen);app.appendChild(t);mostra();
+  montaBarra("jd_p4_dica","Isso ajuda a planta a viver, ou &#233; coisa de gente?");
+  falar("jd_p4_intro");}
+/* ============ P5 e P6: PARTES / FUNÇÕES (imagem real) ============ */
 var ZONAS={flor:[50,16,14,12],folha:[34,48,13,11],caule:[50,61,7,10],raiz:[50,81,25,12]};
-function telaPartes(){limpa();var t=el("div","tela");setProg(t,88);
+function telaPartesBase(cfg){
+  limpa();var t=el("div","tela");setProg(t,cfg.prog);
   var alvo=el("div","balao","");t.appendChild(alvo);
-  var partes=[{n:"raiz",lab:"a RAIZ"},{n:"caule",lab:"o CAULE"},{n:"folha",lab:"a FOLHA"},{n:"flor",lab:"a FLOR"}];
-  var pi=0;
+  var pi=0,err=0;
   var cen=el("div","centro");var box=el("div","partes");box.appendChild(imgEl("jd_partes"));
-  var zonas={};function fazZona(n){var z=ZONAS[n];var b=el("div","zona");b.style.left=(z[0]-z[2])+"%";b.style.top=(z[1]-z[3])+"%";b.style.width=(z[2]*2)+"%";b.style.height=(z[3]*2)+"%";
-    b.onclick=function(){arma();if(partes[pi].n===n){var ce=centroTela(b);faisca(ce[0],ce[1],"#ffd43b",14);sPop(pi);pi++;if(pi>=partes.length){setTimeout(function(){mostraBanner("Perfeito! <b>Raiz</b>, <b>caule</b>, <b>folha</b> e <b>flor</b>.",telaFim);},350);}else pede();}else{sErro();}};
-    box.appendChild(b);zonas[n]=b;}
-  var kk;for(kk in ZONAS){if(ZONAS.hasOwnProperty(kk))fazZona(kk);}
-  function pede(){alvo.innerHTML="Toque n"+partes[pi].lab+".";var n;for(n in zonas){if(zonas.hasOwnProperty(n))zonas[n].className="zona"+(n===partes[pi].n?" pisca":"");}}
-  cen.appendChild(box);cen.appendChild(el("div","hint","Toque na planta, na parte pedida."));
-  t.appendChild(cen);app.appendChild(t);pede();}
-/* ---- FIM ---- */
+  var zonas={};
+  function fazZona(n){var z=ZONAS[n];var b=el("div","zona");
+    b.style.left=(z[0]-z[2])+"%";b.style.top=(z[1]-z[3])+"%";b.style.width=(z[2]*2)+"%";b.style.height=(z[3]*2)+"%";
+    b.onclick=function(){ arma();
+      if(cfg.itens[pi].alvo===n){ var ce=centroTela(b);faisca(ce[0],ce[1],"#ffd43b",14);sPop(pi);
+        reg(cfg.conc,err===0,err+1); err=0; pi++;
+        if(pi>=cfg.itens.length){ setTimeout(function(){ depoisDaFala(cfg.revela,9000,function(){
+          mostraBanner(cfg.msg,cfg.prox); }); },350); } else pede(); }
+      else { err++; sErro(); consolo(); } };
+    box.appendChild(b);zonas[n]=b; }
+  var kk;for(kk in ZONAS){ if(ZONAS.hasOwnProperty(kk)) fazZona(kk); }
+  function pede(){ alvo.innerHTML=cfg.itens[pi].txt;
+    var n;for(n in zonas){ if(zonas.hasOwnProperty(n)) zonas[n].className="zona"+((cfg.pisca&&n===cfg.itens[pi].alvo)?" pisca":""); } }
+  cen.appendChild(box);cen.appendChild(el("div","hint",cfg.hint));
+  t.appendChild(cen);app.appendChild(t);pede();
+  montaBarra(cfg.dica,cfg.dicaTxt);
+  falar(cfg.intro);
+}
+function telaPartes(){
+  telaPartesBase({prog:76,conc:"partes",pisca:true,intro:"jd_p5_intro",revela:"jd_p5_revela",
+    dica:"jd_p5_dica",dicaTxt:"A parte que fica escondida na terra &#233; a raiz.",
+    hint:"Toque na planta, na parte pedida.",
+    msg:"<b>Raiz</b>, <b>caule</b>, <b>folha</b> e <b>flor</b>!",
+    itens:[{alvo:"raiz",txt:"Toque na <b>RAIZ</b>."},{alvo:"caule",txt:"Toque no <b>CAULE</b>."},
+           {alvo:"folha",txt:"Toque na <b>FOLHA</b>."},{alvo:"flor",txt:"Toque na <b>FLOR</b>."}],
+    prox:telaFuncoes});
+}
+function telaFuncoes(){
+  telaPartesBase({prog:86,conc:"funcoes",pisca:false,intro:"jd_p6_intro",revela:"jd_p6_revela",
+    dica:"jd_p6_dica",dicaTxt:"Qual parte fica l&#225; embaixo, dentro da terra, onde est&#225; a &#225;gua?",
+    hint:"Agora pela FUN&#199;&#195;O, sem o nome!",
+    msg:"Cada parte tem o seu <b>trabalho</b>!",
+    itens:[{alvo:"raiz",txt:"Qual parte <b>bebe a &#225;gua</b> da terra?"},
+           {alvo:"folha",txt:"Qual parte <b>toma o sol</b>?"},
+           {alvo:"caule",txt:"Qual parte <b>segura a planta em p&#233;</b>?"},
+           {alvo:"flor",txt:"Qual parte <b>vira fruto</b>?"}],
+    prox:telaEnsinar});
+}
+/* ============ ENSINAR O BROTO (autoexplicação) ============ */
+function telaEnsinar(){limpa();var t=el("div","tela");setProg(t,94);var c=el("div","centro");
+  c.appendChild(brotoEl("pq"));
+  c.appendChild(el("div","selo","ENSINE O BROTO"));
+  c.appendChild(el("div","balao","Me conta: <b>por que</b> a planta precisa da luz do sol?"));
+  var opts=el("div","opts");
+  var alts=[["Porque a <b>folha</b> usa a luz pra fazer a planta crescer",true],
+            ["Porque a luz deixa a planta <b>bonita</b>",false],
+            ["Porque a luz <b>lava</b> a planta",false]];
+  var i,resp=false;
+  for(i=0;i<alts.length;i++){(function(txt,certo){
+    var o=el("div","opt",txt);
+    o.onclick=function(){ if(resp)return; arma();
+      if(certo){ resp=true; o.className="opt ok"; sCerto(); MED.pos=1; salvaEstado();
+        depoisDaFala("jd_ensinar_obrigado",7000,function(){ telaFim(); }); }
+      else { o.className="opt no"; sErro(); consolo(); MED.pos=0; salvaEstado();
+        setTimeout(function(){ o.className="opt"; },700); }
+    };
+    opts.appendChild(o);
+  })(alts[i][0],alts[i][1]);}
+  c.appendChild(opts);
+  t.appendChild(c);app.appendChild(t);
+  montaBarra(null,null);
+  falar("jd_ensinar_pede");}
+/* ============ FIM + MEDALHA ============ */
 function telaFim(){limpa();var t=el("div","tela");setProg(t,100);var c=el("div","centro");
-  c.appendChild(broto("gg","festa"));
+  var m=imgEl("med_jardim","medal"); c.appendChild(m);
   c.appendChild(el("h1","","Jardineiro Mestre!"));
-  c.appendChild(el("div","sub","Voc&#234; cuidou da planta do come&#231;o ao fim."));
+  c.appendChild(el("div","sub",(perfil.nome?perfil.nome+", v":"V")+"oc&#234; cuidou da planta do come&#231;o ao fim."));
   var b=el("button","btn amarelo","Jogar de novo");b.onclick=function(){arma();sTap();telaCapa();};c.appendChild(b);
-  t.appendChild(c);app.appendChild(t);sFesta();festa();}
+  t.appendChild(c);app.appendChild(t);sFesta();festa();
+  salvaEstado();
+  montaBarra(null,null);
+  falar("jd_fim");}
+/* ============ PAINEL DO PROFESSOR (?painel) ============ */
+function pct(x){ return Math.round(x*100)+"%"; }
+function telaPainel(){
+  try{ narr.pause(); }catch(e){}
+  var d=el("div","painel");
+  var tot=MED.ev.length, acc=0,i;
+  for(i=0;i<MED.ev.length;i++) acc+=MED.ev[i].ok;
+  var mins=Math.max(1,Math.round(((new Date()).getTime()-MED.ini)/60000));
+  var h="<h2>O Jardim do Broto &#8212; parecer</h2>";
+  h+="<div><b>Aluno(a):</b> "+(perfil.nome||"(sem nome)")+" &#183; <b>Tempo:</b> ~"+mins+" min &#183; <b>Dicas usadas:</b> "+MED.dicas+"</div>";
+  h+="<div class='bloco'><b>Acertos:</b> "+acc+" de "+tot+" ("+(tot?Math.round(acc*100/tot):0)+"%)</div>";
+  h+="<table><tr><th>O que foi medido</th><th>Dom&#237;nio</th></tr>";
+  var k; for(k in CONC){ if(CONC.hasOwnProperty(k)) h+="<tr><td>"+CONC[k]+"</td><td>"+pct(DOM[k]||0)+"</td></tr>"; }
+  h+="</table>";
+  var ganho="não medido";
+  if(MED.pre!==null&&MED.pos!==null){ ganho = (MED.pre===0&&MED.pos===1) ? "GANHO REAL (errou antes, acertou depois)" : (MED.pre===1&&MED.pos===1) ? "já sabia e manteve" : (MED.pos===0) ? "ainda não consolidou" : "-"; }
+  h+="<div class='bloco'><b>Antes x depois:</b> "+ganho+"<br><small>Previs&#227;o no come&#231;o (sol+&#225;gua) comparada com a explica&#231;&#227;o no fim.</small></div>";
+  h+="<div class='bloco'><b>BNCC:</b> EF02CI05 (import&#226;ncia da &#225;gua e da luz para as plantas) e EF02CI06 (partes da planta e suas fun&#231;&#245;es).</div>";
+  h+="<div class='bloco'><b>Como ler:</b> a crian&#231;a n&#227;o fez prova. Tudo foi medido enquanto ela brincava: prever antes, testar, ordenar, classificar, apontar as partes e explicar no fim.</div>";
+  h+="<p class='noprint'><button onclick='window.print()'>Imprimir</button> <button onclick='location.href=location.pathname'>Voltar ao jogo</button></p>";
+  d.innerHTML=h;
+  document.body.appendChild(d);
+}
+/* ============ INÍCIO ============ */
 if("serviceWorker" in navigator){try{navigator.serviceWorker.register("sw.js");}catch(e){}}
-telaCapa();
+if(location.search.indexOf("painel")>=0){ telaPainel(); } else { telaCapa(); }
 </script>
 </body></html>
