@@ -103,8 +103,8 @@ h1{font-size:34px;font-weight:700;color:#fff;text-shadow:0 2px 0 #2f7d1a,0 4px 1
 @-webkit-keyframes zp{0%,100%{-webkit-box-shadow:0 0 0 0 rgba(255,255,255,0)}50%{-webkit-box-shadow:0 0 0 7px rgba(255,255,255,.55)}}
 @keyframes zp{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}50%{box-shadow:0 0 0 7px rgba(255,255,255,.55)}}
 /* identidade */
-.figs{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;gap:10px;-webkit-box-pack:center;justify-content:center;margin-top:10px;max-width:340px}
-.fig{width:74px;height:74px;border-radius:20px;background:rgba(255,253,246,.95);border:3px solid transparent;cursor:pointer;padding:6px;-webkit-box-shadow:0 5px 12px rgba(30,50,20,.18);box-shadow:0 5px 12px rgba(30,50,20,.18)}
+.figs{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;gap:10px;-webkit-box-pack:center;justify-content:center;margin-top:10px;max-width:270px}
+.fig{width:82px;height:82px;border-radius:22px;background:rgba(255,253,246,.95);border:3px solid transparent;cursor:pointer;padding:6px;-webkit-box-shadow:0 5px 12px rgba(30,50,20,.18);box-shadow:0 5px 12px rgba(30,50,20,.18)}
 .fig img{width:100%;height:100%;object-fit:contain}
 .fig.sel{border-color:var(--verde);background:#eafce0}
 .campo{width:100%;max-width:320px;font-family:inherit;font-size:18px;font-weight:600;padding:14px 16px;border-radius:18px;border:2px solid var(--linha);text-align:center;margin-top:10px;color:var(--texto)}
@@ -174,7 +174,7 @@ h1{font-size:34px;font-weight:700;color:#fff;text-shadow:0 2px 0 #2f7d1a,0 4px 1
 <script>
 "use strict";
 /* ============ IMAGENS ============ */
-var IMGS=["jd_broto_feliz","jd_broto_fala","jd_broto_pisca","jd_broto_pensa","jd_broto_festa","jd_g0","jd_g1","jd_g2","jd_g3","jd_g4","jd_sol","jd_agua","jd_terra","jd_ar","jd_refri","jd_celular","jd_meia","jd_partes","med_jardim"];
+var IMGS=["jd_broto_feliz","jd_broto_fala","jd_broto_pisca","jd_broto_pensa","jd_broto_festa","jd_g0","jd_g1","jd_g2","jd_g3","jd_g4","jd_sol","jd_agua","jd_terra","jd_ar","jd_refri","jd_celular","jd_meia","jd_partes","med_jardim","jd_cr1","jd_cr2","jd_cr3","jd_cr4","jd_cr5","jd_cr6"];
 var IMG={};(function(){var i;for(i=0;i<IMGS.length;i++){var im=new Image();im.src="img/"+IMGS[i]+".png";IMG[IMGS[i]]=im;}})();
 function imgEl(nome,cls){var e=document.createElement("img");if(cls)e.className=cls;e.src="img/"+nome+".png";e.alt="";e.draggable=false;return e;}
 /* ============ SOM (efeitos) ============ */
@@ -270,9 +270,9 @@ function reg(conc,ok,tent){
   salvaEstado();
 }
 function salvaEstado(){ try{ localStorage.setItem("jardim_med",JSON.stringify({MED:MED,DOM:DOM,perfil:perfil})); }catch(e){} }
-function carregaEstado(){ try{ var s=localStorage.getItem("jardim_med"); if(s){ var d=JSON.parse(s); if(d&&d.DOM) DOM=d.DOM; if(d&&d.perfil) perfil=d.perfil; } }catch(e){} }
+function carregaEstado(){ try{ var s=localStorage.getItem("jardim_med"); if(s){ var d=JSON.parse(s); if(d&&d.DOM) DOM=d.DOM; if(d&&d.perfil){ perfil=d.perfil; if(!perfil.fig||perfil.fig.indexOf("jd_cr")!==0) perfil.fig="jd_cr1"; } } }catch(e){} }
 /* ============ PERFIL ============ */
-var perfil={nome:"",fig:"jd_g3"};
+var perfil={nome:"",fig:"jd_cr1"};
 carregaEstado();
 /* ============ ROUTER / HELPERS ============ */
 var app=document.getElementById("app"),banner=document.getElementById("banner"),bmsg=document.getElementById("bmsg"),bcta=document.getElementById("bcta"),barra=document.getElementById("barra");
@@ -322,7 +322,7 @@ function telaQuem(){limpa();var t=el("div","tela");var c=el("div","centro");
   var inp=el("input","campo"); inp.type="text"; inp.placeholder="Escreva o seu nome"; inp.maxLength=18; inp.value=perfil.nome||"";
   c.appendChild(inp);
   c.appendChild(el("div","hint","Escolha a sua figurinha:"));
-  var figs=el("div","figs"); var lista=["jd_g0","jd_g1","jd_g2","jd_g3","jd_g4","jd_broto_feliz"]; var i;
+  var figs=el("div","figs"); var lista=["jd_cr1","jd_cr2","jd_cr3","jd_cr4","jd_cr5","jd_cr6"]; var i;
   for(i=0;i<lista.length;i++){(function(nome){
     var f=el("div","fig"+(perfil.fig===nome?" sel":"")); f.appendChild(imgEl(nome));
     f.onclick=function(){ arma(); sTap(); perfil.fig=nome;
