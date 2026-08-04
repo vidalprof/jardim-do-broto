@@ -356,6 +356,10 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
 @media (max-height:620px){ .zap{width:23px;height:23px;margin-left:4px}
   .zap i{left:6px;top:8px;height:7px}.zap b{left:8px;top:5px;border-top-width:6px;border-bottom-width:6px;border-right-width:6px}
   .zap s{left:16px;top:7px;width:4px;height:9px} }
+/* menu do professor (codigo mestre) — nao e tela de crianca */
+.mestre{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-pack:center;justify-content:center;gap:6px;margin-top:10px;width:100%;max-width:400px;max-height:56vh;overflow-y:auto}
+.mbt{background:rgba(255,253,244,.97);border:2px solid var(--linha);border-bottom-width:4px;border-radius:11px;padding:7px 9px;font-size:12.6px;font-weight:700;color:var(--tinta-d);cursor:pointer;text-align:center;min-height:40px;width:114px;line-height:1.15;display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}
+.mbt:active{-webkit-transform:translateY(2px);transform:translateY(2px)}
 </style></head>
 <body>
 <div id="bg"></div>
@@ -574,6 +578,37 @@ function poeVozes(){
 })();
 
 /* ============ 1) CAPA ============ */
+
+/* ---------- 🔑 CODIGO MESTRE (so para o professor testar) ----------
+   Pedido do Marcos (ago/2026): *"coloque um codigo 1275@ para que eu possa
+   testar as atividades sem precisar passar por todas"*.
+   Onde se digita: no campo do NOME. A crianca nunca descobre (nao ha botao
+   nenhum) e o professor entra em dois toques. O menu NAO zera nem grava
+   progresso: e so um atalho para abrir a fase.                             */
+function chave(s){ return (s||"").replace(/\s+/g," ").replace(/^ | $/g,"").toLowerCase(); }
+var CODIGO_MESTRE="1275@";
+var FASES_MESTRE=[["telaP1prever","1. O QUE VOC&#202; ACHA?"],["telaPlantar","2. telaPlantar"],["telaExperimento","3. EXPERI&#202;NCIA DE CIENT&#8230;"],["telaOrdenar","4. telaOrdenar"],["telaCiclo","5. A RODA DA PLANTA"],["telaAquecimento","6. LEMBRANDO..."],["telaPrecisa","7. telaPrecisa"],["telaRotular","8. AS PLAQUINHAS"],["telaMontaPalavra","9. telaMontaPalavra"],["telaServe","10. PARA QUE SERVE"],["telaComemos","11. O QUE TEM NO PRATO"],["telaPrato","12. MONTE O SEU PRATO"],["telaQualParte","13. OLHE DE PERTO"],["telaMemoria","14. telaMemoria"],["telaEnsinar","15. ENSINE O BROTO"],["telaRelampagoJd","16. telaRelampagoJd"],["telaFim","17. telaFim"]];
+function telaMestre(){
+  limpa();var t=el("div","tela");var c=el("div","centro");
+  c.appendChild(el("div","selo","MODO PROFESSOR"));
+  c.appendChild(el("div","balao","Toque na fase que voc&#234; quer abrir. Isto n&#227;o aparece para o aluno."));
+  var g=el("div","mestre"),i;
+  for(i=0;i<FASES_MESTRE.length;i++){(function(par){
+    var b=el("div","mbt",par[1]);
+    b.onclick=function(){ arma(); sTap();
+      var f=window[par[0]];
+      if(typeof f==="function"){ try{ f(); }catch(e){ mostraDica("Esta fase pediu algo que ainda n&#227;o foi feito nesta sess&#227;o."); } }
+    };
+    g.appendChild(b);
+  })(FASES_MESTRE[i]);}
+  c.appendChild(g);
+  var v=el("button","btn peq","Voltar ao come&#231;o");v.style.marginTop="12px";
+  v.onclick=function(){ arma(); sTap(); telaCapa(); };
+  c.appendChild(v);
+  t.appendChild(c);app.appendChild(t);
+  montaBarra(null,null);
+}
+
 function telaCapa(){limpa();var t=el("div","tela");var c=el("div","centro");
   c.appendChild(brotoEl("gg"));
   c.appendChild(el("h1","","O Jardim do Broto"));
@@ -596,7 +631,8 @@ function telaQuem(){limpa();var t=el("div","tela");var c=el("div","centro");
   })(lista[i]);}
   c.appendChild(figs);
   var b=el("button","btn","Vamos!"); b.style.marginTop="16px";
-  b.onclick=function(){ arma(); sTap(); perfil.nome=(inp.value||"").substring(0,18); salvaEstado(); telaAbertura(); };
+  b.onclick=function(){ arma(); sTap();
+    if(chave((inp.value||""))===CODIGO_MESTRE){ inp.value=""; telaMestre(); return; } perfil.nome=(inp.value||"").substring(0,18); salvaEstado(); telaAbertura(); };
   c.appendChild(b);
   t.appendChild(c);app.appendChild(t);}
 /* ============ 3) ABERTURA (narrada) ============ */
