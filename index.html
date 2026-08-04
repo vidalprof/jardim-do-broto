@@ -181,11 +181,19 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
   -webkit-box-shadow:0 8px 18px rgba(40,70,20,.28);box-shadow:0 8px 18px rgba(40,70,20,.28);
   -webkit-animation:pop .35s;animation:pop .35s}
 .prato img{width:132px;height:132px;object-fit:contain}
+/* ⭐ A LUPA NÃO CORTA MAIS (pedido do Marcos, ago/2026: "na atividade olhe de
+   perto, não cortar as imagens dentro do quadrado"). O quadro tinha um
+   scale(1.35) dentro de um overflow:hidden — o alimento aparecia grande, mas
+   com as beiradas cortadas, e é justamente o FORMATO INTEIRO que a criança
+   precisa olhar para dizer se é raiz, folha ou fruto. Agora o quadro é maior e
+   a imagem entra INTEIRA (contain), sem zoom que corte nada.                */
 .lupa2{background:rgba(255,255,255,.94);border:4px solid #b7d29a;border-radius:22px;
-  width:186px;height:150px;margin:14px 0;display:-webkit-box;display:-webkit-flex;display:flex;
+  width:212px;height:176px;margin:14px 0;display:-webkit-box;display:-webkit-flex;display:flex;
   -webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;
-  -webkit-box-shadow:0 8px 18px rgba(40,70,20,.28);box-shadow:0 8px 18px rgba(40,70,20,.28);overflow:hidden}
-.lupa2 img{width:150px;height:124px;object-fit:contain;-webkit-transform:scale(1.35);transform:scale(1.35);
+  -webkit-box-shadow:0 8px 18px rgba(40,70,20,.28);box-shadow:0 8px 18px rgba(40,70,20,.28);
+  overflow:hidden;padding:6px}
+.lupa2 img{max-width:100%;max-height:100%;width:auto;height:auto;
+  -o-object-fit:contain;object-fit:contain;
   -webkit-animation:pop .35s;animation:pop .35s}
 .balao.porque{background:rgba(232,247,219,.97);font-size:14.5px;margin-top:9px;max-width:330px}
 .zona.posta{background:rgba(139,224,90,.28);border:2px solid #4f9b28;border-radius:10px}
@@ -307,12 +315,18 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
 @-webkit-keyframes gira{to{-webkit-transform:translate(-50%,-50%) rotate(360deg)}}
 @keyframes gira{to{transform:translate(-50%,-50%) rotate(360deg)}}
 /* monte o seu prato */
-.pratao{width:190px;height:190px;border-radius:50%;background:rgba(255,255,255,.95);
+/* o prato cabe os CINCO e nem um a mais: 3 em cima, 2 embaixo, sem transbordar */
+.pratao{width:212px;height:212px;border-radius:50%;background:rgba(255,255,255,.95);
   border:5px solid #cfe0b8;margin:12px 0;display:-webkit-box;display:-webkit-flex;display:flex;
   -webkit-flex-wrap:wrap;flex-wrap:wrap;-webkit-box-align:center;align-items:center;
-  -webkit-box-pack:center;justify-content:center;gap:2px;padding:14px;
+  -webkit-box-pack:center;justify-content:center;gap:3px;padding:16px;
   -webkit-box-shadow:0 8px 18px rgba(40,70,20,.28);box-shadow:0 8px 18px rgba(40,70,20,.28)}
-.pratao img{width:52px;height:52px;object-fit:contain;-webkit-animation:pop .35s;animation:pop .35s}
+.pratao img{width:52px;height:52px;-o-object-fit:contain;object-fit:contain;cursor:pointer;
+  -webkit-animation:pop .35s;animation:pop .35s}
+/* prato cheio: ele balança e diz que não cabe mais — nada de sumir em silêncio */
+.pratao.cheio{border-color:#e0a23c;-webkit-animation:trema .5s;animation:trema .5s}
+@-webkit-keyframes trema{0%,100%{-webkit-transform:translateX(0)}25%{-webkit-transform:translateX(-6px)}75%{-webkit-transform:translateX(6px)}}
+@keyframes trema{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 .pmarcas{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;
   -webkit-box-pack:center;justify-content:center;gap:5px;margin-bottom:4px;min-height:24px}
 .pmarca{background:-webkit-linear-gradient(top,#8be05a,#3f9a26);background:linear-gradient(#8be05a,#3f9a26);
@@ -492,7 +506,9 @@ function brotoEl(tam){
   return d;
 }
 function tiraDica(){ var d=document.getElementById("dicabox"); if(d&&d.parentNode) d.parentNode.removeChild(d); }
-function limpa(){ tiraDica(); app.innerHTML=""; banner.className="banner"; barra.innerHTML=""; btnOuvir=null; btnDica=null; }
+function limpa(){ tiraDica(); app.innerHTML=""; banner.className="banner"; barra.innerHTML=""; btnOuvir=null; btnDica=null;
+  /* solta o teclado de verdade: so a fase que o pediu escuta as teclas */
+  document.onkeydown=null; }
 function montaBarra(dicaId,dicaTxt){
   barra.innerHTML="";
   btnOuvir=el("button","mini","Ouvir de novo");
@@ -1220,6 +1236,10 @@ function telaMontaPalavra(){
   t.appendChild(cen);app.appendChild(t);
   function pede(){
     if(pi>=MONTAJD.length) return;   /* timer atrasado depois da ultima palavra */
+    /* ⚠️ e se a tela JA trocou? o timer de 780ms continua correndo depois do
+       limpa() e reinstalava o `document.onkeydown` desta fase por cima da
+       seguinte — o teclado da criança ficava preso na fase anterior.        */
+    if(!t.parentNode) return;
     var it=MONTAJD[pi],i;
     dica.innerHTML=it.d;
     slots.innerHTML="";letras.innerHTML="";
@@ -1229,9 +1249,11 @@ function telaMontaPalavra(){
     var caixas=[];
     for(i=0;i<it.p.length;i++){ var s=el("div","slot",""); slots.appendChild(s); caixas.push(s); }
     var ls=baguncar(it.p.split(""));
-    var passo=0;
+    var passo=0, bts={};
     for(i=0;i<ls.length;i++){ (function(L){
       var b=el("div","tec",L);
+      if(!bts[L]) bts[L]=[];
+      bts[L].push(b);
       b.onclick=function(){ arma();
         if(b.className.indexOf("usada")>=0) return;
         if(L===it.p.charAt(passo)){
@@ -1253,6 +1275,15 @@ function telaMontaPalavra(){
       };
       letras.appendChild(b);
     })(ls[i]); }
+    /* ⭐ AS DUAS PORTAS (regra da casa, ago/2026): quem tem teclado na frente
+       digita — no PC da escola tem; no celular, nao. As duas portas levam ao
+       mesmo lugar. A tecla acha a PRIMEIRA letra igual que ainda nao foi usada. */
+    document.onkeydown=function(ev){
+      var L=String.fromCharCode(ev.keyCode||ev.which||0).toUpperCase();
+      if(!/^[A-Z]$/.test(L)) return;
+      var a=bts[L],z; if(!a) return;
+      for(z=0;z<a.length;z++) if(a[z].className.indexOf("usada")<0){ a[z].onclick(); return; }
+    };
   }
   pede();
   montaBarra("jd_monta_dica","Fale o nome devagar: qual letrinha vem primeiro?");
@@ -1498,42 +1529,73 @@ function telaCiclo(){
    A crianca escolhe o almoco e o app vai carimbando de que parte veio cada
    alimento. Meta: 4 partes DIFERENTES no prato. E a fase que leva o conteudo
    para fora da tela — ela olha o prato de casa depois disso.                 */
+/* ⭐ O PRATO TEM CINCO LUGARES (pedido do Marcos, ago/2026: "não permitir o
+   aluno colocar mais de 5, para a comida não ficar de fora, que fica
+   visualmente feio"). Antes dava para empilhar alimento sem conta e a comida
+   transbordava do prato. Agora são CINCO lugares, e como a fase pede CINCO
+   partes diferentes, cada lugar vale um alimento de uma parte — repetir parte
+   custa um lugar. Para não haver beco sem saída, tocar num alimento que já
+   está no prato TIRA ele de volta.                                          */
+var MAXPRATO=5;
 function telaPrato(){
   limpa();var t=el("div","tela");setProg(t,88);
-  var noPrato=[],partes={},err=0,fim=false;
+  var noPrato=[],err=0,fim=false;
   var cen=el("div","centro");
   cen.appendChild(el("div","selo","MONTE O SEU PRATO"));
-  var bal=el("div","balao","Escolha alimentos de <b>5 partes diferentes</b> da planta.");
+  var bal=el("div","balao","O prato tem <b>5 lugares</b>. Escolha alimentos de <b>5 partes diferentes</b> da planta.");
   cen.appendChild(bal);
   var prato=el("div","pratao"); cen.appendChild(prato);
   var marcas=el("div","pmarcas"); cen.appendChild(marcas);
   var box=el("div","comida"),i;
+  function conta(){ var vis={},n=0,z;
+    for(z=0;z<noPrato.length;z++){ if(!vis[noPrato[z].it.parte]){ vis[noPrato[z].it.parte]=1; n++; } }
+    return [n,vis]; }
+  function repinta(){
+    var r=conta(),n=r[0],vis=r[1],z;
+    marcas.innerHTML="";
+    for(z in vis){ if(vis.hasOwnProperty(z)) marcas.appendChild(el("div","pmarca",nomeDe(z))); }
+    if(fim) return;
+    if(noPrato.length>=MAXPRATO&&n<5)
+      bal.innerHTML="O prato encheu com <b>"+n+"</b> parte"+(n===1?"":"s")+
+                    ". Toque num alimento <b>do prato</b> para tirar e trocar.";
+    else
+      bal.innerHTML="J&#225; tem <b>"+n+"</b> parte"+(n===1?"":"s")+" no prato. "+
+                    (n>=5?"Prato completo!":"Falta"+((5-n)===1?"":"m")+" <b>"+(5-n)+"</b>.");
+    if(n>=5&&!fim){ fim=true; sCerto(); sFesta(); festa(); reg("partes",err===0,err+1);
+      setTimeout(function(){ depoisDaFala("jd_prato_revela",10000,function(){
+        mostraBanner("Voc&#234; comeu a planta quase <b>inteira</b>: de raiz at&#233; semente!",telaQualParte); }); },1200);
+    }
+  }
+  function tira(reg1){
+    var z; for(z=0;z<noPrato.length;z++) if(noPrato[z]===reg1){ noPrato.splice(z,1); break; }
+    if(reg1.img.parentNode) reg1.img.parentNode.removeChild(reg1.img);
+    reg1.card.className="alim";
+    sTap(); repinta();
+  }
   for(i=0;i<COMER.length;i++){(function(it){
     var d=el("div","alim");
     d.appendChild(imgEl(it.img));
     d.appendChild(el("span","anome",it.nome));
     d.onclick=function(){ arma();
-      if(fim||d.className.indexOf("posto")>=0) return;
+      if(fim) return;
+      /* já está no prato? o toque TIRA (é o caminho de volta, sem beco) */
+      var z; for(z=0;z<noPrato.length;z++) if(noPrato[z].card===d){ tira(noPrato[z]); return; }
+      if(noPrato.length>=MAXPRATO){ sErro(); prato.className="pratao cheio";
+        setTimeout(function(){ prato.className="pratao"; },520);
+        bal.innerHTML="O prato tem s&#243; <b>5 lugares</b>. Toque num alimento <b>do prato</b> para tirar.";
+        return; }
       d.className="alim posto"; sPop(noPrato.length);
-      prato.appendChild(imgEl(it.img));
-      noPrato.push(it);
-      if(!partes[it.parte]){
-        partes[it.parte]=1;
-        var ch=el("div","pmarca",nomeDe(it.parte)); marcas.appendChild(ch);
-        var ce=centroTela(ch); faisca(ce[0],ce[1],"#8be05a",12);
-      }
-      var n=0,z; for(z in partes){ if(partes.hasOwnProperty(z)) n++; }
-      bal.innerHTML="J&#225; tem <b>"+n+"</b> parte"+(n===1?"":"s")+" no prato. "+
-                    (n>=5?"Prato completo!":"Falta"+((5-n)===1?"":"m")+" <b>"+(5-n)+"</b>.");
-      if(n>=5&&!fim){ fim=true; sCerto(); sFesta(); festa(); reg("partes",err===0,err+1);
-        setTimeout(function(){ depoisDaFala("jd_prato_revela",10000,function(){
-          mostraBanner("Voc&#234; comeu a planta quase <b>inteira</b>: de raiz at&#233; semente!",telaQualParte); }); },1200);
-      }
+      var im=imgEl(it.img); prato.appendChild(im);
+      var reg1={it:it,img:im,card:d};
+      noPrato.push(reg1);
+      im.onclick=function(ev){ if(ev&&ev.stopPropagation) ev.stopPropagation(); if(!fim) tira(reg1); };
+      var ce=centroTela(im); faisca(ce[0],ce[1],"#8be05a",12);
+      repinta();
     };
     box.appendChild(d);
   })(COMER[i]);}
   cen.appendChild(box);
-  cen.appendChild(el("div","hint","Toque nos alimentos para p&#244;r no prato."));
+  cen.appendChild(el("div","hint","Toque para p&#244;r no prato. Tocou num do prato, ele volta."));
   t.appendChild(cen);app.appendChild(t);
   montaBarra("jd_prato_dica","Alimentos de partes diferentes.");
   falar("jd_prato_intro");
