@@ -157,7 +157,7 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
 .mcarta .cst{width:42px;height:42px;object-fit:contain;opacity:.92;-webkit-filter:drop-shadow(0 2px 3px rgba(0,0,0,.25));filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
 .tbar{width:250px;height:14px;background:rgba(255,255,255,.55);border-radius:999px;overflow:hidden;margin:10px 0 4px}
 .tbar>i{display:block;height:100%;width:100%;background:-webkit-linear-gradient(left,#ef5a4a,var(--sol));background:linear-gradient(90deg,#ef5a4a,var(--sol))}
-.placar{font-size:16px;font-weight:700;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.45);margin-bottom:4px}
+.placar{font-size:16px;font-weight:700;color:#fff;margin-bottom:4px;display:inline-block;padding:3px 12px;border-radius:999px;background:rgba(30,27,18,.78)}
 @media (max-height:720px){
   .cel{height:34px;line-height:34px;font-size:16px}
   .mcarta{width:118px;height:70px;font-size:12px}
@@ -286,8 +286,8 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
 
 .btntreino{margin-top:10px;border:0;cursor:pointer;font-family:inherit;font-weight:800;font-size:17px;
   color:#fff;padding:13px 22px;border-radius:999px;
-  background:-webkit-linear-gradient(top,#3f9a26,#256113);background:linear-gradient(#3f9a26,#256113);
-  -webkit-box-shadow:0 5px 0 #1b4a0c,0 10px 16px rgba(0,0,0,.25);box-shadow:0 5px 0 #1b4a0c,0 10px 16px rgba(0,0,0,.25)}
+  background:-webkit-linear-gradient(top,#2f7a1c,#1d4f0d);background:linear-gradient(#2f7a1c,#1d4f0d);
+  -webkit-box-shadow:0 5px 0 #143808,0 10px 16px rgba(0,0,0,.25);box-shadow:0 5px 0 #143808,0 10px 16px rgba(0,0,0,.25)}
 .btntreino small{display:block;font-size:12px;font-weight:600;opacity:.92;margin-top:2px}
 
 /* a roda da planta (o ciclo) */
@@ -334,6 +334,28 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
   .comida{gap:4px;margin-top:6px}.alim{width:66px}.alim img{width:36px;height:36px}
   .alim .anome{font-size:9.5px}
 }
+/* alto-falante discreto: le a resposta para quem ainda nao le */
+.zap{position:relative;-webkit-flex:none;flex:none;width:30px;height:30px;border-radius:50%;background:rgba(58,48,32,.09);border:0;cursor:pointer;padding:0;margin-left:8px;vertical-align:middle;display:inline-block;opacity:.55;-webkit-transition:opacity .2s;transition:opacity .2s}
+.zap:hover,.zap:active{opacity:1;background:rgba(58,48,32,.2)}
+.zap i{position:absolute;left:8px;top:10px;width:5px;height:10px;background:var(--texto);border-radius:1px}
+.zap b{position:absolute;left:11px;top:7px;width:0;height:0;border-top:8px solid transparent;border-bottom:8px solid transparent;border-right:8px solid var(--texto)}
+.zap s{position:absolute;left:21px;top:9px;width:6px;height:12px;border:2px solid var(--texto);border-left:0;border-top-right-radius:9px;border-bottom-right-radius:9px;text-decoration:none}
+.zap.tocando{opacity:1;background:rgba(255,212,59,.5);-webkit-animation:zpul .8s ease-in-out infinite;animation:zpul .8s ease-in-out infinite}
+@-webkit-keyframes zpul{0%,100%{-webkit-transform:scale(1)}50%{-webkit-transform:scale(1.14)}}
+@keyframes zpul{0%,100%{transform:scale(1)}50%{transform:scale(1.14)}}
+/* fundo escuro (relampago, peca usada, ligacao certa) -> desenho branco */
+.bin .zap,.pc.usada .zap,.lig.ok .zap{background:rgba(255,255,255,.22)}
+.bin .zap i,.pc.usada .zap i,.lig.ok .zap i{background:#fff}
+.bin .zap b,.pc.usada .zap b,.lig.ok .zap b{border-right-color:#fff}
+.bin .zap s,.pc.usada .zap s,.lig.ok .zap s{border-color:#fff;border-left:0}
+.opt .zap,.pc .zap,.bin .zap{margin-left:6px}
+.lig .zap{margin:3px 0 0 5px}
+@media (max-height:720px){ .zap{width:26px;height:26px;margin-left:5px}
+  .zap i{left:7px;top:9px;height:8px}.zap b{left:9px;top:6px;border-top-width:7px;border-bottom-width:7px;border-right-width:7px}
+  .zap s{left:18px;top:8px;width:5px;height:10px} }
+@media (max-height:620px){ .zap{width:23px;height:23px;margin-left:4px}
+  .zap i{left:6px;top:8px;height:7px}.zap b{left:8px;top:5px;border-top-width:6px;border-bottom-width:6px;border-right-width:6px}
+  .zap s{left:16px;top:7px;width:4px;height:9px} }
 </style></head>
 <body>
 <div id="bg"></div>
@@ -343,6 +365,7 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
 <div class="barra" id="barra"></div>
 <div class="banner" id="banner"><div class="msg" id="bmsg"></div><button class="cta2" id="bcta">Continuar</button></div>
 <audio id="narr" preload="auto"></audio>
+<audio id="vz" preload="none"></audio>
 <script>
 "use strict";
 /* ============ IMAGENS ============ */
@@ -486,6 +509,70 @@ function setProg(t,p){var pr=el("div","prog");var i=el("i");i.style.width=p+"%";
 function mostraBanner(msg,cb){bmsg.innerHTML=msg;banner.className="banner bom show";festa();sCerto();bcta.onclick=function(){arma();banner.className="banner";cb();};}
 function elogio(){ var n=["jd_acerto1","jd_acerto2","jd_acerto3"]; falar(n[Math.floor(Math.random()*3)]); }
 function consolo(){ falar(Math.random()<0.5?"jd_erro1":"jd_erro2"); }
+/* ============ ALTO-FALANTE POR RESPOSTA (acessibilidade) ============
+   A crianca de 2o ano ainda esta aprendendo a ler. Sem isso, ela escolhe pelo
+   desenho ou no chute. O botaozinho le AQUELA resposta, sem ler as outras. */
+var VOZOK={"12ra9zq": 1, "13gdxr5": 1, "161xibw": 1, "1fx0nyt": 1, "1hyvwek": 1, "1lsgng4": 1, "1lzz1g": 1, "1o8wguu": 1, "1s1ccvs": 1, "1sv5reu": 1, "1tcakad": 1, "47ku2z": 1, "47xakv": 1, "481udi": 1, "4ac4b3": 1, "4aendh": 1, "5tjc85": 1, "ad87h3": 1, "aftkt7": 1, "cvat5s": 1, "f9r4ca": 1, "kadav6": 1, "puto2p": 1, "ykhjdk": 1, "ykqiqj": 1};
+var vz=document.getElementById("vz"), zapAtual=null;
+function chaveVoz(s){
+  s=(s||"").replace(/\s+/g," ").replace(/^ | $/g,"").toLowerCase();
+  var hh=5381,i; for(i=0;i<s.length;i++){ hh=((hh<<5)+hh+s.charCodeAt(i))>>>0; }
+  return hh.toString(36);
+}
+function temVoz(s){ var k=chaveVoz(s); return VOZOK[k]?k:null; }
+function paraZap(){ if(zapAtual){ zapAtual.className="zap"; zapAtual=null; } }
+vz.addEventListener("ended",paraZap);
+vz.addEventListener("error",paraZap);
+function tocaVoz(k,bt){
+  arma();
+  try{ narr.pause(); }catch(e){}
+  paraBoca();
+  paraZap();
+  try{ vz.pause(); vz.currentTime=0; }catch(e){}
+  vz.src="audio/op_"+k+".mp3";
+  var pr=vz.play(); if(pr&&pr["catch"]) pr["catch"](function(){ paraZap(); });
+  if(bt){ bt.className="zap tocando"; zapAtual=bt; }
+}
+function poeZap(elm){
+  var txt=elm.textContent;
+  /* o texto pode TROCAR no mesmo elemento; por isso guardo o texto usado,
+     e nao um sim/nao. */
+  if(elm.__zaptxt===txt) return;
+  elm.__zaptxt=txt;
+  var velho=elm.getElementsByClassName("zap")[0];
+  if(velho&&velho.parentNode) velho.parentNode.removeChild(velho);
+  var k=temVoz(txt);
+  if(!k) return;
+  var bt=document.createElement("button");
+  bt.className="zap"; bt.type="button";
+  bt.setAttribute("aria-label","Ouvir esta resposta");
+  bt.appendChild(document.createElement("i"));
+  bt.appendChild(document.createElement("b"));
+  bt.appendChild(document.createElement("s"));
+  bt.onclick=function(ev){
+    if(ev&&ev.stopPropagation) ev.stopPropagation();
+    if(ev&&ev.preventDefault) ev.preventDefault();
+    tocaVoz(k,bt);
+    return false;
+  };
+  elm.appendChild(bt);
+}
+var ZAPSEL=".opt,.lig,.pc,.bin";
+function poeVozes(){
+  if(!app) return;
+  var els=app.querySelectorAll(ZAPSEL),i;
+  for(i=0;i<els.length;i++) poeZap(els[i]);
+}
+(function(){
+  var pend=0;
+  function agenda(){ if(pend) return; pend=setTimeout(function(){ pend=0; poeVozes(); },60); }
+  if(window.MutationObserver){
+    var mo=new MutationObserver(agenda);
+    mo.observe(app,{childList:true,subtree:true,characterData:true});
+  }
+  agenda();
+})();
+
 /* ============ 1) CAPA ============ */
 function telaCapa(){limpa();var t=el("div","tela");var c=el("div","centro");
   c.appendChild(brotoEl("gg"));
@@ -676,6 +763,9 @@ var PLAQLADO={flor:"esq",folha:"esq",caule:"dir",fruto:"dir",semente:"dir",raiz:
 var ZONAS={flor:[39,27,7,6],fruto:[61,28,9,9],folha:[35,42,11,8],
            caule:[49,57,4,7],semente:[72,57,7,5],raiz:[49,78,16,10]};
 function telaPartesBase(cfg){
+  /* sem config = alguem chamou a base direto (auditores de contraste/leiaute
+     abrem TODA tela sem argumento). Cai na tela padrao em vez de estourar. */
+  if(!cfg){ telaPartes(); return; }
   limpa();var t=el("div","tela");setProg(t,cfg.prog);
   var alvo=el("div","balao","");t.appendChild(alvo);
   var pi=0,err=0;
@@ -983,6 +1073,9 @@ function telaCacaPartes(){ telaCacaBase({lista:CACAPARTES,N:8,prog:94,conc:"part
   revela:"jd_cacap_revela",msg:"<b>Raiz, caule, folha, flor, fruto e semente</b>: achou as seis!",
   prox:telaMemoria}); }
 function telaCacaBase(cfg){
+  /* sem config = alguem chamou a base direto (auditores de contraste/leiaute
+     abrem TODA tela sem argumento). Cai na caca padrao em vez de estourar. */
+  if(!cfg){ telaCacaJd(); return; }
   var CACAJD=cfg.lista;
   limpa();var t=el("div","tela");setProg(t,cfg.prog);
   t.appendChild(el("div","balao",cfg.txt));
@@ -1010,6 +1103,9 @@ function telaCacaBase(cfg){
   for(i=0;i<N;i++)for(j=0;j<N;j++) if(!gr[i][j]) gr[i][j]=AL.charAt(Math.floor(Math.random()*AL.length));
   var cen=el("div","centro");
   var grade=el("div","grade"),cels=[],sel=null,trava=false;
+  /* onde cada palavra ficou — SO para o auditor jogador conseguir resolver o
+     caca-palavras (clicando ao acaso ele nunca acha). Nao aparece para ninguem. */
+  grade.setAttribute("data-qa",JSON.stringify(pos));
   for(i=0;i<N;i++){ cels[i]=[];
     for(j=0;j<N;j++){ (function(r,c){
       var cl=el("div","cel",gr[r][c]);
@@ -1080,9 +1176,13 @@ function telaMontaPalavra(){
   cen.appendChild(el("div","hint","Toque nas letras na ordem certa."));
   t.appendChild(cen);app.appendChild(t);
   function pede(){
+    if(pi>=MONTAJD.length) return;   /* timer atrasado depois da ultima palavra */
     var it=MONTAJD[pi],i;
     dica.innerHTML=it.d;
     slots.innerHTML="";letras.innerHTML="";
+    /* a palavra da vez — SO para o auditor jogador conseguir montar (no acaso
+       ele nunca acerta a ordem). Nao aparece para ninguem. */
+    letras.setAttribute("data-qa",it.p);
     var caixas=[];
     for(i=0;i<it.p.length;i++){ var s=el("div","slot",""); slots.appendChild(s); caixas.push(s); }
     var ls=baguncar(it.p.split(""));
