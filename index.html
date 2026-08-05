@@ -14,9 +14,9 @@ body{font-family:"Fredoka",ui-rounded,"Segoe UI",system-ui,Arial,sans-serif;colo
 #bg{position:fixed;inset:0;z-index:0;background:#cdeeff center/cover no-repeat;background-image:url(img/jd_fundo.jpg)}
 #ceu{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:1;pointer-events:none}
 #app{position:fixed;inset:0;z-index:2}
-.tela{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;-webkit-box-align:center;align-items:center;padding:calc(40px + env(safe-area-inset-top)) 16px calc(104px + env(safe-area-inset-bottom));-webkit-animation:fade .45s;animation:fade .45s}
+.tela{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;-webkit-box-align:center;align-items:center;padding:calc(40px + env(safe-area-inset-top)) 16px calc(86px + env(safe-area-inset-bottom));-webkit-animation:fade .45s;animation:fade .45s}
 @-webkit-keyframes fade{from{opacity:0}to{opacity:1}}@keyframes fade{from{opacity:0}to{opacity:1}}
-.balao{position:relative;max-width:430px;background:rgba(255,253,246,.95);border:0;border-radius:22px;padding:13px 18px;font-size:17px;font-weight:600;text-align:center;line-height:1.35;
+.balao{max-width:430px;background:rgba(255,253,246,.95);border:0;border-radius:22px;padding:13px 18px;font-size:17px;font-weight:600;text-align:center;line-height:1.35;
   -webkit-box-shadow:0 6px 18px rgba(30,50,20,.22);box-shadow:0 6px 18px rgba(30,50,20,.22)}
 .balao b{color:#2c7318}
 .centro{-webkit-box-flex:1;-webkit-flex:1;flex:1;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;width:100%}
@@ -355,29 +355,6 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
 .zap b{position:absolute;left:11px;top:7px;width:0;height:0;border-top:8px solid transparent;border-bottom:8px solid transparent;border-right:8px solid var(--texto)}
 .zap s{position:absolute;left:21px;top:9px;width:6px;height:12px;border:2px solid var(--texto);border-left:0;border-top-right-radius:9px;border-bottom-right-radius:9px;text-decoration:none}
 .zap.tocando{opacity:1;background:rgba(255,212,59,.5);-webkit-animation:zpul .8s ease-in-out infinite;animation:zpul .8s ease-in-out infinite}
-/* ⭐ ALTO-FALANTE NA PERGUNTA (pedido do Marcos, ago/2026: "precisa acrescentar
-   um botao de som na atividade do 2 ano onde sao as perguntas, para ajudar quem
-   nao sabe ler"). No 2o ano MUITA crianca ainda nao le: a narracao toca sozinha
-   uma vez, mas se ela se distrai, perdeu. O botao "Ouvir de novo" existe la
-   embaixo, na barra — longe do texto e com NOME ESCRITO, que e justamente o que
-   ela nao le. O lugar do botao e GRUDADO no enunciado, e ele e um desenho de
-   alto-falante, nao uma palavra.                                            */
-/* ⚠️ O BOTAO NAO PODE TAPAR A PERGUNTA. A primeira versao pousava no canto de
-   cima do balao e cobria a ultima palavra ("Toque na RAI[z]", "Que parte da
-   planta e esta[?]"). Um botao de acessibilidade que esconde justamente o texto
-   que a crianca precisa e o contrario do que ele existe para fazer. Agora o
-   balao ABRE ESPACO para ele (classe `comzap`) e o botao mora dentro desse
-   espaco, no meio da altura.                                               */
-.balao.comzap{padding-right:56px}
-.zapb{position:absolute;right:9px;top:50%;margin-top:-19px;width:38px;height:38px;border-radius:50%;
-  background:#ffd43b;border:3px solid #fffdf6;cursor:pointer;padding:0;
-  -webkit-box-shadow:0 3px 9px rgba(60,45,15,.35);box-shadow:0 3px 9px rgba(60,45,15,.35)}
-.zapb i{position:absolute;left:11px;top:13px;width:5px;height:11px;background:#4a3a10;border-radius:1px}
-.zapb b{position:absolute;left:14px;top:9px;width:0;height:0;border-top:9px solid transparent;
-  border-bottom:9px solid transparent;border-right:9px solid #4a3a10}
-.zapb s{position:absolute;left:25px;top:12px;width:6px;height:13px;border:2px solid #4a3a10;
-  border-left:0;border-top-right-radius:9px;border-bottom-right-radius:9px;text-decoration:none}
-.zapb.tocando{background:#7bd44a;-webkit-animation:zpul .8s ease-in-out infinite;animation:zpul .8s ease-in-out infinite}
 @-webkit-keyframes zpul{0%,100%{-webkit-transform:scale(1)}50%{-webkit-transform:scale(1.14)}}
 @keyframes zpul{0%,100%{transform:scale(1)}50%{transform:scale(1.14)}}
 /* fundo escuro (relampago, peca usada, ligacao certa) -> desenho branco */
@@ -608,32 +585,6 @@ function poeZap(elm){
   elm.appendChild(bt);
 }
 var ZAPSEL=".opt,.lig,.pc,.bin";
-/* ⭐ o alto-falante do ENUNCIADO: toca de novo a MESMA narracao da tela.
-   Vale para todo balao de pergunta; os baloezinhos de apoio (.pequeno, .porque)
-   ficam de fora para nao encher a tela de botao.                            */
-function poeVozPergunta(){
-  if(!app) return;
-  var bs=app.getElementsByClassName("balao"),i;
-  for(i=0;i<bs.length;i++){
-    var b=bs[i];
-    if(b.getElementsByClassName("zapb")[0]) continue;
-    if(b.className.indexOf("pequeno")>=0||b.className.indexOf("porque")>=0) continue;
-    var bt=document.createElement("button");
-    bt.className="zapb"; bt.type="button";
-    bt.setAttribute("aria-label","Ouvir a pergunta de novo");
-    bt.appendChild(document.createElement("i"));
-    bt.appendChild(document.createElement("b"));
-    bt.appendChild(document.createElement("s"));
-    bt.onclick=function(ev){
-      if(ev&&ev.stopPropagation) ev.stopPropagation();
-      if(ev&&ev.preventDefault) ev.preventDefault();
-      arma(); if(falaAtual) falar(falaAtual);
-      return false;
-    };
-    b.appendChild(bt);
-    b.className=b.className+" comzap";
-  }
-}
 function poeVozes(){
   if(!app) return;
   var els=app.querySelectorAll(ZAPSEL),i;
@@ -641,7 +592,7 @@ function poeVozes(){
 }
 (function(){
   var pend=0;
-  function agenda(){ if(pend) return; pend=setTimeout(function(){ pend=0; poeVozes(); poeVozPergunta(); },60); }
+  function agenda(){ if(pend) return; pend=setTimeout(function(){ pend=0; poeVozes(); },60); }
   if(window.MutationObserver){
     var mo=new MutationObserver(agenda);
     mo.observe(app,{childList:true,subtree:true,characterData:true});
