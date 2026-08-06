@@ -432,14 +432,23 @@ function sFesta(){ var n=[523,659,784,1046,1318],i; for(i=0;i<n.length;i++) tom(
 function sAgua(){ tom(900,0.18,"sine",0.08); tom(650,0.2,"sine",0.08,0.05); }
 /* ============ NARRAÇÃO + LIP-SYNC ============ */
 var narr=document.getElementById("narr");
-var anaNode=null,anaBuf=null,anaOk=false,anaTent=false,bocaAlvo=0,bocaSuave=0,falaTimer=0,falaAtual="",falandoCb=null;
+var anaNode=null,anaBuf=null,anaOk=false,anaTent=false,bocaAlvo=0,bocaSuave=0,falaTimer=0,falaAtual="",falaTela="",falandoCb=null;
 function ligaAnalisador(){
   if(anaOk||anaTent)return; anaTent=true;
   try{ if(!ac)return; var src=ac.createMediaElementSource(narr); anaNode=ac.createAnalyser(); anaNode.fftSize=256;
     anaBuf=new Uint8Array(anaNode.fftSize); src.connect(anaNode); anaNode.connect(ac.destination); anaOk=true; }catch(e){}
 }
+/* ⚠️ A VOZ DA TELA NAO E "A ULTIMA COISA FALADA" (defeito que o Marcos pegou,
+   ago/2026: "ao inves de ler o enunciado, ele repete o da curiosidade la de
+   baixo"). O `falaAtual` guarda o ULTIMO audio tocado — e quem toca audio aqui
+   nao e so a tela: e o elogio, o consolo, a dica e o post-it de curiosidade.
+   Bastava a crianca abrir o "Voce sabia?" para o botao do enunciado passar a
+   repetir a curiosidade. O botao "Ouvir de novo" ja tinha esse defeito ha
+   tempo; o alto-falante no enunciado so tornou ele obvio.
+   `falaTela` guarda a narracao QUE E DA TELA — as secundarias nao a alteram. */
+function ehSecundaria(id){ return /_cur_|_dica$|_acerto\d|_erro\d/.test(id||""); }
 function falar(id,cb){
-  falandoCb=cb||null; falaAtual=id;
+  falandoCb=cb||null; falaAtual=id; if(!ehSecundaria(id)) falaTela=id;
   if(ac&&ac.state==="suspended"){try{ac.resume();}catch(e){}}
   try{ narr.pause(); narr.currentTime=0; }catch(e){}
   narr.src="audio/"+id+".mp3";
@@ -535,7 +544,7 @@ function limpa(){ tiraDica(); app.innerHTML=""; banner.className="banner"; barra
 function montaBarra(dicaId,dicaTxt){
   barra.innerHTML="";
   btnOuvir=el("button","mini","Ouvir de novo");
-  btnOuvir.onclick=function(){ arma(); if(falaAtual) falar(falaAtual); };
+  btnOuvir.onclick=function(){ arma(); var v=falaTela||falaAtual; if(v) falar(v); };
   barra.appendChild(btnOuvir);
   if(dicaId){
     dicaAtual=dicaId; dicaTexto=dicaTxt||"";
@@ -627,7 +636,7 @@ function poeVozPergunta(){
     bt.onclick=function(ev){
       if(ev&&ev.stopPropagation) ev.stopPropagation();
       if(ev&&ev.preventDefault) ev.preventDefault();
-      arma(); if(falaAtual) falar(falaAtual);
+      arma(); var v=falaTela||falaAtual; if(v) falar(v);
       return false;
     };
     b.appendChild(bt);
