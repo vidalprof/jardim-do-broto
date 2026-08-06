@@ -417,6 +417,10 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
 <script>
 "use strict";
 /* ============ IMAGENS ============ */
+/* ⚠️ O NOME DO MASCOTE, DECLARADO. Nao e enfeite: o `_qa/clone.py`
+   le esta linha de TODAS as atividades e reprova se o nome de um
+   mascote alheio aparecer no texto desta.                            */
+var MASCOTE_NOME="Broto";
 var IMGS=["jd_broto_feliz","jd_broto_fala","jd_broto_pisca","jd_broto_pensa","jd_broto_festa","jd_g0","jd_g1","jd_g2","jd_g3","jd_g4","jd_sol","jd_agua","jd_terra","jd_ar","jd_refri","jd_celular","jd_meia","jd_partes","med_jardim","jd_cr1","jd_cr2","jd_cr3","jd_cr4","jd_cr5","jd_cr6"];
 var IMG={};(function(){var i;for(i=0;i<IMGS.length;i++){var im=new Image();im.src="img/"+IMGS[i]+".png";IMG[IMGS[i]]=im;}})();
 function imgEl(nome,cls){var e=document.createElement("img");if(cls)e.className=cls;e.src="img/"+nome+".png";e.alt="";e.draggable=false;return e;}
@@ -432,7 +436,7 @@ function sFesta(){ var n=[523,659,784,1046,1318],i; for(i=0;i<n.length;i++) tom(
 function sAgua(){ tom(900,0.18,"sine",0.08); tom(650,0.2,"sine",0.08,0.05); }
 /* ============ NARRAÇÃO + LIP-SYNC ============ */
 var narr=document.getElementById("narr");
-var anaNode=null,anaBuf=null,anaOk=false,anaTent=false,bocaAlvo=0,bocaSuave=0,falaTimer=0,falaAtual="",falaTela="",falandoCb=null;
+var anaNode=null,anaBuf=null,anaOk=false,anaTent=false,bocaAlvo=0,bocaSuave=0,falaTimer=0,falaAtual="",falaTela="",telaNarrou=false,falandoCb=null;
 function ligaAnalisador(){
   if(anaOk||anaTent)return; anaTent=true;
   try{ if(!ac)return; var src=ac.createMediaElementSource(narr); anaNode=ac.createAnalyser(); anaNode.fftSize=256;
@@ -448,7 +452,12 @@ function ligaAnalisador(){
    `falaTela` guarda a narracao QUE E DA TELA — as secundarias nao a alteram. */
 function ehSecundaria(id){ return /_cur_|_dica$|_acerto\d|_erro\d/.test(id||""); }
 function falar(id,cb){
-  falandoCb=cb||null; falaAtual=id; if(!ehSecundaria(id)) falaTela=id;
+  /* ⚠️ a voz da tela e a PRIMEIRA narracao depois que a tela foi montada
+     (`limpa()` zera o `telaNarrou`). O que vier depois, na mesma tela, e reacao
+     — elogio, consolo, curiosidade, "ok". A regra antiga era uma LISTA de
+     sufixos e crescia um item por defeito descoberto.                      */
+  falandoCb=cb||null; falaAtual=id;
+  if(!ehSecundaria(id)&&!telaNarrou){ falaTela=id; telaNarrou=true; }
   if(ac&&ac.state==="suspended"){try{ac.resume();}catch(e){}}
   try{ narr.pause(); narr.currentTime=0; }catch(e){}
   narr.src="audio/"+id+".mp3";
@@ -538,7 +547,7 @@ function brotoEl(tam){
   return d;
 }
 function tiraDica(){ var d=document.getElementById("dicabox"); if(d&&d.parentNode) d.parentNode.removeChild(d); }
-function limpa(){ tiraDica(); app.innerHTML=""; banner.className="banner"; barra.innerHTML=""; btnOuvir=null; btnDica=null;
+function limpa(){ telaNarrou=false; tiraDica(); app.innerHTML=""; banner.className="banner"; barra.innerHTML=""; btnOuvir=null; btnDica=null;
   /* solta o teclado de verdade: so a fase que o pediu escuta as teclas */
   document.onkeydown=null; }
 function montaBarra(dicaId,dicaTxt){
