@@ -597,13 +597,45 @@ function brotoEl(tam){
   return d;
 }
 function tiraDica(){ var d=document.getElementById("dicabox"); if(d&&d.parentNode) d.parentNode.removeChild(d); }
-function limpa(){ telaNarrou=false; tiraDica(); app.innerHTML=""; banner.className="banner"; barra.innerHTML=""; btnOuvir=null; btnDica=null;
+function limpa(){ telaNarrou=false;
+  /* ⚠️⚠️ LICAO PAGA (ago/2026), pega pelo Marcos jogando: *"tem audio falando
+     da fase anterior, nos botoes de audio"*.
+
+     `telaNarrou` era zerado aqui, mas o `falaTela` — que guarda QUAL audio o
+     botao do balao vai tocar — ficava com o id da tela ANTERIOR. Entao, entre
+     desenhar a tela nova e a narracao dela comecar, o alto-falante tocava a
+     pergunta da fase passada. E numa tela que NAO narra sozinha (a "Quem vai
+     cuidar do jardim hoje?" e o menu do professor), ele tocava a fase anterior
+     PARA SEMPRE. Medido: 2 telas assim, e a janela de troca em todas as 26.
+
+     Zerar aqui e a metade do conserto; a outra metade e o `vozDoQueEstaEscrito`,
+     que faz o botao ler o BALAO e tocar a gravacao DAQUELE texto. */
+  falaTela="";
+  tiraDica(); app.innerHTML=""; banner.className="banner"; barra.innerHTML=""; btnOuvir=null; btnDica=null;
   /* solta o teclado de verdade: so a fase que o pediu escuta as teclas */
   document.onkeydown=null; }
+
+/* ⭐ A VOZ DO BOTAO SAI DO QUE ESTA ESCRITO NA TELA — nunca de uma sobra.
+   Ordem: (1) a narracao DESTA tela, se ja comecou; (2) a gravacao do texto que
+   esta no balao AGORA; (3) nada. Nunca o `falaAtual` solto, que e justamente o
+   que trazia a fase anterior. Regra da casa: calado e melhor que dizer outra
+   coisa — a crianca que ainda nao le acredita na voz. */
+function vozDoQueEstaEscrito(){
+  var bs=app?app.getElementsByClassName("balao"):null,i;
+  for(i=0;bs&&i<bs.length;i++){
+    var b=bs[i];
+    if(b.className.indexOf("pequeno")>=0||b.className.indexOf("porque")>=0) continue;
+    var t=(b.textContent||"").replace(/\s+/g," ").replace(/^ | $/g,"");
+    var k=t?temVoz(t):null;
+    if(k) return "op_"+k;
+  }
+  return "";
+}
+function vozDaTela(){ return falaTela||vozDoQueEstaEscrito(); }
 function montaBarra(dicaId,dicaTxt){
   barra.innerHTML="";
   btnOuvir=el("button","mini","Ouvir de novo");
-  btnOuvir.onclick=function(){ arma(); var v=falaTela||falaAtual; if(v) falar(v); };
+  btnOuvir.onclick=function(){ arma(); var v=vozDaTela(); if(v) falar(v); };
   barra.appendChild(btnOuvir);
   if(dicaId){
     dicaAtual=dicaId; dicaTexto=dicaTxt||"";
@@ -630,7 +662,7 @@ function consolo(){ falar(Math.random()<0.5?"jd_erro1":"jd_erro2"); }
 /* ============ ALTO-FALANTE POR RESPOSTA (acessibilidade) ============
    A crianca de 2o ano ainda esta aprendendo a ler. Sem isso, ela escolhe pelo
    desenho ou no chute. O botaozinho le AQUELA resposta, sem ler as outras. */
-var VOZOK={"12ra9zq": 1, "13gdxr5": 1, "15chq8d": 1, "161xibw": 1, "173xt3v": 1, "1brmxc7": 1, "1ftqyy7": 1, "1fx0nyt": 1, "1g79l1u": 1, "1hyvwek": 1, "1jjeybo": 1, "1l0w3cn": 1, "1lsgng4": 1, "1lzz1g": 1, "1n8im9k": 1, "1o8wguu": 1, "1s1ccvs": 1, "1sv5reu": 1, "1tcakad": 1, "1v58tk1": 1, "1vl2tki": 1, "1vwzisd": 1, "1y8vjg5": 1, "1yibdey": 1, "47ku2z": 1, "47xakv": 1, "481udi": 1, "48831j": 1, "4a9vv0": 1, "4ac4b3": 1, "4aendh": 1, "4f5fdq": 1, "5tjc85": 1, "8h3rhr": 1, "a56dj3": 1, "ad87h3": 1, "aftkt7": 1, "cvat5s": 1, "f9r4ca": 1, "ge687": 1, "kadav6": 1, "puto2p": 1, "vqu1c6": 1, "ykeywo": 1, "ykhjdk": 1, "ykqiqj": 1};
+var VOZOK={"10xb7ms": 1, "12ra9zq": 1, "13gdxr5": 1, "15chq8d": 1, "161xibw": 1, "173xt3v": 1, "1brmxc7": 1, "1ftqyy7": 1, "1fx0nyt": 1, "1g79l1u": 1, "1hyvwek": 1, "1jjeybo": 1, "1l0w3cn": 1, "1lsgng4": 1, "1lzz1g": 1, "1n8im9k": 1, "1o8wguu": 1, "1s1ccvs": 1, "1sv5reu": 1, "1tcakad": 1, "1v58tk1": 1, "1vl2tki": 1, "1vwzisd": 1, "1y8vjg5": 1, "1yibdey": 1, "47ku2z": 1, "47xakv": 1, "481udi": 1, "48831j": 1, "4a9vv0": 1, "4ac4b3": 1, "4aendh": 1, "4f5fdq": 1, "5tjc85": 1, "8h3rhr": 1, "a56dj3": 1, "ad87h3": 1, "aftkt7": 1, "cvat5s": 1, "f9r4ca": 1, "ge687": 1, "kadav6": 1, "puto2p": 1, "vqu1c6": 1, "ykeywo": 1, "ykhjdk": 1, "ykqiqj": 1};
 var vz=document.getElementById("vz"), zapAtual=null;
 function chaveVoz(s){
   s=(s||"").replace(/\s+/g," ").replace(/^ | $/g,"").toLowerCase();
@@ -695,7 +727,7 @@ function poeVozPergunta(){
     bt.onclick=function(ev){
       if(ev&&ev.stopPropagation) ev.stopPropagation();
       if(ev&&ev.preventDefault) ev.preventDefault();
-      arma(); var v=falaTela||falaAtual; if(v) falar(v);
+      arma(); var v=vozDaTela(); if(v) falar(v);
       return false;
     };
     b.appendChild(bt);

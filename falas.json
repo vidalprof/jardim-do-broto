@@ -1,0 +1,582 @@
+[
+ {
+  "id": "jd_abertura",
+  "texto": "Oi! Eu sou o Broto. O meu jardim está vazio... vem me ajudar a fazer a vida crescer?"
+ },
+ {
+  "id": "jd_aquec_intro",
+  "texto": "Uma planta que fica no escuro, sem nenhuma luz: o que acontece com ela?"
+ },
+ {
+  "id": "jd_caca_dica",
+  "texto": "As palavras estão deitadas ou em pé."
+ },
+ {
+  "id": "jd_caca_intro",
+  "texto": "Ache as 4 palavras escondidas. São as coisas de que a planta precisa."
+ },
+ {
+  "id": "jd_caca_revela",
+  "texto": "Sol, água, terra e ar: achou todas!"
+ },
+ {
+  "id": "jd_cacap_dica",
+  "texto": "Toque na primeira e depois na última letra."
+ },
+ {
+  "id": "jd_cacap_intro",
+  "texto": "Agora as 6 partes da planta estão escondidas no quadro."
+ },
+ {
+  "id": "jd_cacap_revela",
+  "texto": "Raiz, caule, folha, flor, fruto e semente: achou as seis!"
+ },
+ {
+  "id": "jd_ciclo_dica",
+  "texto": "O que vem antes e o que vem depois?"
+ },
+ {
+  "id": "jd_ciclo_intro",
+  "texto": "Que parte da roda está faltando?"
+ },
+ {
+  "id": "jd_ciclo_revela",
+  "texto": "A semente vira planta, a planta vira fruto e no fruto tem semente de novo!"
+ },
+ {
+  "id": "jd_come_abobora",
+  "texto": "Quando a gente come ABÓBORA, que parte da planta é?"
+ },
+ {
+  "id": "jd_come_alface",
+  "texto": "Quando a gente come ALFACE, que parte da planta é?"
+ },
+ {
+  "id": "jd_come_amendoim",
+  "texto": "Quando a gente come AMENDOIM, que parte da planta é?"
+ },
+ {
+  "id": "jd_come_batata",
+  "texto": "Quando a gente come BATATA, que parte da planta é?"
+ },
+ {
+  "id": "jd_come_beterraba",
+  "texto": "Quando a gente come BETERRABA, que parte da planta é?"
+ },
+ {
+  "id": "jd_come_brocolis",
+  "texto": "Quando a gente come BRÓCOLIS, que parte da planta é?"
+ },
+ {
+  "id": "jd_come_cana",
+  "texto": "Quando a gente come CANA, que parte da planta é?"
+ },
+ {
+  "id": "jd_come_cenoura",
+  "texto": "Quando a gente come CENOURA, que parte da planta é?"
+ },
+ {
+  "id": "jd_come_couve",
+  "texto": "Quando a gente come COUVE, que parte da planta é?"
+ },
+ {
+  "id": "jd_come_couveflor",
+  "texto": "Quando a gente come COUVE-FLOR, que parte da planta é?"
+ },
+ {
+  "id": "jd_come_dica",
+  "texto": "Onde essa parte fica na planta?"
+ },
+ {
+  "id": "jd_come_feijao",
+  "texto": "Quando a gente come FEIJÃO, que parte da planta é?"
+ },
+ {
+  "id": "jd_come_milho",
+  "texto": "Quando a gente come MILHO, que parte da planta é?"
+ },
+ {
+  "id": "jd_come_morango",
+  "texto": "Quando a gente come MORANGO, que parte da planta é?"
+ },
+ {
+  "id": "jd_come_palmito",
+  "texto": "Quando a gente come PALMITO, que parte da planta é?"
+ },
+ {
+  "id": "jd_come_revela",
+  "texto": "No prato tem raiz, folha, caule, flor, fruto e semente!"
+ },
+ {
+  "id": "jd_come_tomate",
+  "texto": "Quando a gente come TOMATE, que parte da planta é?"
+ },
+ {
+  "id": "jd_ensinar_pede",
+  "texto": "Me conta: por que a planta precisa da luz do sol?"
+ },
+ {
+  "id": "jd_mem_intro",
+  "texto": "Vire duas cartas e ache a parte junto com o trabalho dela."
+ },
+ {
+  "id": "jd_mem_revela",
+  "texto": "Cada parte tem o seu trabalho!"
+ },
+ {
+  "id": "jd_monta_caule",
+  "texto": "A parte que segura a planta em pé."
+ },
+ {
+  "id": "jd_monta_dica",
+  "texto": "Fale o nome devagar: qual letrinha vem primeiro?"
+ },
+ {
+  "id": "jd_monta_flor",
+  "texto": "A parte colorida que chama a abelha."
+ },
+ {
+  "id": "jd_monta_folha",
+  "texto": "A parte verde que toma o sol."
+ },
+ {
+  "id": "jd_monta_fruto",
+  "texto": "A parte que nasce da flor e guarda a semente."
+ },
+ {
+  "id": "jd_monta_raiz",
+  "texto": "A parte que fica dentro da terra e bebe a água."
+ },
+ {
+  "id": "jd_monta_revela",
+  "texto": "Você escreveu as seis partes da planta!"
+ },
+ {
+  "id": "jd_monta_semente",
+  "texto": "A partezinha de onde nasce uma planta nova."
+ },
+ {
+  "id": "jd_p1_dica",
+  "texto": "Dê um pouquinho de sol E um pouquinho de água, os dois juntos."
+ },
+ {
+  "id": "jd_p1_faca",
+  "texto": "Vamos plantar! Dê sol e água para a semente crescer."
+ },
+ {
+  "id": "jd_p1_intro",
+  "texto": "Se eu der só água, e nenhum sol, você acha que a sementinha cresce?"
+ },
+ {
+  "id": "jd_p1_prever",
+  "texto": "Se eu der só água, e nenhum sol, você acha que a sementinha cresce?"
+ },
+ {
+  "id": "jd_p1_revela",
+  "texto": "A planta cresceu! Ela precisa de sol e água."
+ },
+ {
+  "id": "jd_p2_dica",
+  "texto": "Uma planta no escuro, sem nenhuma luz, será que consegue?"
+ },
+ {
+  "id": "jd_p2_intro",
+  "texto": "Três vasos iguais. Qual vai crescer mais? Toque no que você acha."
+ },
+ {
+  "id": "jd_p2_prever",
+  "texto": "Três vasos iguais. Qual vai crescer mais? Toque no que você acha."
+ },
+ {
+  "id": "jd_p2_revela",
+  "texto": "Só cresceu bem o que tinha luz e água!"
+ },
+ {
+  "id": "jd_p3_dica",
+  "texto": "Comece pelo que é bem pequenininho e fica escondido na terra."
+ },
+ {
+  "id": "jd_p3_intro",
+  "texto": "Coloque em ordem como a planta cresce: do primeiro ao último."
+ },
+ {
+  "id": "jd_p3_revela",
+  "texto": "Semente → broto → plantinha → flor → fruto."
+ },
+ {
+  "id": "jd_p4_dica",
+  "texto": "Isso ajuda a planta a viver, ou é coisa de gente?"
+ },
+ {
+  "id": "jd_p4_intro",
+  "texto": "A planta precisa disto? Toque em Precisa ou Não precisa."
+ },
+ {
+  "id": "jd_p4_revela",
+  "texto": "A planta precisa de sol, água, terra e ar."
+ },
+ {
+  "id": "jd_p5_caule",
+  "texto": "Toque no CAULE."
+ },
+ {
+  "id": "jd_p5_dica",
+  "texto": "A parte que fica escondida na terra é a raiz."
+ },
+ {
+  "id": "jd_p5_flor",
+  "texto": "Toque na FLOR."
+ },
+ {
+  "id": "jd_p5_folha",
+  "texto": "Toque na FOLHA."
+ },
+ {
+  "id": "jd_p5_fruto",
+  "texto": "Toque no FRUTO."
+ },
+ {
+  "id": "jd_p5_raiz",
+  "texto": "Toque na RAIZ."
+ },
+ {
+  "id": "jd_p5_revela",
+  "texto": "Raiz, caule, folha, flor, fruto e semente!"
+ },
+ {
+  "id": "jd_p5_semente",
+  "texto": "Toque nas SEMENTES."
+ },
+ {
+  "id": "jd_p6_caule",
+  "texto": "Qual parte segura a planta em pé?"
+ },
+ {
+  "id": "jd_p6_dica",
+  "texto": "Qual parte fica lá embaixo, dentro da terra, onde está a água?"
+ },
+ {
+  "id": "jd_p6_flor",
+  "texto": "Qual parte chama a abelha?"
+ },
+ {
+  "id": "jd_p6_folha",
+  "texto": "Qual parte toma o sol?"
+ },
+ {
+  "id": "jd_p6_fruto",
+  "texto": "Qual parte guarda a semente dentro?"
+ },
+ {
+  "id": "jd_p6_raiz",
+  "texto": "Qual parte bebe a água da terra?"
+ },
+ {
+  "id": "jd_p6_revela",
+  "texto": "Cada parte tem o seu trabalho!"
+ },
+ {
+  "id": "jd_p6_semente",
+  "texto": "De qual parte nasce uma planta nova?"
+ },
+ {
+  "id": "jd_prato_cheio",
+  "texto": "O prato está cheio. Toque numa comida do prato para tirar e pôr esta no lugar."
+ },
+ {
+  "id": "jd_prato_dica",
+  "texto": "Olhe o quadro das partes: as apagadas ainda faltam no seu prato. Escolha uma comida que venha de uma delas."
+ },
+ {
+  "id": "jd_prato_intro",
+  "texto": "Cada comida do prato tem que vir de uma parte diferente da planta."
+ },
+ {
+  "id": "jd_prato_revela",
+  "texto": "Você comeu a planta quase inteira: de raiz até semente!"
+ },
+ {
+  "id": "jd_prato_troca",
+  "texto": "O prato encheu e ainda faltam partes. Toque numa comida do prato para tirar e pôr outra."
+ },
+ {
+  "id": "jd_prato_ajuda2",
+  "texto": "Olhe as partes que estão piscando: elas ainda faltam no seu prato."
+ },
+ {
+  "id": "jd_prato_ajuda3",
+  "texto": "Toque na comida que está piscando no prato para tirar. Depois toque na que acendeu embaixo."
+ },
+ {
+  "id": "jd_prato_ok_raiz",
+  "texto": "Essa comida vem da raiz. A raiz entrou no seu prato!"
+ },
+ {
+  "id": "jd_prato_rep_raiz",
+  "texto": "Essa comida também vem da raiz, que já está no prato. Quer trocar por uma parte que ainda falta?"
+ },
+ {
+  "id": "jd_prato_ok_caule",
+  "texto": "Essa comida vem do caule. O caule entrou no seu prato!"
+ },
+ {
+  "id": "jd_prato_rep_caule",
+  "texto": "Essa comida também vem do caule, que já está no prato. Quer trocar por uma parte que ainda falta?"
+ },
+ {
+  "id": "jd_prato_ok_folha",
+  "texto": "Essa comida vem da folha. A folha entrou no seu prato!"
+ },
+ {
+  "id": "jd_prato_rep_folha",
+  "texto": "Essa comida também vem da folha, que já está no prato. Quer trocar por uma parte que ainda falta?"
+ },
+ {
+  "id": "jd_prato_ok_flor",
+  "texto": "Essa comida vem da flor. A flor entrou no seu prato!"
+ },
+ {
+  "id": "jd_prato_rep_flor",
+  "texto": "Essa comida também vem da flor, que já está no prato. Quer trocar por uma parte que ainda falta?"
+ },
+ {
+  "id": "jd_prato_ok_fruto",
+  "texto": "Essa comida vem do fruto. O fruto entrou no seu prato!"
+ },
+ {
+  "id": "jd_prato_rep_fruto",
+  "texto": "Essa comida também vem do fruto, que já está no prato. Quer trocar por uma parte que ainda falta?"
+ },
+ {
+  "id": "jd_prato_ok_semente",
+  "texto": "Essa comida vem da semente. A semente entrou no seu prato!"
+ },
+ {
+  "id": "jd_prato_rep_semente",
+  "texto": "Essa comida também vem da semente, que já está no prato. Quer trocar por uma parte que ainda falta?"
+ },
+ {
+  "id": "jd_qual_dica",
+  "texto": "Onde isso fica na planta?"
+ },
+ {
+  "id": "jd_qual_intro",
+  "texto": "Que parte da planta é esta?"
+ },
+ {
+  "id": "jd_qual_revela",
+  "texto": "Você reconhece as partes só de olhar!"
+ },
+ {
+  "id": "jd_rel_intro",
+  "texto": "Rápido! A planta precisa disto?"
+ },
+ {
+  "id": "jd_rot_dica",
+  "texto": "Onde fica cada parte?"
+ },
+ {
+  "id": "jd_rot_intro",
+  "texto": "O vento derrubou as plaquinhas! Toque no nome e depois na parte da planta."
+ },
+ {
+  "id": "jd_rot_revela",
+  "texto": "Planta toda etiquetada: raiz, caule, folha, flor, fruto e semente!"
+ },
+ {
+  "id": "jd_serve_dica",
+  "texto": "Cada parte faz uma coisa."
+ },
+ {
+  "id": "jd_serve_intro",
+  "texto": "Toque na parte e depois no trabalho dela."
+ },
+ {
+  "id": "jd_serve_revela",
+  "texto": "Nenhuma parte está ali à toa!"
+ },
+ {
+  "id": "op_15chq8d",
+  "texto": "BETERRABA"
+ },
+ {
+  "id": "op_173xt3v",
+  "texto": "PALMITO"
+ },
+ {
+  "id": "op_1brmxc7",
+  "texto": "COUVE-FLOR"
+ },
+ {
+  "id": "op_1ftqyy7",
+  "texto": "AMENDOIM"
+ },
+ {
+  "id": "op_1g79l1u",
+  "texto": "CENOURA"
+ },
+ {
+  "id": "op_1jjeybo",
+  "texto": "Plantinha"
+ },
+ {
+  "id": "op_1l0w3cn",
+  "texto": "Plantinha"
+ },
+ {
+  "id": "op_1n8im9k",
+  "texto": "MORANGO"
+ },
+ {
+  "id": "op_1v58tk1",
+  "texto": "ALFACE"
+ },
+ {
+  "id": "op_1vl2tki",
+  "texto": "BATATA"
+ },
+ {
+  "id": "op_1vwzisd",
+  "texto": "Broto"
+ },
+ {
+  "id": "op_1y8vjg5",
+  "texto": "FEIJÃO"
+ },
+ {
+  "id": "op_1yibdey",
+  "texto": "Fruto"
+ },
+ {
+  "id": "op_48831j",
+  "texto": "COUVE"
+ },
+ {
+  "id": "op_4a9vv0",
+  "texto": "Flor"
+ },
+ {
+  "id": "op_4f5fdq",
+  "texto": "MILHO"
+ },
+ {
+  "id": "op_8h3rhr",
+  "texto": "TOMATE"
+ },
+ {
+  "id": "op_a56dj3",
+  "texto": "ABÓBORA"
+ },
+ {
+  "id": "op_ge687",
+  "texto": "Semente"
+ },
+ {
+  "id": "op_vqu1c6",
+  "texto": "BRÓCOLIS"
+ },
+ {
+  "id": "op_ykeywo",
+  "texto": "CANA"
+ },
+ {
+  "id": "op_10xb7ms",
+  "texto": "Quem vai cuidar do jardim hoje?"
+ },
+ {
+  "id": "op_1o8wguu",
+  "texto": "Ela cresce mais forte"
+ },
+ {
+  "id": "op_cvat5s",
+  "texto": "Ela não cresce bem"
+ },
+ {
+  "id": "op_1tcakad",
+  "texto": "Ela vira flor na hora"
+ },
+ {
+  "id": "op_4aendh",
+  "texto": "FRUTO"
+ },
+ {
+  "id": "op_ykhjdk",
+  "texto": "FLOR"
+ },
+ {
+  "id": "op_47ku2z",
+  "texto": "BROTO"
+ },
+ {
+  "id": "op_4ac4b3",
+  "texto": "FOLHA"
+ },
+ {
+  "id": "op_12ra9zq",
+  "texto": "SEMENTE"
+ },
+ {
+  "id": "op_ykqiqj",
+  "texto": "RAIZ"
+ },
+ {
+  "id": "op_47xakv",
+  "texto": "CAULE"
+ },
+ {
+  "id": "op_1lsgng4",
+  "texto": "Porque a folha usa a luz pra fazer a planta crescer"
+ },
+ {
+  "id": "op_1sv5reu",
+  "texto": "Porque a luz deixa a planta bonita"
+ },
+ {
+  "id": "op_kadav6",
+  "texto": "Porque a luz lava a planta"
+ },
+ {
+  "id": "op_puto2p",
+  "texto": "Sim, cresce igual"
+ },
+ {
+  "id": "op_aftkt7",
+  "texto": "Não, ela precisa de sol também"
+ },
+ {
+  "id": "op_f9r4ca",
+  "texto": "Cresce, mas fica murcha"
+ },
+ {
+  "id": "op_1hyvwek",
+  "texto": "Precisa"
+ },
+ {
+  "id": "op_161xibw",
+  "texto": "Não precisa"
+ },
+ {
+  "id": "op_13gdxr5",
+  "texto": "Toma o sol e faz o alimento"
+ },
+ {
+  "id": "op_481udi",
+  "texto": "Nasce uma planta nova"
+ },
+ {
+  "id": "op_1fx0nyt",
+  "texto": "Bebe a água da terra"
+ },
+ {
+  "id": "op_ad87h3",
+  "texto": "Guarda a semente dentro"
+ },
+ {
+  "id": "op_1s1ccvs",
+  "texto": "Segura a planta em pé"
+ },
+ {
+  "id": "op_1lzz1g",
+  "texto": "Chama a abelha e vira fruto"
+ }
+]
