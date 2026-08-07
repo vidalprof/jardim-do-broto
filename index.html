@@ -732,6 +732,15 @@ function poeVozPergunta(){
     };
     b.appendChild(bt);
     b.className=b.className+" comzap";
+    /* ⚠️⚠️ LICAO PAGA (ago/2026), vista NA FOTO da tela, nao por portao nenhum:
+       o alto-falante tapava a ULTIMA PALAVRA do enunciado em toda fase —
+       "toque na figura d[a]", "uma vez para ca[da]". A classe `comzap` reserva
+       56px a direita... e o CSS DA PECA, que o integrador prefixa com
+       `.mec-<nome>`, ganha do motor e devolve o padding para 18px. Medido: 18px
+       onde deviam ser 56.
+       Regra de especificidade nao se vence com mais especificidade (vira
+       corrida); vence-se com ESTILO INLINE, que nenhuma folha sobrepoe. */
+    b.style.paddingRight="56px";
   }
 }
 function poeVozes(){
