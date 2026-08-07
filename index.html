@@ -334,13 +334,43 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
   -webkit-animation:pop .35s;animation:pop .35s}
 /* prato cheio: ele balança e diz que não cabe mais — nada de sumir em silêncio */
 .pratao.cheio{border-color:#e0a23c;-webkit-animation:trema .5s;animation:trema .5s}
+/* ⭐ A SAÍDA NÃO PODE SER MUDA (conserto do Marcos, ago/2026): quando o prato
+   enche sem fechar a meta, a comida que está NELE pulsa com anel dourado. A
+   criança de 2º ano que ainda não lê o balão VÊ que aquilo ali se toca e volta.
+   Antes a saída existia (tocar tira) mas só estava escrita — e ela ficava parada. */
+.pratao img.tirar{border-radius:50%;
+  -webkit-animation:tirajd 1s ease-in-out infinite;animation:tirajd 1s ease-in-out infinite;
+  -webkit-box-shadow:0 0 0 3px var(--dourado),0 0 14px rgba(255,212,59,.9);
+  box-shadow:0 0 0 3px var(--dourado),0 0 14px rgba(255,212,59,.9)}
+@-webkit-keyframes tirajd{0%,100%{-webkit-transform:scale(1)}50%{-webkit-transform:scale(1.12)}}
+@keyframes tirajd{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
 @-webkit-keyframes trema{0%,100%{-webkit-transform:translateX(0)}25%{-webkit-transform:translateX(-6px)}75%{-webkit-transform:translateX(6px)}}
 @keyframes trema{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+/* ⭐ O QUADRO DAS PARTES (conserto do Marcos, ago/2026: "os áudios e dicas e
+   textos explicam isso?"). Antes esta fila só ganhava uma pastilha DEPOIS que a
+   parte entrava no prato — quem não lê não tinha como saber o que ainda faltava,
+   nem que "partes" era o que a fase queria. Agora as SEIS partes ficam sempre na
+   tela: a que já está no prato acende colorida com visto, a que falta fica
+   apagada e tracejada. É esta peça que vira "ah, faltam as sementes".
+   A figurinha é um recorte da MESMA planta que a criança etiquetou na fase das
+   plaquinhas (`jd_planta6.png` cortada pelas coordenadas de `ZONAS`) — arte
+   própria da atividade, sem imagem nova e sem emoji. */
 .pmarcas{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;
-  -webkit-box-pack:center;justify-content:center;gap:5px;margin-bottom:4px;min-height:24px}
-.pmarca{background:-webkit-linear-gradient(top,#8be05a,#3f9a26);background:linear-gradient(#8be05a,#3f9a26);
-  color:#fff;font-size:11.5px;font-weight:800;padding:3px 9px;border-radius:999px;
+  -webkit-box-pack:center;justify-content:center;gap:5px;margin-bottom:4px;min-height:52px}
+.pmarca{background:-webkit-linear-gradient(top,#2f7a1c,#1e5412);background:linear-gradient(#2f7a1c,#1e5412);
+  color:#fff;font-size:11.5px;font-weight:800;padding:3px 4px;border-radius:12px;
+  border:2px solid #1e5412;width:50px;
+  display:-webkit-box;display:-webkit-flex;display:flex;
+  -webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;
+  -webkit-box-align:center;align-items:center;
   -webkit-animation:pop .3s;animation:pop .3s}
+.pmarca .pfig{width:30px;height:30px;border-radius:7px;background-color:#fff;
+  background-repeat:no-repeat;margin-bottom:1px}
+.pmarca .pnome{display:block;font-size:9px;line-height:1.15;letter-spacing:-.2px}
+/* a parte que AINDA FALTA: apagada, tracejada e em cinza — dá para ver de longe
+   que aquele lugar está vazio, sem precisar ler nada */
+.pmarca.falta{background:#e8e6de;color:#4a4438;border:2px dashed #b3ada0}
+.pmarca.falta .pfig{-webkit-filter:grayscale(1);filter:grayscale(1);opacity:.55}
 .comida{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;
   -webkit-box-pack:center;justify-content:center;gap:6px;margin-top:8px;max-width:356px}
 .alim{width:78px;background:rgba(255,253,246,.96);border:2px solid var(--linha);border-bottom-width:4px;
@@ -356,6 +386,10 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
   .pratao{width:146px;height:146px;padding:10px;margin:8px 0}.pratao img{width:40px;height:40px}
   .comida{gap:4px;margin-top:6px}.alim{width:66px}.alim img{width:36px;height:36px}
   .alim .anome{font-size:9.5px}
+  /* o quadro das partes encolhe a FIGURINHA e a letra, nunca some: é ele que
+     diz à criança o que ainda falta */
+  .pmarcas{min-height:42px;gap:3px}.pmarca{width:42px;padding:2px 3px}
+  .pmarca .pfig{width:23px;height:23px}.pmarca .pnome{font-size:7.5px}
 }
 /* alto-falante discreto: le a resposta para quem ainda nao le */
 .zap{position:relative;-webkit-flex:none;flex:none;width:30px;height:30px;border-radius:50%;background:rgba(58,48,32,.09);border:0;cursor:pointer;padding:0;margin-left:8px;vertical-align:middle;display:inline-block;opacity:.55;-webkit-transition:opacity .2s;transition:opacity .2s}
@@ -833,7 +867,7 @@ function telaExperimento(){limpa();var t=el("div","tela");setProg(t,22);
   depoisDaFala("jd_p2_intro",8000,function(){ falar("jd_p2_prever"); });}
 /* ============ P3: ORDENAR ============ */
 function telaOrdenar(){limpa();var t=el("div","tela");setProg(t,32);
-  t.appendChild(el("div","balao","Coloque em <b>ordem</b> como a planta cresce: do <b>1&#186;</b> ao <b>&#250;ltimo</b>."));
+  t.appendChild(el("div","balao","Coloque em <b>ordem</b> como a planta cresce: do <b>primeiro</b> ao <b>&#250;ltimo</b>."));
   var nomes=["Semente","Broto","Plantinha","Flor","Fruto"];
   var ordem=[3,0,4,1,2],prox=0,err=0;
   var cen=el("div","centro");var wrap=el("div","cartas");var i;
@@ -1622,41 +1656,147 @@ function telaCiclo(){
    partes diferentes, cada lugar vale um alimento de uma parte — repetir parte
    custa um lugar. Para não haver beco sem saída, tocar num alimento que já
    está no prato TIRA ele de volta.                                          */
+/* ⭐⭐ A FASE PRECISA DIZER O QUE ELA QUER (defeito que o Marcos pegou, ago/2026:
+   "mesmo colocando os cinco alimentos que se pede, não passa a fase" — e, depois
+   de ver a regra por dentro: "se está certo então deixe, os áudios e dicas e
+   textos explicam isso?").
+   A REGRA ESTÁ CERTA E FICA COMO ESTÁ: o prato tem 5 lugares e a fase só fecha
+   com 5 partes DIFERENTES da planta. É exatamente isso que ela ensina — que a
+   gente come a planta quase inteira, de raiz a semente. Baixar a meta faria a
+   fase passar e o objetivo evaporar.
+   O QUE ESTAVA ERRADO ERA A COMUNICAÇÃO, e dá para medir: das 3003 escolhas
+   possíveis de 5 alimentos deste cardápio, só 540 (18%) fecham a fase. Ou seja,
+   82% das crianças que põem "cinco alimentos" — que era o que a tela parecia
+   pedir — ficavam paradas sem entender por quê. Quatro buracos, todos de fala:
+     1. o enunciado punha "5 lugares" e "5 partes diferentes" na MESMA frase, os
+        dois números brigando — e a criança segue o número que ela vê no prato;
+     2. o quadro das partes só ganhava pastilha DEPOIS que a parte entrava, então
+        nunca mostrava o que FALTAVA (é o que vira "ah, faltam as sementes");
+     3. nada avisava na hora que a beterraba era raiz igual à cenoura — ela só
+        descobria com o prato cheio, quando já não dava para consertar sem desfazer;
+     4. era a única fase do arquivo sem andaime (`ajudaJd`): errar não trazia ajuda.
+   Nada disso dá erro de JS, e o auditor jogador não pega porque clica 5200 vezes
+   ao acaso e acerta por sorte — a criança não tem essa paciência.
+   Auditado agora por `_qa/explica.py`: fase cuja condição de fim exige um
+   ATRIBUTO dos itens (aqui `parte`) tem que NOMEAR esse atributo no enunciado
+   escrito E na voz dele.                                                      */
 var MAXPRATO=5;
+var METAPRATO=5;
+/* ⭐ TEXTO E VOZ NASCEM JUNTOS. Cada parte tem a frase de "entrou" e a de "essa
+   repete"; o id do áudio sai da MESMA chave (`jd_prato_ok_<parte>` /
+   `jd_prato_rep_<parte>`). Assim a tela não tem como dizer uma coisa e a voz
+   outra — que é a regra da casa e o que o `falas.json` grava.               */
+var PRATOFRASE={
+ raiz:   {ok:"Essa comida vem da <b>raiz</b>. A raiz entrou no seu prato!",
+          rep:"Essa comida tamb&#233;m vem da <b>raiz</b>, que j&#225; est&#225; no prato. Quer trocar por uma parte que ainda falta?"},
+ caule:  {ok:"Essa comida vem do <b>caule</b>. O caule entrou no seu prato!",
+          rep:"Essa comida tamb&#233;m vem do <b>caule</b>, que j&#225; est&#225; no prato. Quer trocar por uma parte que ainda falta?"},
+ folha:  {ok:"Essa comida vem da <b>folha</b>. A folha entrou no seu prato!",
+          rep:"Essa comida tamb&#233;m vem da <b>folha</b>, que j&#225; est&#225; no prato. Quer trocar por uma parte que ainda falta?"},
+ flor:   {ok:"Essa comida vem da <b>flor</b>. A flor entrou no seu prato!",
+          rep:"Essa comida tamb&#233;m vem da <b>flor</b>, que j&#225; est&#225; no prato. Quer trocar por uma parte que ainda falta?"},
+ fruto:  {ok:"Essa comida vem do <b>fruto</b>. O fruto entrou no seu prato!",
+          rep:"Essa comida tamb&#233;m vem do <b>fruto</b>, que j&#225; est&#225; no prato. Quer trocar por uma parte que ainda falta?"},
+ semente:{ok:"Essa comida vem da <b>semente</b>. A semente entrou no seu prato!",
+          rep:"Essa comida tamb&#233;m vem da <b>semente</b>, que j&#225; est&#225; no prato. Quer trocar por uma parte que ainda falta?"}};
+var PRATODICA="Olhe o quadro das partes: as apagadas ainda faltam no seu prato. Escolha uma comida que venha de uma delas.";
 function telaPrato(){
   limpa();var t=el("div","tela");setProg(t,88);
   var noPrato=[],err=0,fim=false;
   var cen=el("div","centro");
   cen.appendChild(el("div","selo","MONTE O SEU PRATO"));
-  var bal=el("div","balao","O prato tem <b>5 lugares</b>. Escolha alimentos de <b>5 partes diferentes</b> da planta.");
+  var bal=el("div","balao","Cada comida do prato tem que vir de uma <b>parte diferente</b> da planta.");
   cen.appendChild(bal);
+  /* ⭐ A INTRO FALA AQUI, junto com o enunciado que ela lê — e não no fim da
+     função. Não é capricho: o `repinta()` mais abaixo tem `falaDaTela(...)`, e
+     o portão 0h (`_qa/vozintro.py`) lê a ORDEM DO ARQUIVO. Com a intro no fim,
+     ele via "a intro entra depois de uma pergunta" e acusava a fase de calar a
+     narração de abertura. Ele estava certo em desconfiar: a única leitura
+     segura de "quem fala quando a tela abre" é a primeira fala do arquivo. */
+  falar("jd_prato_intro");
   var prato=el("div","pratao"); cen.appendChild(prato);
   var marcas=el("div","pmarcas"); cen.appendChild(marcas);
-  var box=el("div","comida"),i;
+  var box=el("div","comida"),i,cards=[],chips={};
+  /* o quadro das SEIS partes, sempre na tela: a figurinha é um recorte da mesma
+     planta que ela etiquetou na fase das plaquinhas, pelas coordenadas de ZONAS */
+  for(i=0;i<PARTES6.length;i++){(function(p){
+    var z=ZONAS[p.k]||[50,50,20,20], h=Math.max(z[2],z[3]);
+    var d=el("div","pmarca falta"), fig=el("div","pfig");
+    fig.style.backgroundImage="url(img/jd_planta6.png)";
+    fig.style.backgroundSize=(100/(2*h)*100)+"%";
+    fig.style.backgroundPosition=((z[0]-h)/(100-2*h)*100)+"% "+((z[1]-h)/(100-2*h)*100)+"%";
+    d.appendChild(fig); d.appendChild(el("span","pnome",p.n));
+    chips[p.k]=d; marcas.appendChild(d);
+  })(PARTES6[i]);}
   function conta(){ var vis={},n=0,z;
     for(z=0;z<noPrato.length;z++){ if(!vis[noPrato[z].it.parte]){ vis[noPrato[z].it.parte]=1; n++; } }
     return [n,vis]; }
-  function repinta(){
-    var r=conta(),n=r[0],vis=r[1],z;
-    marcas.innerHTML="";
-    for(z in vis){ if(vis.hasOwnProperty(z)) marcas.appendChild(el("div","pmarca",nomeDe(z))); }
+  function faltantes(){ var r=conta(),v=r[1],f=[],z;
+    for(z=0;z<PARTES6.length;z++) if(!v[PARTES6[z].k]) f.push(PARTES6[z]);
+    return f; }
+  /* as comidas do prato que REPETEM uma parte já presente: são as trocáveis */
+  function repetidas(){ var vis={},r=[],z,p;
+    for(z=0;z<noPrato.length;z++){ p=noPrato[z].it.parte;
+      if(vis[p]) r.push(noPrato[z]); else vis[p]=1; }
+    return r; }
+  /* pulsar = a saída fica VISÍVEL para quem ainda não lê o balão */
+  function pulsa(lista){ var z;
+    for(z=0;z<noPrato.length;z++) noPrato[z].img.className="";
+    if(lista) for(z=0;z<lista.length;z++) if(lista[z]) lista[z].img.className="tirar"; }
+  function apagaCards(){ var z; for(z=0;z<cards.length;z++)
+    cards[z].d.className=cards[z].d.className.replace(" acesa",""); }
+  /* reac = {txt,voz} da comida que acabou de ser tocada; sem ela, o balão só
+     mostra o placar (contador não é pergunta e não se narra) */
+  function repinta(reac){
+    var r=conta(),n=r[0],vis=r[1],z,k;
+    for(z=0;z<PARTES6.length;z++){ k=PARTES6[z].k;
+      chips[k].className=vis[k]?"pmarca":"pmarca falta"; }
     if(fim) return;
-    if(noPrato.length>=MAXPRATO&&n<5)
-      bal.innerHTML="O prato encheu com <b>"+n+"</b> parte"+(n===1?"":"s")+
-                    ". Toque num alimento <b>do prato</b> para tirar e trocar.";
-    else
-      bal.innerHTML="J&#225; tem <b>"+n+"</b> parte"+(n===1?"":"s")+" no prato. "+
-                    (n>=5?"Prato completo!":"Falta"+((5-n)===1?"":"m")+" <b>"+(5-n)+"</b>.");
-    if(n>=5&&!fim){ fim=true; sCerto(); sFesta(); festa(); reg("partes",err===0,err+1);
+    if(n>=METAPRATO){ fim=true; pulsa(null); apagaCards(); tiraDica();
+      bal.innerHTML="J&#225; tem <b>"+n+"</b> partes no prato. Prato completo!";
+      sCerto(); sFesta(); festa(); reg("partes",err===0,err+1);
       setTimeout(function(){ depoisDaFala("jd_prato_revela",10000,function(){
         mostraBanner("Voc&#234; comeu a planta quase <b>inteira</b>: de raiz at&#233; semente!",telaQualParte); }); },1200);
-    }
+      return; }
+    if(noPrato.length>=MAXPRATO){
+      /* ⭐ encheu e ainda falta parte: NUNCA é beco sem saída (tocar no prato
+         devolve a comida), mas a saída tem que ser DITA e MOSTRADA. E aqui é o
+         único ponto que conta como tropeço: é o que o relatório do professor
+         precisa saber, e o que faz o andaime crescer. */
+      err++;
+      var rr=repetidas();
+      pulsa(rr.length?rr:noPrato); sErro();
+      /* ⭐ UMA VOZ POR VEZ. O andaime faz o que é VISUAL (dica escrita, acender
+         as partes que faltam, revelar a carta) e só DEPOIS a fase escreve o
+         balão e fala — assim a narração que toca é sempre a que está escrita.
+         Na primeira versão deste conserto o `falar` da dica entrava por cima do
+         `falaDaTela` do balão: a tela dizia uma coisa e a voz dizia outra, que é
+         exatamente o defeito que os portões 0f/0g existem para pegar. */
+      ajudaJd(err,{dica:PRATODICA,
+        concreto:function(){ var f=faltantes(),z2;
+          for(z2=0;z2<f.length;z2++) acendeJd(chips[f[z2].k]); },
+        revelar:function(){ var f=faltantes(),rr2=repetidas(),z2;
+          if(rr2.length) pulsa([rr2[0]]);
+          if(f.length) for(z2=0;z2<cards.length;z2++)
+            if(cards[z2].it.parte===f[0].k&&cards[z2].d.className.indexOf("posto")<0){
+              acendeJd(cards[z2].d); break; } }});
+      if(err===1){
+        bal.innerHTML="O prato encheu e ainda faltam partes. Toque numa comida <b>do prato</b> para tirar e p&#244;r outra."; falaDaTela("jd_prato_troca"); }
+      else if(err===2){
+        bal.innerHTML="Olhe as partes que est&#227;o piscando: elas ainda faltam no seu prato."; falaDaTela("jd_prato_ajuda2"); }
+      else {
+        bal.innerHTML="Toque na comida que est&#225; piscando no prato para tirar. Depois toque na que acendeu embaixo."; falaDaTela("jd_prato_ajuda3"); }
+      return; }
+    pulsa(null);
+    if(reac){ bal.innerHTML=reac.txt; falaDaTela(reac.voz); return; }
+    bal.innerHTML="J&#225; tem <b>"+n+"</b> parte"+(n===1?"":"s")+" no prato. "+
+                  "Falta"+((METAPRATO-n)===1?"":"m")+" <b>"+(METAPRATO-n)+"</b>.";
   }
   function tira(reg1){
     var z; for(z=0;z<noPrato.length;z++) if(noPrato[z]===reg1){ noPrato.splice(z,1); break; }
     if(reg1.img.parentNode) reg1.img.parentNode.removeChild(reg1.img);
     reg1.card.className="alim";
-    sTap(); repinta();
+    sTap(); apagaCards(); repinta(null);
   }
   for(i=0;i<COMER.length;i++){(function(it){
     var d=el("div","alim");
@@ -1668,23 +1808,31 @@ function telaPrato(){
       var z; for(z=0;z<noPrato.length;z++) if(noPrato[z].card===d){ tira(noPrato[z]); return; }
       if(noPrato.length>=MAXPRATO){ sErro(); prato.className="pratao cheio";
         setTimeout(function(){ prato.className="pratao"; },520);
-        bal.innerHTML="O prato tem s&#243; <b>5 lugares</b>. Toque num alimento <b>do prato</b> para tirar."; falaDaTela("jd_prato_cheio");
+        bal.innerHTML="O prato est&#225; cheio. Toque numa comida <b>do prato</b> para tirar e p&#244;r esta no lugar."; falaDaTela("jd_prato_cheio");
+        pulsa(repetidas().length?repetidas():noPrato);
         return; }
+      /* ⭐ ESSA PARTE JÁ ESTÁ NO PRATO? A criança sabe NA HORA, com voz, e sem
+         punição — a comida entra do mesmo jeito e ela decide se troca. Antes ela
+         só descobria com o prato cheio, tarde demais para entender a razão. */
+      var jat=conta()[1][it.parte]?true:false;
+      apagaCards();
       d.className="alim posto"; sPop(noPrato.length);
       var im=imgEl(it.img); prato.appendChild(im);
       var reg1={it:it,img:im,card:d};
       noPrato.push(reg1);
       im.onclick=function(ev){ if(ev&&ev.stopPropagation) ev.stopPropagation(); if(!fim) tira(reg1); };
       var ce=centroTela(im); faisca(ce[0],ce[1],"#8be05a",12);
-      repinta();
+      var fr=PRATOFRASE[it.parte];
+      repinta(fr?{txt:jat?fr.rep:fr.ok,voz:(jat?"jd_prato_rep_":"jd_prato_ok_")+it.parte}:null);
+      if(jat&&!fim) pulsa(repetidas());
     };
+    cards.push({d:d,it:it});
     box.appendChild(d);
   })(COMER[i]);}
   cen.appendChild(box);
-  cen.appendChild(el("div","hint","Toque para p&#244;r no prato. Tocou num do prato, ele volta."));
+  cen.appendChild(el("div","hint","Cada comida vem de uma parte da planta. Tocou numa comida do prato, ela volta."));
   t.appendChild(cen);app.appendChild(t);
-  montaBarra("jd_prato_dica","Alimentos de partes diferentes.");
-  falar("jd_prato_intro");
+  montaBarra("jd_prato_dica",PRATODICA);
 }
 
 /* ---------- BOLETIM ANIMADO DO FIM (para a CRIANCA ver) ----------
