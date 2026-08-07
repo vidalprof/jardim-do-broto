@@ -1,7 +1,13 @@
 /* Service worker — REDE PRIMEIRO no HTML (nunca prende versão velha);
    CACHE PRIMEIRO em imagens/áudio (rápido em PC fraco), atualizando em 2º plano. */
 var PREFIXO="jardim-broto-";
-var CACHE=PREFIXO+"v4";
+/* ⚠️ SUBIR ESTE NUMERO SEMPRE QUE MUDAR IMAGEM OU AUDIO (ago/2026).
+   O HTML e "rede primeiro", entao a tela nova chega sozinha. Mas imagem e som
+   sao "cache primeiro": um arquivo com o MESMO nome e conteudo novo (uma voz
+   regravada, por exemplo) continua saindo do cache VELHO para sempre. Ou seja,
+   a crianca ve a tela nova e ouve a voz antiga — exatamente o defeito que a
+   gente esta tentando matar. Trocar o numero apaga o cache anterior. */
+var CACHE=PREFIXO+"v5";
 var ATIVOS=["./","./index.html","./manifest.json",
  "./img/jd_fundo.jpg","./img/jd_broto_feliz.png","./img/jd_broto_fala.png","./img/jd_broto_pisca.png",
  "./img/jd_broto_pensa.png","./img/jd_broto_festa.png","./img/med_jardim.png",

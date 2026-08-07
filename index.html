@@ -19,6 +19,15 @@ body{font-family:"Fredoka",ui-rounded,"Segoe UI",system-ui,Arial,sans-serif;colo
 .balao{position:relative;max-width:430px;background:rgba(255,253,246,.95);border:0;border-radius:22px;padding:13px 18px;font-size:17px;font-weight:600;text-align:center;line-height:1.35;
   -webkit-box-shadow:0 6px 18px rgba(30,50,20,.22);box-shadow:0 6px 18px rgba(30,50,20,.22)}
 .balao b{color:#2c7318}
+/* ⭐ REGRA DO MOTOR — O ENUNCIADO NUNCA ENCOSTA NO QUE VEM DEPOIS.
+   O Marcos cobrou isto DUAS vezes noutras atividades (*"as opcoes de resposta
+   estao encostando no enunciado"* e, depois, *"esse encosto no enunciado eu ja
+   tinha comentado antes"*). Aqui o portao de leiaute achou o mesmo defeito em
+   10 telas x 6 tamanhos: folga ZERO. O balao tem sombra, e o vizinho colado por
+   baixo entra nela e parece grudado. Regra de motor, nao conserto de fase — e a
+   unica forma de o defeito nao voltar na proxima tela que alguem montar.     */
+.balao + *{margin-top:13px}
+.balao + .balao{margin-top:8px}
 .centro{-webkit-box-flex:1;-webkit-flex:1;flex:1;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;width:100%}
 h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
   background:rgba(40,52,20,.78);padding:6px 18px;border-radius:20px;
@@ -98,7 +107,7 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
 @-webkit-keyframes pop{from{-webkit-transform:scale(.5);opacity:0}to{-webkit-transform:scale(1);opacity:1}}
 @keyframes pop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
 /* partes */
-.partes{position:relative;width:308px;height:308px;margin-top:2px}
+.partes{position:relative;width:308px;height:308px;margin-top:13px}
 .partes img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;-webkit-filter:drop-shadow(0 8px 10px rgba(0,0,0,.18));filter:drop-shadow(0 8px 10px rgba(0,0,0,.18))}
 .zona{position:absolute;cursor:pointer;border-radius:50%;background:transparent}
 .zona.pisca{-webkit-animation:zp 1.1s ease-in-out infinite;animation:zp 1.1s ease-in-out infinite}
@@ -451,6 +460,13 @@ function ligaAnalisador(){
    tempo; o alto-falante no enunciado so tornou ele obvio.
    `falaTela` guarda a narracao QUE E DA TELA — as secundarias nao a alteram. */
 function ehSecundaria(id){ return /_cur_|_dica$|_acerto\d|_erro\d/.test(id||""); }
+/* ⭐ A VOZ DA RODADA (ago/2026). Quando a pergunta muda DENTRO da mesma tela
+   (cada alimento, cada palavra, cada parte pedida), quem manda é ela. Sem isto o
+   `falar()` só vale na 1ª rodada, e o alto-falante do enunciado passa a repetir
+   uma pergunta que já saiu da tela — a criança que não lê fica sem instrução do
+   2º item em diante. Cobrança do Marcos: *"o som que é falado tem que ser o
+   mesmo do texto"*.                                                          */
+function falaDaTela(id){ telaNarrou=false; falar(id); }
 function falar(id,cb){
   /* ⚠️ a voz da tela e a PRIMEIRA narracao depois que a tela foi montada
      (`limpa()` zera o `telaNarrou`). O que vier depois, na mesma tela, e reacao
@@ -580,7 +596,7 @@ function consolo(){ falar(Math.random()<0.5?"jd_erro1":"jd_erro2"); }
 /* ============ ALTO-FALANTE POR RESPOSTA (acessibilidade) ============
    A crianca de 2o ano ainda esta aprendendo a ler. Sem isso, ela escolhe pelo
    desenho ou no chute. O botaozinho le AQUELA resposta, sem ler as outras. */
-var VOZOK={"12ra9zq": 1, "13gdxr5": 1, "161xibw": 1, "1fx0nyt": 1, "1hyvwek": 1, "1lsgng4": 1, "1lzz1g": 1, "1o8wguu": 1, "1s1ccvs": 1, "1sv5reu": 1, "1tcakad": 1, "47ku2z": 1, "47xakv": 1, "481udi": 1, "4ac4b3": 1, "4aendh": 1, "5tjc85": 1, "ad87h3": 1, "aftkt7": 1, "cvat5s": 1, "f9r4ca": 1, "kadav6": 1, "puto2p": 1, "ykhjdk": 1, "ykqiqj": 1};
+var VOZOK={"12ra9zq": 1, "13gdxr5": 1, "15chq8d": 1, "161xibw": 1, "173xt3v": 1, "1brmxc7": 1, "1ftqyy7": 1, "1fx0nyt": 1, "1g79l1u": 1, "1hyvwek": 1, "1jjeybo": 1, "1l0w3cn": 1, "1lsgng4": 1, "1lzz1g": 1, "1n8im9k": 1, "1o8wguu": 1, "1s1ccvs": 1, "1sv5reu": 1, "1tcakad": 1, "1v58tk1": 1, "1vl2tki": 1, "1vwzisd": 1, "1y8vjg5": 1, "1yibdey": 1, "47ku2z": 1, "47xakv": 1, "481udi": 1, "48831j": 1, "4a9vv0": 1, "4ac4b3": 1, "4aendh": 1, "4f5fdq": 1, "5tjc85": 1, "8h3rhr": 1, "a56dj3": 1, "ad87h3": 1, "aftkt7": 1, "cvat5s": 1, "f9r4ca": 1, "ge687": 1, "kadav6": 1, "puto2p": 1, "vqu1c6": 1, "ykeywo": 1, "ykhjdk": 1, "ykqiqj": 1};
 var vz=document.getElementById("vz"), zapAtual=null;
 function chaveVoz(s){
   s=(s||"").replace(/\s+/g," ").replace(/^ | $/g,"").toLowerCase();
@@ -909,11 +925,12 @@ function telaPartesBase(cfg){
     box.appendChild(b);zonas[n]=b; }
   var kk;for(kk in ZONAS){ if(ZONAS.hasOwnProperty(kk)) fazZona(kk); }
   function pede(){ alvo.innerHTML=cfg.itens[pi].txt;
+    falaDaTela(cfg.intro.replace("_intro","")+"_"+cfg.itens[pi].alvo);
     var n;for(n in zonas){ if(zonas.hasOwnProperty(n)) zonas[n].className="zona"+((cfg.pisca&&n===cfg.itens[pi].alvo)?" pisca":""); } }
   cen.appendChild(box);cen.appendChild(el("div","hint",cfg.hint));
   t.appendChild(cen);app.appendChild(t);pede();
   montaBarra(cfg.dica,cfg.dicaTxt);
-  falar(cfg.intro);
+
 }
 function telaPartes(){
   telaPartesBase({prog:63,conc:"partes",pisca:true,intro:"jd_p5_intro",revela:"jd_p5_revela",
@@ -968,6 +985,7 @@ function telaComemos(){
     var cen=el("div","centro");
     cen.appendChild(el("div","selo","O QUE TEM NO PRATO"));
     var bal=el("div","balao","Quando a gente come <b>"+it.nome+"</b>, que parte da planta &#233;?");
+    falaDaTela("jd_come_"+it.img.replace("jd_",""));
     cen.appendChild(bal);
     var prato=el("div","prato"); prato.appendChild(imgEl(it.img)); cen.appendChild(prato);
     var box=el("div","pcs"),lista=baguncar(PARTES6.slice(0)),i;
@@ -997,7 +1015,7 @@ function telaComemos(){
     cen.appendChild(el("div","hint","Seis partes para escolher."));
     t.appendChild(cen);app.appendChild(t);
     montaBarra("jd_come_dica","Onde essa parte fica na planta?");
-    if(idx===0) falar("jd_come_intro");
+
   }
   passo();
 }
@@ -1309,6 +1327,7 @@ function telaMontaPalavra(){
     if(!t.parentNode) return;
     var it=MONTAJD[pi],i;
     dica.innerHTML=it.d;
+    falaDaTela("jd_monta_"+it.p.toLowerCase());
     slots.innerHTML="";letras.innerHTML="";
     /* a palavra da vez — SO para o auditor jogador conseguir montar (no acaso
        ele nunca acerta a ordem). Nao aparece para ninguem. */
@@ -1354,7 +1373,7 @@ function telaMontaPalavra(){
   }
   pede();
   montaBarra("jd_monta_dica","Fale o nome devagar: qual letrinha vem primeiro?");
-  falar("jd_monta_intro");
+
 }
 /* ============ P6b: MEMORIA (parte x trabalho) ============ */
 var MEMJD=[{k:"raiz",a:"RAIZ",b:"Bebe a &#225;gua da terra"},
@@ -1649,7 +1668,7 @@ function telaPrato(){
       var z; for(z=0;z<noPrato.length;z++) if(noPrato[z].card===d){ tira(noPrato[z]); return; }
       if(noPrato.length>=MAXPRATO){ sErro(); prato.className="pratao cheio";
         setTimeout(function(){ prato.className="pratao"; },520);
-        bal.innerHTML="O prato tem s&#243; <b>5 lugares</b>. Toque num alimento <b>do prato</b> para tirar.";
+        bal.innerHTML="O prato tem s&#243; <b>5 lugares</b>. Toque num alimento <b>do prato</b> para tirar."; falaDaTela("jd_prato_cheio");
         return; }
       d.className="alim posto"; sPop(noPrato.length);
       var im=imgEl(it.img); prato.appendChild(im);
