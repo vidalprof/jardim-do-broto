@@ -16,6 +16,9 @@ body{font-family:"Fredoka",ui-rounded,"Segoe UI",system-ui,Arial,sans-serif;colo
 #app{position:fixed;inset:0;z-index:2}
 .tela{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;-webkit-box-align:center;align-items:center;padding:calc(40px + env(safe-area-inset-top)) 16px calc(104px + env(safe-area-inset-bottom));-webkit-animation:fade .45s;animation:fade .45s}
 @-webkit-keyframes fade{from{opacity:0}to{opacity:1}}@keyframes fade{from{opacity:0}to{opacity:1}}
+/* marcador: balao que NAO ganha alto-falante (tela do professor). Sem
+   gravacao, o botao ficaria mudo — melhor nao existir. */
+.semzap{padding-right:18px}
 .balao{position:relative;max-width:430px;background:rgba(255,253,246,.95);border:0;border-radius:22px;padding:13px 18px;font-size:17px;font-weight:600;text-align:center;line-height:1.35;
   -webkit-box-shadow:0 6px 18px rgba(30,50,20,.22);box-shadow:0 6px 18px rgba(30,50,20,.22)}
 .balao b{color:#2c7318}
@@ -58,8 +61,12 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
 .mini.dica{background:-webkit-linear-gradient(top,#ffe9a3,#ffd43b);background:linear-gradient(#ffe9a3,#ffd43b);color:#6a4b00}
 .mini.tocando{-webkit-animation:beat .9s ease-in-out infinite;animation:beat .9s ease-in-out infinite}
 /* PREVER (POE) */
-.opts{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;gap:10px;margin-top:14px;width:100%;max-width:400px}
-.opt{background:rgba(255,253,246,.96);border:2px solid var(--linha);border-bottom-width:5px;border-radius:18px;padding:14px 16px;font-size:16px;font-weight:600;cursor:pointer;text-align:center;-webkit-box-shadow:0 5px 12px rgba(30,50,20,.16);box-shadow:0 5px 12px rgba(30,50,20,.16)}
+/* ⚠️ a mesma conta que subiu para o motor do esqueleto (ago/2026): 400px sem
+   piso de altura da 400x59 = 6,8 vezes mais largo que alto, acima do teto de
+   6 do diretor de arte. 360/62 = 5,8. O Broto e feito a mao, entao a regra
+   tem que ser repetida aqui — e por isso ela mora no motor para as novas. */
+.opts{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;gap:10px;margin-top:14px;width:100%;max-width:360px}
+.opt{background:rgba(255,253,246,.96);border:2px solid var(--linha);border-bottom-width:5px;border-radius:18px;padding:14px 16px;min-height:62px;font-size:16px;font-weight:600;cursor:pointer;text-align:center;-webkit-box-shadow:0 5px 12px rgba(30,50,20,.16);box-shadow:0 5px 12px rgba(30,50,20,.16)}
 .opt:active{-webkit-transform:translateY(2px);transform:translateY(2px)}
 .opt.ok{border-color:var(--verde);background:#eafce0}
 .opt.no{border-color:var(--coral);background:#ffece9}
@@ -77,7 +84,7 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
 .ferr.agua{background:-webkit-linear-gradient(top,#2a8fc4,#17688f);background:linear-gradient(#2a8fc4,#17688f)}
 /* EXPERIMENTO (3 vasos) */
 .vasos{display:-webkit-box;display:flex;gap:10px;-webkit-box-pack:center;justify-content:center;margin-top:10px;-webkit-flex-wrap:wrap;flex-wrap:wrap}
-.vaso{width:108px;background:rgba(255,253,246,.95);border:2px solid var(--linha);border-bottom-width:5px;border-radius:18px;padding:8px 6px;text-align:center;cursor:pointer;-webkit-box-shadow:0 6px 14px rgba(30,50,20,.16);box-shadow:0 6px 14px rgba(30,50,20,.16)}
+.vaso{width:108px;background:rgba(255,253,246,.72);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);border:2px solid var(--linha);border-bottom-width:5px;border-radius:18px;padding:8px 6px;text-align:center;cursor:pointer;-webkit-box-shadow:0 6px 14px rgba(30,50,20,.16);box-shadow:0 6px 14px rgba(30,50,20,.16)}
 .vaso img{width:84px;height:84px;object-fit:contain;-webkit-transition:opacity .5s;transition:opacity .5s}
 .vaso .cond{font-size:12px;font-weight:700;margin-top:2px;line-height:1.2}
 .vaso.escuro img{-webkit-filter:brightness(.45) saturate(.6);filter:brightness(.45) saturate(.6)}
@@ -85,7 +92,7 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
 .vaso.no{border-color:var(--coral);background:#ffece9}
 /* cartas */
 .cartas{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;gap:10px;-webkit-box-pack:center;justify-content:center;margin-top:10px;max-width:470px}
-.carta{position:relative;width:96px;min-height:116px;background:rgba(255,253,246,.95);border:2px solid var(--linha);border-bottom-width:5px;border-radius:20px;cursor:pointer;padding:8px 6px 6px;text-align:center;
+.carta{position:relative;width:96px;min-height:116px;background:rgba(255,253,246,.72);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);border:2px solid var(--linha);border-bottom-width:5px;border-radius:20px;cursor:pointer;padding:8px 6px 6px;text-align:center;
   display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;-webkit-box-align:center;align-items:center;-webkit-box-shadow:0 6px 14px rgba(30,50,20,.16);box-shadow:0 6px 14px rgba(30,50,20,.16)}
 .carta:active{-webkit-transform:scale(.97);transform:scale(.97)}
 .carta img{width:76px;height:76px;object-fit:contain}
@@ -101,7 +108,7 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
 .bin:active{-webkit-transform:translateY(3px);transform:translateY(3px)}
 .bin.sim{background:-webkit-linear-gradient(top,#3f9a26,#256113);background:linear-gradient(#3f9a26,#256113)}
 .bin.nao{background:-webkit-linear-gradient(top,#e2503f,#b62d1e);background:linear-gradient(#e2503f,#b62d1e)}
-.itemCard{width:150px;min-height:156px;background:rgba(255,253,246,.96);border:2px solid var(--linha);border-bottom-width:6px;border-radius:24px;padding:12px;text-align:center;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;-webkit-box-shadow:0 8px 18px rgba(30,50,20,.2);box-shadow:0 8px 18px rgba(30,50,20,.2);-webkit-transition:border-color .2s;transition:border-color .2s}
+.itemCard{width:150px;min-height:156px;background:rgba(255,253,246,.72);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);border:2px solid var(--linha);border-bottom-width:6px;border-radius:24px;padding:12px;text-align:center;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;-webkit-box-shadow:0 8px 18px rgba(30,50,20,.2);box-shadow:0 8px 18px rgba(30,50,20,.2);-webkit-transition:border-color .2s;transition:border-color .2s}
 .itemCard img{width:100px;height:100px;object-fit:contain;-webkit-animation:pop .35s;animation:pop .35s}
 .itemCard .lab{font-size:16px;font-weight:700;margin-top:4px}
 @-webkit-keyframes pop{from{-webkit-transform:scale(.5);opacity:0}to{-webkit-transform:scale(1);opacity:1}}
@@ -115,7 +122,7 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
 @keyframes zp{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}50%{box-shadow:0 0 0 7px rgba(255,255,255,.55)}}
 /* identidade */
 .figs{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;gap:10px;-webkit-box-pack:center;justify-content:center;margin-top:10px;max-width:270px}
-.fig{width:82px;height:82px;border-radius:22px;background:rgba(255,253,246,.95);border:3px solid transparent;cursor:pointer;padding:6px;-webkit-box-shadow:0 5px 12px rgba(30,50,20,.18);box-shadow:0 5px 12px rgba(30,50,20,.18)}
+.fig{width:82px;height:82px;border-radius:22px;background:rgba(255,253,246,.72);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);border:3px solid transparent;cursor:pointer;padding:6px;-webkit-box-shadow:0 5px 12px rgba(30,50,20,.18);box-shadow:0 5px 12px rgba(30,50,20,.18)}
 .fig img{width:100%;height:100%;object-fit:contain}
 .fig.sel{border-color:var(--verde);background:#eafce0}
 .campo{width:100%;max-width:320px;font-family:inherit;font-size:18px;font-weight:600;padding:14px 16px;border-radius:18px;border:2px solid var(--linha);text-align:center;margin-top:10px;color:var(--texto)}
@@ -134,7 +141,7 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
 @media (max-height:620px){ .tela{padding-bottom:calc(104px + env(safe-area-inset-bottom))} }
 .dicain{background:#fff6d8;margin-top:9px;-webkit-animation:pop .3s;animation:pop .3s}
 /* cracha no fim */
-.cracha{position:relative;display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-align:center;-webkit-align-items:center;align-items:center;gap:12px;background:var(--card);border:2px solid var(--linha);border-bottom-width:5px;border-radius:20px;padding:10px 18px 10px 10px;margin-top:14px;max-width:300px;-webkit-box-shadow:0 8px 18px rgba(30,50,20,.26);box-shadow:0 8px 18px rgba(30,50,20,.26);-webkit-animation:pop .5s;animation:pop .5s}
+.cracha{position:relative;display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-align:center;-webkit-align-items:center;align-items:center;gap:12px;background:rgba(255,253,246,.74);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);border:2px solid var(--linha);border-bottom-width:5px;border-radius:20px;padding:10px 18px 10px 10px;margin-top:14px;max-width:300px;-webkit-box-shadow:0 8px 18px rgba(30,50,20,.26);box-shadow:0 8px 18px rgba(30,50,20,.26);-webkit-animation:pop .5s;animation:pop .5s}
 .cracha .cfoto{width:62px;height:62px;-webkit-flex:none;flex:none;object-fit:contain;background:#eafce0;border:2px solid var(--verde);border-radius:50%;padding:3px}
 .cracha .ctx{text-align:left;min-width:0}
 .cracha .csel{color:#2c7318 !important;font-size:11px;font-weight:700;letter-spacing:.6px;color:var(--verde-d)}
@@ -142,14 +149,37 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
 .cracha .cfun{color:#6b6252 !important;font-size:12px;font-weight:600;color:#8a7f68}
 .cracha:before{content:"";position:absolute;top:-7px;left:50%;margin-left:-11px;width:22px;height:9px;border:2px solid var(--linha);border-bottom:0;border-radius:11px 11px 0 0;background:transparent}
 /* ===== MECANICAS EXTRAS: caca-palavras / montar / memoria / relampago ===== */
-.grade{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;width:100%;max-width:300px;margin-top:8px;background:rgba(255,253,246,.96);border:2px solid var(--linha);border-radius:16px;padding:6px;-webkit-box-shadow:0 6px 14px rgba(30,50,20,.18);box-shadow:0 6px 14px rgba(30,50,20,.18)}
-.cel{width:16.66%;height:40px;line-height:40px;text-align:center;font-size:18px;font-weight:700;cursor:pointer;color:#5a5346;border-radius:8px}
+.grade{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;width:100%;max-width:340px;margin-top:8px;background:rgba(255,253,246,.96);border:2px solid var(--linha);border-radius:16px;padding:6px;-webkit-box-shadow:0 6px 14px rgba(30,50,20,.18);box-shadow:0 6px 14px rgba(30,50,20,.18)}
+.cel{width:16.66%;height:46px;line-height:46px;text-align:center;font-size:18px;font-weight:700;cursor:pointer;color:#5a5346;border-radius:8px}
 .cel.sel{background:var(--sol);color:#5a4200}
 .cel.ok{background:#cdf0bd;color:#2c6b13}
+/* ⭐ CADA PALAVRA ACHADA GANHA A SUA COR (pedido do Marcos, ago/2026: *"tem que
+   colorir diferente as palavras encontradas... fantastico para os pequenos"*).
+   Antes as seis saiam todas do mesmo verde: a crianca achava a terceira e a
+   grade nao mudava de conversa. Com cor propria ela VE o que ja conquistou, e o
+   chip da lista embaixo acende na MESMA cor — e a ligacao entre a palavra e o
+   lugar dela no quadro. Todos os pares tem letra escura sobre fundo claro para
+   passar no portao de contraste. */
+.cel.ok1,.pchip.feito1{background:#cdf0bd;color:#2c6b13}
+.cel.ok2,.pchip.feito2{background:#cfe6ff;color:#10457f}
+.cel.ok3,.pchip.feito3{background:#ffd6e7;color:#8a1c4d}
+.cel.ok4,.pchip.feito4{background:#ffe9a8;color:#6b4a00}
+.cel.ok5,.pchip.feito5{background:#e2d7ff;color:#4a2a8f}
+.cel.ok6,.pchip.feito6{background:#ffdcc0;color:#8a3a00}
+/* a palavra recem-achada PULA — o olho vai nela sem precisar de seta */
+.cel.pulou{-webkit-animation:cacapula .45s ease;animation:cacapula .45s ease}
+@-webkit-keyframes cacapula{0%,100%{-webkit-transform:scale(1)}45%{-webkit-transform:scale(1.22)}}
+@keyframes cacapula{0%,100%{transform:scale(1)}45%{transform:scale(1.22)}}
+@media (prefers-reduced-motion:reduce){ .cel.pulou{-webkit-animation:none;animation:none} }
 .cel.no{background:#ffd3cd;color:#8e2418}
 .lista{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;gap:8px;-webkit-box-pack:center;justify-content:center;margin-top:10px;max-width:340px}
 .pchip{background:rgba(255,253,246,.95);border-radius:999px;padding:6px 14px;font-size:15px;font-weight:700;color:var(--texto);-webkit-box-shadow:0 3px 8px rgba(30,50,20,.18);box-shadow:0 3px 8px rgba(30,50,20,.18)}
-.pchip.feito{background:#cdf0bd;color:#2c6b13;text-decoration:line-through}
+/* ⚠️ so o RISCO fica aqui: a COR do chip vem da classe numerada (.feito1..6),
+   senao esta regra — que vem depois no arquivo e tem a mesma forca — pintava
+   os seis chips do mesmo verde e a ligacao com a cor da palavra se perdia.
+   Foi o que aconteceu na primeira tentativa, e so a medicao no navegador
+   mostrou: a grade tinha duas cores e a lista embaixo, uma so. */
+.pchip.feito{text-decoration:line-through}
 .slots{display:-webkit-box;display:-webkit-flex;display:flex;gap:8px;-webkit-box-pack:center;justify-content:center;margin-top:12px}
 .slot{width:46px;height:52px;border-radius:12px;background:rgba(58,48,32,.32);border:2px dashed rgba(255,255,255,.9);text-align:center;line-height:48px;font-size:26px;font-weight:700;color:#fff}
 .slot.cheio{background:var(--card);border:2px solid var(--verde);border-bottom-width:4px;color:var(--verde-d);-webkit-animation:pop .3s;animation:pop .3s}
@@ -184,7 +214,7 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
 .painel .bloco{border:1px solid #ddd;border-radius:10px;padding:12px;margin-top:12px}
 @media print{.noprint{display:none}}
 /* ===== PARTES DA PLANTA: plaquinhas, prato, lupa (pedido da prof. do 2º ano) ===== */
-.prato{background:rgba(255,255,255,.94);border:3px solid #cfe0b8;border-radius:50%;
+.prato{background:rgba(255,255,255,.74);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);border:3px solid #cfe0b8;border-radius:50%;
   width:172px;height:172px;margin:14px 0;display:-webkit-box;display:-webkit-flex;display:flex;
   -webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;
   -webkit-box-shadow:0 8px 18px rgba(40,70,20,.28);box-shadow:0 8px 18px rgba(40,70,20,.28);
@@ -196,7 +226,7 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
    com as beiradas cortadas, e é justamente o FORMATO INTEIRO que a criança
    precisa olhar para dizer se é raiz, folha ou fruto. Agora o quadro é maior e
    a imagem entra INTEIRA (contain), sem zoom que corte nada.                */
-.lupa2{background:rgba(255,255,255,.94);border:4px solid #b7d29a;border-radius:22px;
+.lupa2{background:rgba(255,255,255,.74);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);border:4px solid #b7d29a;border-radius:22px;
   width:212px;height:176px;margin:14px 0;display:-webkit-box;display:-webkit-flex;display:flex;
   -webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;
   -webkit-box-shadow:0 8px 18px rgba(40,70,20,.28);box-shadow:0 8px 18px rgba(40,70,20,.28);
@@ -373,7 +403,7 @@ h1{font-size:34px;font-weight:700;color:#fff;margin:6px 0 2px;text-align:center;
 .pmarca.falta .pfig{-webkit-filter:grayscale(1);filter:grayscale(1);opacity:.55}
 .comida{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;
   -webkit-box-pack:center;justify-content:center;gap:6px;margin-top:8px;max-width:356px}
-.alim{width:78px;background:rgba(255,253,246,.96);border:2px solid var(--linha);border-bottom-width:4px;
+.alim{width:78px;background:rgba(255,253,246,.74);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);border:2px solid var(--linha);border-bottom-width:4px;
   border-radius:14px;padding:5px 3px;text-align:center;cursor:pointer;min-height:42px}
 .alim img{width:44px;height:44px;object-fit:contain;display:block;margin:0 auto}
 .alim .anome{display:block;font-size:10.5px;font-weight:800;color:#4a4232}
@@ -718,6 +748,11 @@ function poeVozPergunta(){
     var b=bs[i];
     if(b.getElementsByClassName("zapb")[0]) continue;
     if(b.className.indexOf("pequeno")>=0||b.className.indexOf("porque")>=0) continue;
+    /* ⚠️ LICAO PAGA (ago/2026): a tela do PROFESSOR (senha 1275@) tambem tem
+       balao e ganhava alto-falante — so que ela nao tem narracao gravada,
+       entao o botao ficava bonito e MUDO. Botao que nao toca nada ensina a
+       crianca a nao confiar no alto-falante. Balao marcado `semzap` fica fora. */
+    if(b.className.indexOf("semzap")>=0) continue;
     var bt=document.createElement("button");
     bt.className="zapb"; bt.type="button";
     bt.setAttribute("aria-label","Ouvir a pergunta de novo");
@@ -772,7 +807,7 @@ var FASES_MESTRE=[["telaP1prever","1. O QUE VOC&#202; ACHA?"],["telaPlantar","2.
 function telaMestre(){
   limpa();var t=el("div","tela");var c=el("div","centro");
   c.appendChild(el("div","selo","MODO PROFESSOR"));
-  c.appendChild(el("div","balao","Toque na fase que voc&#234; quer abrir. Isto n&#227;o aparece para o aluno."));
+  c.appendChild(el("div","balao semzap","Toque na fase que voc&#234; quer abrir. Isto n&#227;o aparece para o aluno."));
   var g=el("div","mestre"),i;
   for(i=0;i<FASES_MESTRE.length;i++){(function(par){
     var b=el("div","mbt",par[1]);
@@ -885,9 +920,9 @@ function telaExperimento(){limpa();var t=el("div","tela");setProg(t,22);
   var conf=[{cls:"vaso escuro",cond:"No escuro<br>com &#225;gua",ok:false},
             {cls:"vaso",cond:"Com sol<br>sem &#225;gua",ok:false},
             {cls:"vaso",cond:"Com sol<br>e com &#225;gua",ok:true}];
-  var respondeu=false,tent=0,i;
+  var respondeu=false,tent=0,errE=0,vasos=[],i;
   for(i=0;i<conf.length;i++){(function(cf2){
-    var v=el("div",cf2.cls); var im=imgEl("jd_g1"); v.appendChild(im);
+    var v=el("div",cf2.cls); v._cf=cf2; var im=imgEl("jd_g1"); v.appendChild(im);
     v.appendChild(el("div","cond",cf2.cond));
     v.onclick=function(){
       if(respondeu)return; arma(); tent++;
@@ -896,11 +931,19 @@ function telaExperimento(){limpa();var t=el("div","tela");setProg(t,22);
         reg("luz_agua",tent===1,tent);
         setTimeout(function(){ depoisDaFala("jd_p2_revela",9000,function(){
           mostraBanner("S&#243; cresceu bem o que tinha <b>luz</b> e <b>&#225;gua</b>!",telaOrdenar); }); },700);
-      } else { v.className=cf2.cls+" no"; sErro(); consolo();
+      } else { v.className=cf2.cls+" no"; sErro(); errE++;
+        /* ⭐ ANDAIME QUE CRESCE: pergunta -> o vaso certo acende -> o mascote
+           diz o porque. Antes eram tres consolos iguais. */
+        ajudaJd(errE,{dica:"Uma planta precisa de <b>duas</b> coisas ao mesmo tempo: qual vaso tem as duas?",
+                      concreto:acendeVaso,
+                      revelar:function(){ mostraDica("&#201; o que tem <b>luz</b> E <b>&#225;gua</b> — falta uma das duas nos outros."); acendeVaso(); }});
         setTimeout(function(){ v.className=cf2.cls; },600); }
     };
+    vasos.push(v);
     vs.appendChild(v);
   })(conf[i]);}
+  function acendeVaso(){ var j; for(j=0;j<vasos.length;j++)
+    if(vasos[j]._cf && vasos[j]._cf.ok) vasos[j].className=vasos[j]._cf.cls+" pisca"; }
   cen.appendChild(vs);
   cen.appendChild(el("div","hint","Pense antes de tocar!"));
   t.appendChild(cen);app.appendChild(t);
@@ -910,20 +953,32 @@ function telaExperimento(){limpa();var t=el("div","tela");setProg(t,22);
 function telaOrdenar(){limpa();var t=el("div","tela");setProg(t,32);
   t.appendChild(el("div","balao","Coloque em <b>ordem</b> como a planta cresce: do <b>primeiro</b> ao <b>&#250;ltimo</b>."));
   var nomes=["Semente","Broto","Plantinha","Flor","Fruto"];
-  var ordem=[3,0,4,1,2],prox=0,err=0;
+  var ordem=[3,0,4,1,2],prox=0,err=0,cds=[];
   var cen=el("div","centro");var wrap=el("div","cartas");var i;
   for(i=0;i<ordem.length;i++){(function(est){
-    var cd=el("div","carta");cd.appendChild(imgEl("jd_g"+est));cd.appendChild(el("div","lab",nomes[est]));
+    var cd=el("div","carta");cd._est=est;cd.appendChild(imgEl("jd_g"+est));cd.appendChild(el("div","lab",nomes[est]));
     cd.onclick=function(){ if(cd._done)return; arma();
       if(est===prox){ cd._done=true;cd.className="carta ok";var num=el("div","num",(prox+1));cd.appendChild(num);sPop(prox);
         var ce=centroTela(cd);faisca(ce[0],ce[1],"#8be05a",10);prox++;
         if(prox>=ordem.length){ reg("sequencia",err===0,err+1);
           setTimeout(function(){ depoisDaFala("jd_p3_revela",8000,function(){
             mostraBanner("Semente &#8594; broto &#8594; plantinha &#8594; flor &#8594; fruto.",telaCiclo); }); },450); } }
-      else { err++; cd.className="carta no";sErro();consolo();setTimeout(function(){cd.className="carta";},450); }
+      else { err++; cd.className="carta no";sErro();
+        /* ⭐ O ANDAIME CRESCE (pedagogo, ago/2026): antes toda tentativa errada
+           devolvia o MESMO consolo. A crianca que erra tres vezes precisa de
+           ajuda MAIOR a cada vez — dica, depois a carta certa piscando, e por
+           fim a peca posta com explicacao. */
+        ajudaJd(err,{dica:"Pense no come&#231;o de tudo: o que a gente <b>planta</b> na terra?",
+                     concreto:acendeCerta, revelar:poeACerta});
+        setTimeout(function(){cd.className="carta";},450); }
     };
+    cds.push(cd);
     wrap.appendChild(cd);
   })(ordem[i]);}
+  function acendeCerta(){ var j; for(j=0;j<cds.length;j++)
+    if(!cds[j]._done && cds[j]._est===prox) cds[j].className="carta pisca"; }
+  function poeACerta(){ var j; for(j=0;j<cds.length;j++)
+    if(!cds[j]._done && cds[j]._est===prox){ mostraDica("Era esta! Eu ponho e voc&#234; segue."); cds[j].onclick(); return; } }
   cen.appendChild(wrap);t.appendChild(cen);app.appendChild(t);
   montaBarra("jd_p3_dica","Comece pelo que &#233; bem pequenininho e fica escondido na terra.");
   falar("jd_p3_intro");}
@@ -953,17 +1008,28 @@ function telaAquecimento(){limpa();var t=el("div","tela");setProg(t,43);var c=el
 function telaPrecisa(){limpa();var t=el("div","tela");setProg(t,48);
   t.appendChild(el("div","balao","A planta <b>precisa</b> disto? Toque em <b>Precisa</b> ou <b>N&#227;o precisa</b>."));
   var itens=[["jd_sol","Sol",true],["jd_refri","Refrigerante",false],["jd_agua","&#193;gua",true],["jd_celular","Celular",false],["jd_terra","Terra",true],["jd_meia","Meia",false],["jd_ar","Ar",true],["jd_brinquedo","Carrinho",false],["jd_pedra","Pedra",false]];
-  var i2=0,acertos=0;
+  var i2=0,acertos=0,errI=0,trava=false;
   var cen=el("div","centro");
   var card=el("div","itemCard");var im=imgEl(itens[0][0]);var lab=el("div","lab","");
   card.appendChild(im);card.appendChild(lab);
   var bins=el("div","bins");var bSim=el("div","bin sim","Precisa");var bNao=el("div","bin nao","N&#227;o precisa");
   function mostra(){var it=itens[i2];im.src="img/"+it[0]+".png";im.style.webkitAnimation="none";im.style.animation="none";void im.offsetWidth;im.style.webkitAnimation="";im.style.animation="";lab.innerHTML=it[1];}
-  function resp(v){arma();var it=itens[i2];var ok=(v===it[2]);
+  /* ⭐ TRAVA DO SEGUNDO TOQUE: os dois botoes continuam na tela durante os 480ms
+     de troca da figura E depois da ultima (enquanto o banner nao abriu). Sem a
+     trava, o segundo toque roda com i2 fora da lista (itens[9]) e o app estoura
+     no colo da crianca. Foi assim que o jogador automatico derrubou a fase. */
+  function resp(v){if(trava)return;var it=itens[i2];if(!it)return;trava=true;arma();var ok=(v===it[2]);
     if(ok){acertos++;sCerto();card.style.borderColor="#5bbf3a";var ce=centroTela(card);faisca(ce[0],ce[1],"#8be05a",12);}
-    else{sErro();consolo();card.style.borderColor="#ff7a6b";}
+    else{sErro();errI++;card.style.borderColor="#ff7a6b";
+      /* ⭐ ANDAIME QUE CRESCE: dica -> a resposta certa acende -> o mascote diz
+         qual e e por que. Antes era o mesmo consolo nas tres vezes. */
+      ajudaJd(errI,{dica:"Pergunte: <b>uma planta na natureza</b> usa isso para viver?",
+                    concreto:function(){ (it[2]?bSim:bNao).className="bin "+(it[2]?"sim":"nao")+" pisca"; },
+                    revelar:function(){ mostraDica(it[2]?"Esta a planta <b>precisa</b> — e coisa da natureza.":"Esta a planta <b>n&#227;o</b> precisa: e coisa de gente."); }});}
     reg("necessidades",ok,1);
-    setTimeout(function(){card.style.borderColor="";i2++;
+    setTimeout(function(){card.style.borderColor="";
+      bSim.className="bin sim"; bNao.className="bin nao"; i2++;
+      if(i2<itens.length) trava=false;
       if(i2>=itens.length){ depoisDaFala("jd_p4_revela",8000,function(){
         mostraBanner("A planta precisa de <b>sol, &#225;gua, terra e ar</b>.",telaCacaJd); }); }
       else mostra();},480);}
@@ -1355,12 +1421,22 @@ function telaCacaBase(cfg){
     }
     if(achou){
       achadas[achou]=1;
-      for(k=0;k<cam.length;k++) cels[cam[k][0]][cam[k][1]].className="cel ok";
-      chips[achou].className="pchip feito";
+      /* a cor e a POSICAO da palavra na lista: assim a mesma palavra tem sempre
+         a mesma cor na grade e no chip, e nao depende da ordem em que se acha */
+      var ci=1; for(k=0;k<CACAJD.length;k++) if(CACAJD[k]===achou){ ci=(k%6)+1; break; }
+      for(k=0;k<cam.length;k++){
+        var cq=cels[cam[k][0]][cam[k][1]];
+        cq.className="cel ok ok"+ci+" pulou";
+        (function(e){ setTimeout(function(){ e.className="cel ok ok"+ci; },480); })(cq);
+      }
+      chips[achou].className="pchip feito feito"+ci;
       sCerto(); reg(cfg.conc,true,1);
       var ce=centroTela(cels[cam[0][0]][cam[0][1]]); faisca(ce[0],ce[1],"#8be05a",14);
       var n=0,z; for(z in achadas){ if(achadas.hasOwnProperty(z)) n++; }
       if(n>=total){ trava=true;
+        /* ⭐ COMEMORACAO DE VERDADE quando acha TODAS (o Marcos pediu: antes vinha
+           so o banner, e achar seis palavras merece confete). */
+        festa();
         setTimeout(function(){ depoisDaFala(cfg.revela,9000,function(){
           mostraBanner(cfg.msg,cfg.prox); }); },450); }
     } else {
@@ -1431,11 +1507,20 @@ function telaMontaPalavra(){
           }
         } else { err++; b.className="tec no"; sErro();
           setTimeout(function(){ if(b.className==="tec no") b.className="tec"; },420);
-          if(err===3) consolo();
+          /* ⭐ ANDAIME QUE CRESCE (antes so havia um consolo, e no 3o erro):
+             1o a dica que manda OUVIR a palavra, 2o a tecla certa piscando,
+             3o a letra posta com a explicacao. */
+          ajudaJd(err,{dica:"Diga a palavra devagar e escute o <b>come&#231;o</b> de cada peda&#231;o.",
+                       concreto:acendeTecla,
+                       revelar:function(){ mostraDica("Era esta! Eu ponho e voc&#234; segue."); poeTecla(); }});
         }
       };
       letras.appendChild(b);
     })(ls[i]); }
+    function acendeTecla(){ var L=it.p.charAt(passo), a=bts[L]||[], j;
+      for(j=0;j<a.length;j++) if(a[j].className.indexOf("usada")<0){ a[j].className="tec pisca"; return; } }
+    function poeTecla(){ var L=it.p.charAt(passo), a=bts[L]||[], j;
+      for(j=0;j<a.length;j++) if(a[j].className.indexOf("usada")<0){ a[j].className="tec"; a[j].onclick(); return; } }
     /* ⭐ AS DUAS PORTAS (regra da casa, ago/2026): quem tem teclado na frente
        digita — no PC da escola tem; no celular, nao. As duas portas levam ao
        mesmo lugar. A tecla acha a PRIMEIRA letra igual que ainda nao foi usada. */
