@@ -1160,7 +1160,7 @@ function telaComemos(){
   }
   passo();
 }
-function nomeDe(k){ var i; for(i=0;i<PARTES6.length;i++) if(PARTES6[i].k===k) return PARTES6[i].n; return k; }
+function nomeDe(k){ /* ⚠️ LICAO PAGA (set/2026, achada pelo ESLint): esta funcao e da peca "que parte da planta a gente come", mas mora no motor. Quando a atividade nao usa a peca, o DADO `PARTES6` nao entra e a FUNCAO fica — `PARTES6 is not defined` esperando alguem chamar. Estava assim em 15 atividades NO AR. Nao estourava por sorte: ou ninguem chamava, ou uma `nomeDe` da peca a sobrescrevia por hoisting. Agora ela degrada em vez de derrubar o app. */ var L=window.PARTES6||[], i; for(i=0;i<L.length;i++) if(L[i].k===k) return L[i].n; return k; }
 function acendeJd(e){ if(e) e.className=e.className+" acesa"; }
 /* ajuda que cresce: 1 erro dica, 2 erros o Broto fala, 3 erros acende a certa */
 function ajudaJd(n,ops){
