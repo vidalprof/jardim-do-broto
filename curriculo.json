@@ -1,0 +1,21 @@
+{
+ "ano": "2",
+ "componente": "Ciências",
+ "rede": "Blumenau",
+ "documento": "_curriculo/blumenau.txt",
+ "_sobre_esta_declaracao": "Atividade de MOTOR (nao e caderno de folha viva), entao nao ha campo `folhas`. Quem le este arquivo e o painel, para dar ao professor o tema e o objetivo prontos para colar no planejamento. As citacoes foram transcritas do PDF da rede, que vem em tabela de duas colunas com a frase quebrada em varias linhas, e conferidas palavra a palavra contra o documento.",
+ "objetivos": [
+  {
+   "objetivo": "Descrever a planta e o lugar onde ela vive",
+   "pratica": "Vida e Evolução",
+   "objeto": "Seres vivos no ambiente",
+   "habilidade": "HABILIDADE: \"Descrever características de plantas e animais (tamanho, forma, cor, fase da vida, local onde se desenvolvem etc.) que fazem parte de seu cotidiano e relacioná-las ao ambiente em que eles vivem.\""
+  },
+  {
+   "objetivo": "Descobrir para que servem a água e a luz",
+   "pratica": "Vida e Evolução",
+   "objeto": "Seres vivos no ambiente",
+   "habilidade": "HABILIDADE: \"Investigar a importância da água e da luz para a manutenção da vida de plantas em geral.\""
+  }
+ ]
+}
